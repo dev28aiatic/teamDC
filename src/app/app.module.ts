@@ -8,6 +8,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Inportacion del modulo encargado de Material
 import{MaterialModule} from './material/material.module';
 
+//Inportacion del servicio encargado de los registros
+import {RegistrosService} from './services/registros.service';
+
+//importaciones para el manejo de FireBase
+import {environment} from '../environments/environment';
+import{AngularFireModule,} from '@angular/fire';
+import{AngularFirestoreModule,} from '@angular/fire/firestore';
+
+   
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -17,11 +28,17 @@ import{MaterialModule} from './material/material.module';
     AppRoutingModule,
     BrowserAnimationsModule,
 
+    //Importaciones de FireBase
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     //Modulo encargado de Material
     MaterialModule,
 
   ],
-  providers: [],
+  providers: [
+    //Servicio de firabese para BD
+    RegistrosService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
