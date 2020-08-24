@@ -7,10 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Inportacion del modulo encargado de Material
 import{MaterialModule} from './material/material.module';
+import { RegisterComponent } from './components/register/register.component';
+
+//Importacion para trabajar con el formulario
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +24,10 @@ import{MaterialModule} from './material/material.module';
 
     //Modulo encargado de Material
     MaterialModule,
+
+    //Encargado del formulario
+    FormsModule,
+    ReactiveFormsModule,
 
   ],
   providers: [],
