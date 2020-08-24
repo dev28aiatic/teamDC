@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 
+//Importar servicio
+import {RegistrosService} from 'src/app/services/registros.service';
+//inyectar service
+//usar service
+
+
+
 
 @Component({
   selector: 'app-register',
@@ -24,16 +31,11 @@ export class RegisterComponent implements OnInit {
   }
 
   
-
- 
-
-
-
-
-  
-  constructor() { }
+  //inyectar service
+  constructor( private registrosService:RegistrosService) { }
 
   ngOnInit(): void {
+    this.registrosService.getRegistros().subscribe(res => console.log(res));
   }
 
 }
