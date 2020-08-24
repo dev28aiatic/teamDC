@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -9,8 +9,23 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
+  registerForm = new FormGroup({
+    nombre: new FormControl(''),
+    apellido: new FormControl(''),
+    cedula: new FormControl(''),
+    email: new FormControl(''),
+    nacimiento: new FormControl(''),
+    direccion: new FormControl(''),
+    ciudad: new FormControl(''),
+    departamento: new FormControl(''),
+    pais: new FormControl(''),
+    postal: new FormControl(''),
+    profesion: new FormControl(''),
+    habilidades: new FormControl(''),
+    descripcion: new FormControl(''),
+  })
 
-
+  async onRegister() { }
 
   //Control del email 
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -25,12 +40,6 @@ export class RegisterComponent implements OnInit {
 
   
 
- 
-
-
-
-
-  
   constructor() { }
 
   ngOnInit(): void {
