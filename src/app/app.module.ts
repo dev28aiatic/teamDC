@@ -20,6 +20,10 @@ import {environment} from '../environments/environment';
 import{AngularFireModule,} from '@angular/fire';
 import{AngularFirestoreModule,} from '@angular/fire/firestore';
 
+//importacion para el manejo de responsive
+import { FlexLayoutModule} from '@angular/flex-layout';
+
+
    
 
 
@@ -42,6 +46,11 @@ import{AngularFirestoreModule,} from '@angular/fire/firestore';
     //Encargado del formulario
     FormsModule,
     ReactiveFormsModule,
+
+    //encargado del modo responsive
+    FlexLayoutModule,
+
+   
 
   ],
   providers: [
