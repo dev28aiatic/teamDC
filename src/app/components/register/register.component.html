@@ -1,6 +1,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <mat-card>
+
+ 
   <mat-card-content>
     <mat-card-title>Registro</mat-card-title>
     <span></span>
@@ -34,8 +36,8 @@
         <td>
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput placeholder="example@example.com" [formControl]="email" required>
-            <mat-error *ngIf="email.invalid">{{errorEmail()}}</mat-error>
+            <input matInput placeholder="example@example.com" [formControl]="emails" required>
+            <mat-error *ngIf="emails.invalid">{{errorEmail()}}</mat-error>
           </mat-form-field>
         </td>
       </tr>
@@ -130,7 +132,7 @@
 
 
 
-
+ <button mat-raised-button color="primary" (click)="onRegister()">Enviar registros</button>
 
 
 
