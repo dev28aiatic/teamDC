@@ -86,4 +86,30 @@ export class RegistrosService {
     return this.registrosCollection.add(registro);
 
   }
+
+
+  /*
+  //Crea un nuevo gato
+  public createCat(data: {nombre: string, url: string}) {
+    return this.firestore.collection('cats').add(data);
+  }
+  //Obtiene un gato
+  public getCat(documentId: string) {
+    return this.firestore.collection('cats').doc(documentId).snapshotChanges();
+  }
+  //Obtiene todos los gatos
+  public getCats() {
+    return this.firestore.collection('cats').snapshotChanges();
+  }
+  //Actualiza un gato
+  public updateCat(documentId: string, data: any) {
+    return this.firestore.collection('cats').doc(documentId).set(data);
+  }
+  */
 }
+
+
+
+
+
+
