@@ -87,6 +87,9 @@ export class RegistrosService {
 
   }
 
+  
+
+  
 
   /*
   //Crea un nuevo gato
