@@ -89,6 +89,8 @@ export class RegistrosService {
 
   
 
+  
+
   /*
   //Crea un nuevo gato
   public createCat(data: {nombre: string, url: string}) {

@@ -28,6 +28,7 @@ export class RegisterComponent  implements OnInit {
   ngOnInit(): void {
     this.registrosService.getRegistros().subscribe(res => console.log(res));
  
+  
   }
 
   
@@ -58,7 +59,7 @@ export class RegisterComponent  implements OnInit {
   
   async onRegister(){
 
-    //this.registrosService.addRegistro(this.registerForm.value);
+    this.registrosService.addRegistro(this.registerForm.value);
    
   }
 
