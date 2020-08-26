@@ -16,6 +16,7 @@ export class RegisterComponent  implements OnInit {
 
   //donde se van a almacenar los registros de la bd
   public listaRegistros=[];
+  public listacorreos=[];
 
   //donde se va almacenar el id de un registro
   public documentId = null;
@@ -42,7 +43,7 @@ export class RegisterComponent  implements OnInit {
 
   });
 
-
+  
   //metodo para control del formulario
   errorEmail() {
     if (this.registerForm.controls.email.hasError('required')) {
@@ -94,63 +95,79 @@ export class RegisterComponent  implements OnInit {
   //para registrar un nuevo registro en la bd
   
   public onRegister(form, documentId = this.documentId){    
+      
+    //verifia el resultado del metodo verificar existencia de correo
+    if(this.ValidarExistenciaCorreo(this.registerForm.get('email').value)==false)
+    {
+      
       console.log(`Status: ${this.currentStatus}`);
 
       //si es 1 es para la creacion de un nuevo registro
       if (this.currentStatus == 1) {
 
-     
+        console.log("creacion: "+this.registerForm.get('email').value)
+
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
           console.log('Documento creado exitósamente!');
           //limpia el formulario
-          this.registerForm.setValue({
-                       
-            nombres: '',
-            apellidos: '',
-            cedula: null,
-            email: '',
-            fechaNacimiento:'',
-            direccion: '',
-            ciudad: '',
-            departamento:'',
-            pais: '',
-            codigoPostal:'',
-            profesion: '',
-            habilidades:'',
-            descripcion: '',
+            this.registerForm.setValue({
+                        
+              nombres: '',
+              apellidos: '',
+              cedula: null,
+              email: '',
+              fechaNacimiento:'',
+              direccion: '',
+              ciudad: '',
+              departamento:'',
+              pais: '',
+              codigoPostal:'',
+              profesion: '',
+              habilidades:'',
+              descripcion: '',
 
-          });
-        }, (error) => {
+            });
+          }, (error) => {
           console.error(error);
         });
-      } else {
-        
-        //modo edicion => no funciona porque falta formulario de edicion
-        this.registrosServiceF.updateRegistro(documentId, this.registerForm.value).then(() => {
-          this.currentStatus = 1;
-          //limpia el formulario
-          this.registerForm.setValue({
-                       
-            nombres: '',
-            apellidos: '',
-            cedula: null,
-            email: '',
-            fechaNacimiento:'',
-            direccion: '',
-            ciudad: '',
-            departamento:'',
-            pais: '',
-            codigoPostal:'',
-            profesion: '',
-            habilidades:'',
-            descripcion: '',
 
-          });
-          console.log('Documento editado exitósamente');
-        }, (error) => {
-          console.log(error);
+              
+      } 
+    }else{
+      console.log("No se puede crear registro porque ya exixte el mismo email en la BD");
+    }
+    
+    
+
+    if (this.currentStatus != 1) {
+        
+      //modo edicion => no funciona porque falta formulario de edicion
+      this.registrosServiceF.updateRegistro(documentId, this.registerForm.value).then(() => {
+        this.currentStatus = 1;
+        //limpia el formulario
+        this.registerForm.setValue({
+                      
+          nombres: '',
+          apellidos: '',
+          cedula: null,
+          email: '',
+          fechaNacimiento:'',
+          direccion: '',
+          ciudad: '',
+          departamento:'',
+          pais: '',
+          codigoPostal:'',
+          profesion: '',
+          habilidades:'',
+          descripcion: '',
+
         });
-      }
+        console.log('Documento editado exitósamente');
+      }, 
+      (error) => {
+        console.log(error);
+      });
+    }
     
    
   }
@@ -188,6 +205,34 @@ export class RegisterComponent  implements OnInit {
     }, (error) => {
       console.error(error);
     });
+  }
+
+  //Valida la existencia del correo en la bd, retorna un boolean
+  ValidarExistenciaCorreo(correo:string): boolean{
+    
+    let existe: boolean =false;
+
+    //Obtengo los correos en un array
+    for (let i = 0; i < this.listaRegistros.length; i++) {
+      const element = this.listaRegistros[i];
+      
+      const {email}=element.data;     
+      if(correo ==email)
+      {
+        existe=true;
+      }
+
+      //this.listacorreos.push(email);
+      //console.log("rg : "+i+" => "+this.listacorreos[i]);
+    }
+
+            
+    if(existe==true)
+    {
+      return true;
+    }else{
+    return false;
+    }
   }
 
 }
