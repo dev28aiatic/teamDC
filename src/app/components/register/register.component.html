@@ -4,7 +4,7 @@
       <mat-card-content>
         <mat-card-title>Registro </mat-card-title>
 
-        <h3> A continuación te presentamos un breve formulario para conocerte un poco más.</h3>
+        <h3> A continuación te invitamos a diligenciar un breve formulario.</h3>
 
         <form (ngSubmit)="onRegister(registerForm.value)" [formGroup]="registerForm">
 
@@ -106,9 +106,10 @@
         
            
 <p></p>
+<span fxLayoutAlign="left left">Queremos conocerte, haz una descripción acerca de ti.</span>
           <mat-form-field appearance="outline" weidth="500px">
             <mat-label>Descripción</mat-label>
-            <input  matInput #message maxlength="500" placeholder="Ex. Soy una persona creativa..."
+            <input class="message" matInput  #message maxlength="500" placeholder="Ex. Soy una persona creativa..."
               formControlName="descripcion">
             <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
             <mat-error *ngIf="registerForm.controls.descripcion.invalid">Ingrese una descripción</mat-error>
