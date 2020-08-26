@@ -1,7 +1,6 @@
 //RegistrosI la I de interfaces
 export interface RegistrosI{
 
- id:string;
  nombres: string;
  apellidos: string;
  cedula: number;

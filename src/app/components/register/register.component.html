@@ -9,7 +9,7 @@
 
     <h3> A continuación te presentamos un breve formulario para conocerte un poco más.</h3>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <form (ngSubmit)="onRegister(registerForm.value)"  [formGroup]="registerForm" >
       <table cellspacing="5">
         <tr>
           <td>
@@ -143,7 +143,8 @@
         </tr>
       </table>
 
-      <button type="submit" mat-raised-button color="primary">Enviar registro</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!registerForm.valid" value="Agregar">Enviar registro</button>
+      
       
     </form>
 
@@ -155,3 +156,25 @@
 
   </mat-card-content>
 </mat-card>
+
+<!-- Parte para mostrar elementos de la bd y eliminar, para editar hay
+   que integrarlo al formulario anterior u otro formulario-->
+
+<!--
+<mat-card>
+  <div class="media" *ngFor="let registro of listaRegistros">
+    <div >
+      <p> {{registro.data.nombres}}</p>
+    </div>
+
+    <div >
+      <p>{{registro.data.apellidos}}</p>
+      <div class="btn--group">
+        <button class="btn--green btn--s btn1" (click)="editarRegistro(registro.id)">Editar</button>
+        <button class="btn--red btn--s btn2" (click)="eliminarRegistro(registro.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+-->
