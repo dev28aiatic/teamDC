@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators, FormGroup} from '@angular/forms';
+import {FormControl, Validators, FormGroup, FormArray} from '@angular/forms';
 
 //Importar servicio
 import { RegistrosService } from 'src/app/services/registros.service';
@@ -27,19 +27,19 @@ export class RegisterComponent  implements OnInit {
   //para el manejo del formulario
   public registerForm = new FormGroup({ 
     
-    nombres:new FormControl(''),
-    apellidos:new FormControl(''),
-    cedula:new FormControl(''),
+    nombres:new FormControl('',[Validators.required]),
+    apellidos:new FormControl('',[Validators.required]),
+    cedula:new FormControl('',[Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    fechaNacimiento:new FormControl(''),
-    direccion: new FormControl(''),
-    ciudad: new FormControl(''),
-    departamento:new FormControl(''),
-    pais: new FormControl(''),
-    codigoPostal:new FormControl(''),
-    profesion: new FormControl(''),
+    fechaNacimiento:new FormControl('',[Validators.required]),
+    direccion: new FormControl('',[Validators.required]),
+    ciudad: new FormControl('',[Validators.required]),
+    departamento:new FormControl('',[Validators.required]),
+    pais: new FormControl('',[Validators.required]),
+    codigoPostal:new FormControl('',[Validators.required]),
+    profesion: new FormControl('',[Validators.required]),
     habilidades:new FormControl(''),
-    descripcion: new FormControl(''),
+    descripcion: new FormControl('',[Validators.required]),
 
   });
 
@@ -96,8 +96,9 @@ export class RegisterComponent  implements OnInit {
   
   public onRegister(form, documentId = this.documentId){    
       
-    //verifia el resultado del metodo verificar existencia de correo
-    if(this.ValidarExistenciaCorreo(this.registerForm.get('email').value)==false)
+
+    //verifia el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
+    if(this.ValidarExistenciaCorreo(this.registerForm.get('email').value)==false && this.validarHabilidades()==true)
     {
       
       console.log(`Status: ${this.currentStatus}`);
@@ -109,6 +110,7 @@ export class RegisterComponent  implements OnInit {
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
           console.log('Documento creado exitósamente!');
+          window.alert('Registro creado  exitósamente');
           //limpia el formulario
             this.registerForm.setValue({
                         
@@ -163,6 +165,7 @@ export class RegisterComponent  implements OnInit {
 
         });
         console.log('Documento editado exitósamente');
+        window.alert('Documento editado exitósamente');
       }, 
       (error) => {
         console.log(error);
@@ -229,10 +232,89 @@ export class RegisterComponent  implements OnInit {
             
     if(existe==true)
     {
+      window.alert('El correo ya existe en la Base de Datos');
       return true;
     }else{
     return false;
     }
   }
 
+// para el checkbox empleando *ngFor en el html
+
+  listaHabi: any = [
+    { id: 1, name: 'Autoconocimiento' },
+    { id: 2, name: 'Empatía' },
+    { id: 3, name: 'Comunicación asertiva' },
+    { id: 4, name: 'Pensamiento crítico' },
+    { id: 5, name: 'Toma de decisiones' },
+    { id: 6, name: 'Adaptación' },
+    { id: 7, name: 'Comunicación' },
+    { id: 8, name: 'Trabajo en equipo' },
+    { id: 9, name: 'Capacidad de asociación' },
+    { id: 10, name: 'Razonamiento' },
+  ];
+  
+  //crea un formgoroup para los checkBox
+  checkboxForm= new FormGroup({
+
+    //un array de Form
+    habiForm: new FormArray([], Validators.required)
+
+  });
+  
+
+  onCheckboxChange(e) {
+    const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
+  
+    //si lo chuliaron hagrega al array si no lo elimina
+    if (e.target.checked) {
+      habiForm.push(new FormControl(e.target.value));
+    } else {
+       const index = habiForm.controls.findIndex(x => x.value === e.target.value);
+       habiForm.removeAt(index);
+    }
+  }
+    
+  // para validar que sean 3 habilidaddes
+  validarHabilidades(): boolean{
+
+   //obtengo los valores de FormGroup
+    const  ob= this.checkboxForm.value;
+     
+    //obtengo el array habForm de ob ostenido de FormGroup
+    const {habiForm}=ob;    
+
+  //para almacenar las habilidades
+   let habilidadesIn:string='';
+   //un indicador si selecciono 3 habilidades
+   let selc3 :boolean=false;
+
+   if(habiForm.length>3 || habiForm.length==0)
+    {
+      console.log("solo puede selecionar 3");
+      window.alert("Solo puede seleccionar 3 habilidades");
+      
+      
+    }else{
+
+      for (let i = 0; i < habiForm.length; i++) {
+
+        habilidadesIn += habiForm[i]+" / ";
+    
+      }
+      selc3=true;
+    }
+    console.log(habilidadesIn); 
+    //asigno las habilidaesIn al valor del formcontrol habilidaes para que lo registre en la bd  
+    this.registerForm.controls.habilidades.setValue([habilidadesIn]);
+
+
+    if(selc3==true)
+    {
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
 }
