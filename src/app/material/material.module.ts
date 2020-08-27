@@ -10,6 +10,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {MatListModule} from '@angular/material/list';
         MatNativeDateModule,
         MatCheckboxModule,
         MatListModule,
+        MatDialogModule,
 
         
 
@@ -44,6 +46,7 @@ import {MatListModule} from '@angular/material/list';
         MatNativeDateModule,
         MatCheckboxModule,
         MatListModule,
+        MatDialogModule
 
     ]
 })
