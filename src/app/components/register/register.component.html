@@ -1,7 +1,7 @@
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
     <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
       <mat-card>
-        <mat-card-content>
+        <mat-card-content fxFlex="20%">
           <mat-card-title>Registro </mat-card-title>
   
           <h3> A continuación te invitamos a diligenciar un breve formulario.</h3>
@@ -26,6 +26,7 @@
               <mat-label>Número de cédula</mat-label>
               <input matInput type="number" formControlName="cedula">
               <mat-error *ngIf="registerForm.controls.cedula.invalid">Ingrese un número de cédula</mat-error>
+              
             </mat-form-field>
   
             <mat-form-field>
@@ -117,7 +118,7 @@
             </mat-form-field>
   <p></p>
   
-            <button type="submit" mat-raised-button  
+            <button type="submit" mat-raised-button  [disabled]="!registerForm.valid"
               value="Agregar">Enviar registro</button>
   
   
