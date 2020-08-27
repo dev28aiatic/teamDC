@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Inportacion del modulo encargado de Material
 import{MaterialModule} from './material/material.module';
-import { RegisterComponent } from './components/register/register.component';
+
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 //Importacion para trabajar con el formulario
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -23,6 +24,13 @@ import{AngularFirestoreModule,} from '@angular/fire/firestore';
 //importacion para el manejo de responsive
 import { FlexLayoutModule} from '@angular/flex-layout';
 
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+
 
    
 
@@ -30,7 +38,7 @@ import { FlexLayoutModule} from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +57,18 @@ import { FlexLayoutModule} from '@angular/flex-layout';
 
     //encargado del modo responsive
     FlexLayoutModule,
+
+    LayoutModule,
+
+    MatToolbarModule,
+
+    MatButtonModule,
+
+    MatSidenavModule,
+
+    MatIconModule,
+
+    MatListModule,
 
    
 

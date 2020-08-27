@@ -1,154 +1,153 @@
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
-  <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>Registro </mat-card-title>
-
-        <h3> A continuación te invitamos a diligenciar un breve formulario.</h3>
-
-        <form (ngSubmit)="onRegister(registerForm.value)" [formGroup]="registerForm">
-
-          <mat-form-field>
-            <mat-label>Nombres</mat-label>
-            <input matInput type="text" formControlName="nombres">
-            <mat-error *ngIf="registerForm.controls.nombres.invalid">Ingrese un nombre</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Apellidos</mat-label>
-            <input matInput formControlName="apellidos">
-            <mat-error *ngIf="registerForm.controls.apellidos.invalid">Ingrese un apellido</mat-error>
-          </mat-form-field>
-
-
-
-          <mat-form-field>
-            <mat-label>Número de cédula</mat-label>
-            <input matInput type="number" formControlName="cedula">
-            <mat-error *ngIf="registerForm.controls.cedula.invalid">Ingrese un número de cédula</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>E-mail</mat-label>
-            <input matInput placeholder="example@example.com" formControlName="email" required>
-            <mat-error *ngIf="registerForm.controls.email.invalid">{{errorEmail()}}</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="registerForm.controls.fechaNacimiento.invalid">Ingrese una fecha de nacimiento</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Dirección</mat-label>
-            <input matInput formControlName="direccion">
-            <mat-error *ngIf="registerForm.controls.direccion.invalid">Ingrese una dirección</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Ciudad</mat-label>
-            <input matInput formControlName="ciudad">
-            <mat-error *ngIf="registerForm.controls.ciudad.invalid">Ingrese una ciudad</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Departamento</mat-label>
-            <input matInput formControlName="departamento">
-            <mat-error *ngIf="registerForm.controls.departamento.invalid">Ingrese un departamento</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>País</mat-label>
-            <input matInput formControlName="pais">
-            <mat-error *ngIf="registerForm.controls.pais.invalid">Ingrese un país</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Código postal</mat-label>
-            <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" formControlName="codigoPostal">
-            <mat-error *ngIf="registerForm.controls.codigoPostal.invalid">Ingrese un código postal</mat-error>
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
-
-
-
-          <mat-form-field>
-            <mat-label>Profesión</mat-label>
-            <input matInput formControlName="profesion">
-            <mat-error *ngIf="registerForm.controls.profesion.invalid">Ingrese una profesión</mat-error>
-          </mat-form-field>
-
-<p></p>
-          <span fxLayoutAlign="left left">Selecciona 3 habilidades que te representen:</span>
-          <p></p>
-
-          <form [formGroup]="checkboxForm">
-        
-            <table id="tbl-habilidades" >
-            
-              <section *ngFor="let hab of listaHabi">
-                <section fxFlex="row" fxLayoutAlign="left left">
-                   {{hab.name}}
-                </section>
+    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>Registro </mat-card-title>
   
-                  
-                  <input type="checkbox" [value]="hab.name" (change)="onCheckboxChange($event)">             
+          <h3> A continuación te invitamos a diligenciar un breve formulario.</h3>
+  
+          <form (ngSubmit)="onRegister(registerForm.value)" [formGroup]="registerForm">
+  
+            <mat-form-field appearance="outline">
+              <mat-label>Nombres</mat-label>
+              <input matInput type="text" formControlName="nombres">
+              <mat-error *ngIf="registerForm.controls.nombres.invalid">Ingrese un nombre</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Apellidos</mat-label>
+              <input matInput formControlName="apellidos">
+              <mat-error *ngIf="registerForm.controls.apellidos.invalid">Ingrese un apellido</mat-error>
+            </mat-form-field>
+  
+  
+  
+            <mat-form-field>
+              <mat-label>Número de cédula</mat-label>
+              <input matInput type="number" formControlName="cedula">
+              <mat-error *ngIf="registerForm.controls.cedula.invalid">Ingrese un número de cédula</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>E-mail</mat-label>
+              <input matInput placeholder="example@example.com" formControlName="email" required>
+              <mat-error *ngIf="registerForm.controls.email.invalid">{{errorEmail()}}</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="registerForm.controls.fechaNacimiento.invalid">Ingrese una fecha de nacimiento</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="direccion">
+              <mat-error *ngIf="registerForm.controls.direccion.invalid">Ingrese una dirección</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Ciudad</mat-label>
+              <input matInput formControlName="ciudad">
+              <mat-error *ngIf="registerForm.controls.ciudad.invalid">Ingrese una ciudad</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Departamento</mat-label>
+              <input matInput formControlName="departamento">
+              <mat-error *ngIf="registerForm.controls.departamento.invalid">Ingrese un departamento</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>País</mat-label>
+              <input matInput formControlName="pais">
+              <mat-error *ngIf="registerForm.controls.pais.invalid">Ingrese un país</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Código postal</mat-label>
+              <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" formControlName="codigoPostal">
+              <mat-error *ngIf="registerForm.controls.codigoPostal.invalid">Ingrese un código postal</mat-error>
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+            </mat-form-field>
+  
+  
+  
+            <mat-form-field>
+              <mat-label>Profesión</mat-label>
+              <input matInput formControlName="profesion">
+              <mat-error *ngIf="registerForm.controls.profesion.invalid">Ingrese una profesión</mat-error>
+            </mat-form-field>
+  
+  <p></p>
+            <span fxLayoutAlign="left left">Selecciona 3 habilidades que te representen:</span>
+            <p></p>
+  
+            <form [formGroup]="checkboxForm">
+          
+              <table id="tbl-habilidades" >
+              
+                <section *ngFor="let hab of listaHabi">
+                  <section fxFlex="row" fxLayoutAlign="left left">
+                     {{hab.name}}
+                  </section>
     
-  
-              </section>
+                    
+                    <input type="checkbox" [value]="hab.name" (change)="onCheckboxChange($event)">             
+      
+    
+                </section>
+               
+    
+              </table>
+            </form>
+          
              
+  <p></p>
+  <span fxLayoutAlign="left left">Queremos conocerte, haz una descripción acerca de ti.</span>
+  <p></p>
+            <mat-form-field appearance="outline" weidth="500px">
+              <mat-label>Descripción</mat-label>
+              <input class="message" matInput  #message maxlength="500" placeholder="Ex. Soy una persona creativa..."
+                formControlName="descripcion">
+              <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
+              <mat-error *ngIf="registerForm.controls.descripcion.invalid">Ingrese una descripción</mat-error>
+            </mat-form-field>
+  <p></p>
   
-            </table>
+            <button type="submit" mat-raised-button  
+              value="Agregar">Enviar registro</button>
+  
+  
           </form>
-        
-           
-<p></p>
-<span fxLayoutAlign="left left">Queremos conocerte, haz una descripción acerca de ti.</span>
-          <mat-form-field appearance="outline" weidth="500px">
-            <mat-label>Descripción</mat-label>
-            <input class="message" matInput  #message maxlength="500" placeholder="Ex. Soy una persona creativa..."
-              formControlName="descripcion">
-            <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
-            <mat-error *ngIf="registerForm.controls.descripcion.invalid">Ingrese una descripción</mat-error>
-          </mat-form-field>
-<p></p>
-
-          <button type="submit" mat-raised-button color="primary" [disabled]="!registerForm.valid"
-            value="Agregar">Enviar registro</button>
-
-
-        </form>
-
-
-
-
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
-
-
-<!-- Parte para mostrar elementos de la bd y eliminar, para editar hay
-   que integrarlo al formulario anterior u otro formulario-->
-
-<!--
-<mat-card>
-  <div class="media" *ngFor="let registro of listaRegistros">
-    <div >
-      <p> {{registro.data.nombres}}</p>
+  
+  
+  
+  
+        </mat-card-content>
+      </mat-card>
     </div>
-
-    <div >
-      <p>{{registro.data.apellidos}}</p>
-      <div class="btn--group">
-        <button class="btn--green btn--s btn1" (click)="editarRegistro(registro.id)">Editar</button>
-        <button class="btn--red btn--s btn2" (click)="eliminarRegistro(registro.id)">Eliminar</button>
+  </div>
+  
+  
+  <!-- Parte para mostrar elementos de la bd y eliminar, para editar hay
+     que integrarlo al formulario anterior u otro formulario-->
+  
+  <!--
+  <mat-card>
+    <div class="media" *ngFor="let registro of listaRegistros">
+      <div >
+        <p> {{registro.data.nombres}}</p>
+      </div>
+      <div >
+        <p>{{registro.data.apellidos}}</p>
+        <div class="btn--group">
+          <button class="btn--green btn--s btn1" (click)="editarRegistro(registro.id)">Editar</button>
+          <button class="btn--red btn--s btn2" (click)="eliminarRegistro(registro.id)">Eliminar</button>
+        </div>
       </div>
     </div>
-  </div>
-</mat-card>
-
--->
+  </mat-card>
+  -->
