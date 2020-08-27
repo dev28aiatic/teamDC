@@ -23,8 +23,8 @@ import{AngularFirestoreModule,} from '@angular/fire/firestore';
 
 //importacion para el manejo de responsive
 import { FlexLayoutModule} from '@angular/flex-layout';
-
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
