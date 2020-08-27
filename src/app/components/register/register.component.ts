@@ -98,7 +98,7 @@ export class RegisterComponent  implements OnInit {
       
 
     //verifia el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
-    if(this.ValidarExistenciaCorreo(this.registerForm.get('email').value)==false && this.validarHabilidades()==true)
+    if(this.ValidarExistenciaLlave(this.registerForm.get('email').value,this.registerForm.get('cedula').value)==false && this.validarHabilidades()==true)
     {
       
       console.log(`Status: ${this.currentStatus}`);
@@ -107,6 +107,7 @@ export class RegisterComponent  implements OnInit {
       if (this.currentStatus == 1) {
 
         console.log("creacion: "+this.registerForm.get('email').value)
+        console.log("creacion: "+this.registerForm.get('cedula').value)
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
           console.log('Documento creado exitósamente!');
@@ -210,19 +211,26 @@ export class RegisterComponent  implements OnInit {
     });
   }
 
-  //Valida la existencia del correo en la bd, retorna un boolean
-  ValidarExistenciaCorreo(correo:string): boolean{
+  //Valida la existencia del correo y C.C en la bd, retorna un boolean
+  ValidarExistenciaLlave(correo:string, cedulaIn:string): boolean{
     
-    let existe: boolean =false;
+    let existeCorreo: boolean =false;
+    let existeCedula: boolean =false;
+    let respuesta: boolean =true;
 
     //Obtengo los correos en un array
     for (let i = 0; i < this.listaRegistros.length; i++) {
       const element = this.listaRegistros[i];
       
-      const {email}=element.data;     
-      if(correo ==email)
+      const {email, cedula}=element.data;     
+      if(correo ==email )
       {
-        existe=true;
+        existeCorreo=true;
+      }
+
+      if(cedulaIn ==cedula )
+      {
+        existeCedula=true;
       }
 
       //this.listacorreos.push(email);
@@ -230,13 +238,27 @@ export class RegisterComponent  implements OnInit {
     }
 
             
-    if(existe==true)
+    if(existeCorreo==true)
     {
       window.alert('El correo ya existe en la Base de Datos');
-      return true;
-    }else{
-    return false;
+      
     }
+    if(existeCedula==true)
+    {
+      window.alert('La cedula ya existe en la Base de Datos');
+      
+    }
+    
+    if(existeCorreo==true || existeCedula==true)
+    {
+      respuesta= true;
+    }else
+    {
+      respuesta =false;
+    }
+    
+    return respuesta;
+    
   }
 
 // para el checkbox empleando *ngFor en el html
