@@ -11,6 +11,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -28,6 +30,10 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatCheckboxModule,
         MatListModule,
         MatDialogModule,
+        MatToolbarModule,
+        MatSidenavModule
+        
+
 
         
 
@@ -46,7 +52,9 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatNativeDateModule,
         MatCheckboxModule,
         MatListModule,
-        MatDialogModule
+        MatDialogModule,
+        MatToolbarModule,
+        MatSidenavModule
 
     ]
 })

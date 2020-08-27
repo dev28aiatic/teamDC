@@ -1,11 +1,8 @@
-
-
-
 mat-card {
     max-width: 800px;
     margin: 2em auto;
     text-align: center;
-    background: linear-gradient(to bottom, #68EACC 0%, #a1b9ee 100%);
+    
  
     
     flex: 1;
@@ -13,7 +10,7 @@ mat-card {
   }
 
   mat-card-title{
-    color:navy;
+    
     margin: 0;
     border-radius: 10px;
     width: 100%;
@@ -28,7 +25,12 @@ padding: 16px;
   
   mat-form-field {
     padding: 10px;
+   
     
+  }
+
+  mat-form-field{
+    background-color: white;
   }
 
   span{
@@ -42,7 +44,7 @@ padding: 16px;
   }
 
   input{
-    
+   
     display: block;
   }
   table{
@@ -61,8 +63,8 @@ input[type=number]{-moz-appearance: textfield;}
   text-align: justify;
  
 }
-
-
-
+button{
+  background-color: orangered;
+}
 
 
