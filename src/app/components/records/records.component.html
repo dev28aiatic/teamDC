@@ -1,0 +1,91 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+     
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombres">
+      <mat-header-cell *matHeaderCellDef> Nombres </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nombres}} </mat-cell>
+    </ng-container>
+  
+    <!-- Apellidos Column -->
+    <ng-container matColumnDef="apellidos">
+      <mat-header-cell *matHeaderCellDef> Apellidos </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.apellidos}} </mat-cell>
+    </ng-container>
+  
+    <!-- Cedula Column -->
+    <ng-container matColumnDef="cedula">
+      <mat-header-cell *matHeaderCellDef> Cédula </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cedula}} </mat-cell>
+    </ng-container>
+
+    
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+</ng-container>
+
+<!--Fecha nac  Column -->
+<ng-container matColumnDef="fechaNacimiento">
+    <mat-header-cell *matHeaderCellDef> Fecha de nacimiento </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.fechaNacimiento}} </mat-cell>
+</ng-container>
+
+<!-- Direccion Column -->
+<ng-container matColumnDef="direccion">
+    <mat-header-cell *matHeaderCellDef> Direccion  </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.direccion}} </mat-cell>
+</ng-container>
+
+
+  <!-- Ciudad Column -->
+<ng-container matColumnDef="ciudad">
+    <mat-header-cell *matHeaderCellDef> Ciudad </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.ciudad}} </mat-cell>
+</ng-container>
+
+  <!-- Departamento Column -->
+<ng-container matColumnDef="departamento">
+    <mat-header-cell *matHeaderCellDef> Departamento </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.departamento}} </mat-cell>
+</ng-container>
+
+  <!-- País  Column -->
+  <ng-container matColumnDef="pais">
+    <mat-header-cell *matHeaderCellDef> País </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.pais}} </mat-cell>
+</ng-container>
+
+
+  <!-- Código postal Column -->
+  <ng-container matColumnDef="codigoPostal">
+    <mat-header-cell *matHeaderCellDef> Código postal </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.codigoPostal}} </mat-cell>
+</ng-container>
+
+
+  <!--Profesión  Column -->
+  <ng-container matColumnDef="profesion">
+    <mat-header-cell *matHeaderCellDef> Profesión </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.profesion}}</mat-cell>
+</ng-container>
+
+
+  <!-- Habilidades Column -->
+  <ng-container matColumnDef="habilidades">
+    <mat-header-cell *matHeaderCellDef> Habilidades </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.habilidades}} </mat-cell>
+</ng-container>
+
+
+  <!-- Descripcion Column -->
+  <ng-container matColumnDef="descripcion">
+    <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+</ng-container>
+
+    
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

@@ -17,17 +17,17 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegistrosService} from './services/registros.service';
 
 //importaciones para el manejo de FireBase
-import {environment} from '../environments/environment';
-import{AngularFireModule,} from '@angular/fire';
-import{AngularFirestoreModule,} from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+import{ AngularFireModule } from '@angular/fire';
+import{ AngularFirestoreModule } from '@angular/fire/firestore';
 
 //Con este modulo no necesitas usar fetch ni ajax ni nada para llamadas a apis
 import { HttpClientModule } from "@angular/common/http";
 
 //importacion para el manejo de responsive
 import { FlexLayoutModule} from '@angular/flex-layout';
-
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';

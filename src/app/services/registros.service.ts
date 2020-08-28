@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 
 //importaciones para gestionar el servicio a la BD
-import{AngularFirestore} from '@angular/fire/firestore';
+import{AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
 
 
 //importamos la interface
 import {RegistrosI} from 'src/app/models/registros.interface';
+
+//ID para la interface
+export interface RegistrosID extends RegistrosI{id:string;}
 
 
 @Injectable({
@@ -13,8 +19,33 @@ import {RegistrosI} from 'src/app/models/registros.interface';
 })
 export class RegistrosService {
 
+
+  //Crear propiedad
+  private registrosCollection: AngularFirestoreCollection<RegistrosI>;
+
+  //propiedad para guardar todos los usuarios
+  registros: Observable<RegistrosID[]>;
+
   //inyectamos el servicio a la bd
   constructor(private readonly firestore:AngularFirestore) { 
+
+    
+    //nombre de la coleccion va en parentesis
+    this.registrosCollection = firestore.collection<RegistrosI>('registros');
+    this.registros = this.registrosCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a =>{
+        const data = a.payload.doc.data() as RegistrosI;
+        const id = a.payload.doc.id;
+        return{ id, ...data};
+      }))
+    );
+  }
+
+ 
+
+  getAllUser(){
+    //return todos los usuarios
+    return this.registros;
   }
 
   //--------------------------------------------
