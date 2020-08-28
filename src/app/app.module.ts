@@ -34,6 +34,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MunicipiosColombiaService } from './services/municipios-colombia.service';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 
 
@@ -43,7 +44,8 @@ import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent
+    SidenavComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

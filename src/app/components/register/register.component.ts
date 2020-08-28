@@ -11,6 +11,12 @@ import {MunicipiosColombiaService} from 'src/app/services/municipios-colombia.se
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
+import { DialogComponent } from '../dialog/dialog.component';
+import { Router } from '@angular/router';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,7 +33,8 @@ export class RegisterComponent implements OnInit {
   datosDepartamentos:string[]=[];
   
 
-
+//respuesta del Dialog
+   resDialog:boolean=false;
   //para el autocompletar
  
   filteredMunicipios: Observable<string[]>;
@@ -70,8 +77,16 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  //inyectar el servicio rgistros servis encargada de la bd /// servicio encargado de municipios de colombia
-  constructor( private registrosServiceF : RegistrosService, private municipiosService:MunicipiosColombiaService) { 
+  //inyectar el servicio rgistros servis encargada de la bd 
+  constructor( private registrosServiceF : RegistrosService,
+    /// servicio encargado de municipios de colombia
+     private municipiosService:MunicipiosColombiaService,
+     //inyecto el modal o ventana emergente
+     private matDialog: MatDialog,
+     //para navegacion
+     private router:Router
+
+     ) { 
 
     //asigna los valores al formulario como vacios
     this.registerForm.setValue({
@@ -167,7 +182,17 @@ export class RegisterComponent implements OnInit {
   }
     
     
-
+  //abrir dialogo
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    //dialogConfig.data = "Su registro fue exitoso";
+    dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
+    let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
+    dialogRef.afterClosed().subscribe(value => {
+      this.resDialog=value;
+      console.log(`Dialog sent: ${value}`); 
+    });;
+  }
   
 
 
@@ -185,7 +210,9 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
+  //para el modal o ventana emergente
+    
+ 
 
  
 
@@ -193,6 +220,7 @@ export class RegisterComponent implements OnInit {
 
   public onRegister(form, documentId = this.documentId) {
 
+    
 
     //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
     if (this.ValidarExistenciaLlave(this.registerForm.get('email').value, this.registerForm.get('cedula').value) == false && this.validarHabilidades() == true) {
@@ -206,8 +234,14 @@ export class RegisterComponent implements OnInit {
         console.log("creacion: " + this.registerForm.get('cedula').value)
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
-          console.log('Documento creado exitósamente!');
-          window.alert('Registro creado  exitósamente');
+
+          //si se aprobo el registro
+          this.openDialog()
+          
+            console.log("respuesta del dialogo:"+this.resDialog);
+            this.router.navigate(['/home']);
+          
+
           //limpia el formulario
           this.registerForm.setValue({
 
@@ -229,8 +263,7 @@ export class RegisterComponent implements OnInit {
         }, (error) => {
           console.error(error);
         });
-
-
+        
       }
     } else {
       console.log("No se puede crear registro porque ya existe el mismo email en la BD");

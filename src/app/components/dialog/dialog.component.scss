@@ -1,0 +1,38 @@
+div{
+    
+    width: 30rem;
+}
+
+.contenedor{
+    border: solid 1px  #eb791c;
+    padding: 5px;
+}
+
+h1{
+    text-align: center;
+    color: black;
+    font-size: 30px;
+}
+
+.titulo{
+    background:#eb791c!important;
+    
+}
+.contenido{
+    text-align: center;
+    color: black;
+   
+    width: 100%;
+    margin:10px auto;
+   
+    
+    padding: 4px;/*espaciado del contenedor al contenido*/
+}
+.button{
+    text-align: center;
+    width: 100%;
+    background-color: orangered;
+    margin: 10px auto;
+    margin-bottom: 20px;
+    border: solid 2px gray;
+}
