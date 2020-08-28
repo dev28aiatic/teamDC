@@ -24,12 +24,14 @@ export class RegisterComponent implements OnInit {
   
   
   datosMunicipios:string[]=[];
+  datosDepartamentos:string[]=[];
   
 
 
   //para el autocompletar
  
-  filteredOptions: Observable<string[]>;
+  filteredMunicipios: Observable<string[]>;
+  filteredDepartamentos: Observable<string[]>;
 
 
   //donde se va almacenar el id de un registro
@@ -108,29 +110,59 @@ export class RegisterComponent implements OnInit {
        
     //obtengo los datos del service de departamentos y municipios
     this.municipiosService.getDatos().subscribe(datos =>{
-      console.log(datos);
+      
+      //console.log(datos);
       //almaceno todos los municipios
       this.datosMunicipios=datos.map(data=> 
         // del map retorna algo
         data.municipio);
-        console.log(this.datosMunicipios);
-              
+        //console.log(this.datosMunicipios);
+
+        this.datosDepartamentos=datos.map(data=> 
+          // del map retorna algo
+          data.departamento);
+
+
+        //elimino los departamentos repetidos
+        let NuevosDatosDepartamentos:string[]=[];
+
+        for (let posicion = 0; posicion < this.datosDepartamentos.length; posicion++) {
+          const element = this.datosDepartamentos[posicion];
+          
+          if(posicion==0)
+          {
+            NuevosDatosDepartamentos.push(element.toString());
+          }
+          else{
+            if(NuevosDatosDepartamentos.includes(element.toString())==false)
+            {
+              NuevosDatosDepartamentos.push(element.toString());
+            }
+          }
+        }
+           
+        this.datosDepartamentos=NuevosDatosDepartamentos; 
+        //console.log(this.datosDepartamentos);  
+        //console.log(this.datosMunicipios); 
     });
 
-    this.datosMunicipios.forEach(element => {
-      console.log(element)
-        //this.options.push(element);
-    });
     
 
   
 
   
-    this.filteredOptions = this.registerForm.controls.ciudad.valueChanges
+    this.filteredMunicipios = this.registerForm.controls.ciudad.valueChanges
       .pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(value => this._filterMunicipios(value))
       );
+
+
+    this.filteredDepartamentos = this.registerForm.controls.departamento.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filterDepartamentos(value))
+    );
 
   }
     
@@ -139,10 +171,17 @@ export class RegisterComponent implements OnInit {
   
 
 
-  _filter(value: string): string[] {
+  _filterMunicipios(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.datosMunicipios.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  
+  _filterDepartamentos(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.datosDepartamentos.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 
