@@ -14,6 +14,8 @@ import {Observable} from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { DialogComponent } from '../dialog/dialog.component';
+import { Router } from '@angular/router';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +33,8 @@ export class RegisterComponent implements OnInit {
   datosDepartamentos:string[]=[];
   
 
-
+//respuesta del Dialog
+   resDialog:boolean=false;
   //para el autocompletar
  
   filteredMunicipios: Observable<string[]>;
@@ -79,8 +82,9 @@ export class RegisterComponent implements OnInit {
     /// servicio encargado de municipios de colombia
      private municipiosService:MunicipiosColombiaService,
      //inyecto el modal o ventana emergente
-     private matDialog: MatDialog
-     
+     private matDialog: MatDialog,
+     //para navegacion
+     private router:Router
 
      ) { 
 
@@ -181,10 +185,11 @@ export class RegisterComponent implements OnInit {
   //abrir dialogo
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = "freaferfefrafre";
-    //dialogConfig.data = { name: "some name"};
+    //dialogConfig.data = "Su registro fue exitoso";
+    dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
     let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
     dialogRef.afterClosed().subscribe(value => {
+      this.resDialog=value;
       console.log(`Dialog sent: ${value}`); 
     });;
   }
@@ -229,8 +234,14 @@ export class RegisterComponent implements OnInit {
         console.log("creacion: " + this.registerForm.get('cedula').value)
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
-          console.log('Documento creado exitósamente!');
-          window.alert('Registro creado  exitósamente');
+
+          //si se aprobo el registro
+          this.openDialog()
+          
+            console.log("respuesta del dialogo:"+this.resDialog);
+            this.router.navigate(['/home']);
+          
+
           //limpia el formulario
           this.registerForm.setValue({
 
@@ -252,8 +263,7 @@ export class RegisterComponent implements OnInit {
         }, (error) => {
           console.error(error);
         });
-
-
+        
       }
     } else {
       console.log("No se puede crear registro porque ya existe el mismo email en la BD");

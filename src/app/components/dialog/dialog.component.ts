@@ -18,6 +18,7 @@ export class DialogComponent implements OnInit {
   
 
   close() {
-    this.dialogRef.close("Thanks for using me!");
+    const data=true;
+    this.dialogRef.close(data);
   }
 }

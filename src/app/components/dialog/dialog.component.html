@@ -1,10 +1,17 @@
-<h2 mat-dialog-title>This is a Dialog title</h2>
 
-<mat-dialog-content>
-{{data}}
-<p> Place content here </p>
-</mat-dialog-content>
+<div class="contenedor">
+    <div class="titulo"><h1 mat-dialog-title>{{data.titulo}}</h1></div>
+    
+    <div class="contenido" mat-dialog-content>
 
-<mat-dialog-actions>
-    <button class="mat-raised-button" (click)="close()">Close</button>
-</mat-dialog-actions>
+        <h2>
+            {{data.mensaje}}
+        </h2>
+
+    </div>
+    
+
+    <div mat-dialog-actions class="contenedorButton">
+        <button mat-button class="button" (click)="close()">Aceptar</button>
+    </div>
+</div>
