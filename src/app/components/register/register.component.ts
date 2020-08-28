@@ -86,11 +86,13 @@ export class RegisterComponent implements OnInit {
         this.listaRegistros.push({
           id: rgData.payload.doc.id,
           data: rgData.payload.doc.data()
+                             
         });
       })
     });
   }
 
+ 
 
   //para hacer un nuevo registro en la bd
 

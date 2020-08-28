@@ -12,8 +12,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule } from '@angular/material/sidenav';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
         MatToolbarModule,
         MatSidenavModule,
         MatGridListModule,
+        MatTableModule,
+        MatSortModule,
         
     ],
 
@@ -53,7 +57,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
         MatToolbarModule,
         MatSidenavModule,
         MatGridListModule,
-
+        MatTableModule,
+        MatSortModule
     ]
 })
 
