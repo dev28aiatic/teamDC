@@ -94,14 +94,14 @@ export class RegisterComponent  implements OnInit {
       })
     });
 
-    
-    
-
+       
+    //obtengo los datos del service de departamentos y municipios
     this.municipiosService.getDatos().subscribe(datos =>{
       console.log(datos);
-      this.datosMunicipios=datos.map(ciudad => 
+      //almaceno todos los municipios
+      this.datosMunicipios=datos.map(data=> 
         // del map retorna algo
-        ciudad.municipio);
+        data.municipio);
         console.log(this.datosMunicipios);
       
         
