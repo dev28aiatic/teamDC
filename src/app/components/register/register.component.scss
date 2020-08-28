@@ -32,7 +32,7 @@ padding: 16px;
 
   
   span{
-    text-align: left !important;
+    
     color: navy;
     font-size: 18px;
   }
@@ -48,6 +48,7 @@ padding: 16px;
   }
   table{
     width: 100%;
+    align-content: flex-start;
     
   }
   input[type=number]::-webkit-inner-spin-button,
@@ -66,6 +67,9 @@ button{
   background-color: orangered;
 }
 
+button:hover{
+  background-color: grey;
+}
 
 // mat-icon-stepper selected color change 
 

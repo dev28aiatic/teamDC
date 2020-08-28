@@ -35,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MunicipiosColombiaService } from './services/municipios-colombia.service';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 
 
    
@@ -79,6 +80,9 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatIconModule,
 
     MatListModule,
+
+    //para embeber videos de youtube
+    YouTubePlayerModule,
 
    
 
