@@ -19,7 +19,7 @@ export class RecordsComponent implements OnInit {
   'direccion','ciudad','departamento','pais','codigoPostal','profesion','habilidades',
   'descripcion'];
 
-  dataSource = new MatTableDataSource();
+   dataSource = new MatTableDataSource();
 
 
  
