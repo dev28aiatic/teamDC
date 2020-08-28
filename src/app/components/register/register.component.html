@@ -59,8 +59,8 @@
               matInput formControlName="ciudad"
               [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option}}
+                  <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio">
+                    {{municipio}}
                   </mat-option>
                 </mat-autocomplete>
               <mat-error *ngIf="registerForm.controls.ciudad.invalid">Ingrese una ciudad</mat-error>
@@ -68,7 +68,18 @@
   
             <mat-form-field>
               <mat-label>Departamento</mat-label>
-              <input matInput formControlName="departamento">
+
+              <input type="text"              
+              aria-label="Number"
+              matInput formControlName="departamento"
+              [matAutocomplete]="dp"><!--Cambiar el nombre[matAutocomplete]=""" si hay mas de dos auto completar -->
+                <mat-autocomplete #dp="matAutocomplete">
+                  <mat-option *ngFor="let departamento of filteredDepartamentos | async" [value]="departamento">
+                    {{departamento}}
+                  </mat-option>
+                </mat-autocomplete>
+
+
               <mat-error *ngIf="registerForm.controls.departamento.invalid">Ingrese un departamento</mat-error>
             </mat-form-field>
   
