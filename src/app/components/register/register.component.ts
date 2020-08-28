@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
-//Importar servicio
+//Importar servicio encargada de ls bd
 import { RegistrosService } from 'src/app/services/registros.service';
 
+//Importar servici encargada de los municipios de colombia
+import {MunicipiosColombiaService} from 'src/app/services/municipios-colombia.service'
 
+
+import {map, startWith} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +20,17 @@ import { RegistrosService } from 'src/app/services/registros.service';
 export class RegisterComponent implements OnInit {
 
   //donde se van a almacenar los registros de la bd
-  public listaRegistros = [];
-  public listacorreos = [];
+  public listaRegistros=[];
+  
+  
+  datosMunicipios:string[]=[];
+  
+
+
+  //para el autocompletar
+ 
+  filteredOptions: Observable<string[]>;
+
 
   //donde se va almacenar el id de un registro
   public documentId = null;
@@ -54,8 +68,8 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  //inyectar el service 
-  constructor(private registrosServiceF: RegistrosService) {
+  //inyectar el servicio rgistros servis encargada de la bd /// servicio encargado de municipios de colombia
+  constructor( private registrosServiceF : RegistrosService, private municipiosService:MunicipiosColombiaService) { 
 
     //asigna los valores al formulario como vacios
     this.registerForm.setValue({
@@ -90,7 +104,49 @@ export class RegisterComponent implements OnInit {
         });
       })
     });
+
+       
+    //obtengo los datos del service de departamentos y municipios
+    this.municipiosService.getDatos().subscribe(datos =>{
+      console.log(datos);
+      //almaceno todos los municipios
+      this.datosMunicipios=datos.map(data=> 
+        // del map retorna algo
+        data.municipio);
+        console.log(this.datosMunicipios);
+              
+    });
+
+    this.datosMunicipios.forEach(element => {
+      console.log(element)
+        //this.options.push(element);
+    });
+    
+
+  
+
+  
+    this.filteredOptions = this.registerForm.controls.ciudad.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
   }
+    
+    
+
+  
+
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.datosMunicipios.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+
+
 
  
 
@@ -223,6 +279,7 @@ export class RegisterComponent implements OnInit {
 
 
     //Obtengo los correos en un array
+    console.log("ddsd"+this.listaRegistros);
     for (let i = 0; i < this.listaRegistros.length; i++) {
       const element = this.listaRegistros[i];
 

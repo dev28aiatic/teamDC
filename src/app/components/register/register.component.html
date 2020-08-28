@@ -49,9 +49,20 @@
               <mat-error *ngIf="registerForm.controls.direccion.invalid">Ingrese una dirección</mat-error>
             </mat-form-field>
   
+
+
             <mat-form-field>
               <mat-label>Ciudad</mat-label>
-              <input matInput formControlName="ciudad">
+              <input type="text"
+              
+              aria-label="Number"
+              matInput formControlName="ciudad"
+              [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
               <mat-error *ngIf="registerForm.controls.ciudad.invalid">Ingrese una ciudad</mat-error>
             </mat-form-field>
   

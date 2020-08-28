@@ -17,6 +17,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
 
@@ -39,6 +40,7 @@ import { MatSortModule } from '@angular/material/sort';
         MatTableModule,
         MatSortModule,
         
+        MatAutocompleteModule
     ],
 
     exports:[
@@ -58,7 +60,9 @@ import { MatSortModule } from '@angular/material/sort';
         MatSidenavModule,
         MatGridListModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+
+        MatAutocompleteModule
     ]
 })
 
