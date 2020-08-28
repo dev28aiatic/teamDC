@@ -183,10 +183,10 @@ export class RegisterComponent implements OnInit {
     
     
   //abrir dialogo
-  openDialog() {
+  openDialog(data:any) {
     const dialogConfig = new MatDialogConfig();
-    //dialogConfig.data = "Su registro fue exitoso";
-    dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
+    dialogConfig.data = data;
+    //dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
     let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
     dialogRef.afterClosed().subscribe(value => {
       this.resDialog=value;
@@ -236,7 +236,10 @@ export class RegisterComponent implements OnInit {
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
 
           //si se aprobo el registro
-          this.openDialog()
+          const data={ titulo:'Estado del registro', mensaje:'Exitoso, gracias por registrarte'};
+          this.openDialog(data);
+
+        
           
             console.log("respuesta del dialogo:"+this.resDialog);
             this.router.navigate(['/home']);
@@ -266,7 +269,7 @@ export class RegisterComponent implements OnInit {
         
       }
     } else {
-      console.log("No se puede crear registro porque ya existe el mismo email en la BD");
+      
     }
 
 
@@ -295,7 +298,6 @@ export class RegisterComponent implements OnInit {
 
         });
         console.log('Documento editado exitósamente');
-        window.alert('Documento editado exitósamente');
       },
         (error) => {
           console.log(error);
@@ -371,11 +373,15 @@ export class RegisterComponent implements OnInit {
 
     if (existeCorreo == true) {
 
-      window.alert('El correo ya existe en la Base de Datos');
+      const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
+      this.openDialog(data);
+
 
     }
     if (existeCedula == true) {
-      window.alert('La cedula ya existe en la Base de Datos');
+      
+      const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
+      this.openDialog(data);
 
     }
 
@@ -441,7 +447,8 @@ export class RegisterComponent implements OnInit {
 
     if (habiForm.length > 3 || habiForm.length == 0) {
       console.log("solo puede selecionar 3");
-      window.alert("Solo puede seleccionar 3 habilidades");
+      const data={ titulo:'Advertencia', mensaje:'Solo puede seleccionar 3 habilidades'};
+      this.openDialog(data);
 
 
     } else {
