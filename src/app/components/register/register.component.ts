@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
 
 
   //para el autocompletar
-  options: string[] = ['One', 'Two', 'Three'];
+ 
   filteredOptions: Observable<string[]>;
 
 
@@ -114,10 +114,13 @@ export class RegisterComponent implements OnInit {
         // del map retorna algo
         data.municipio);
         console.log(this.datosMunicipios);
-      
-        
+              
     });
 
+    this.datosMunicipios.forEach(element => {
+      console.log(element)
+        //this.options.push(element);
+    });
     
 
   
@@ -139,7 +142,7 @@ export class RegisterComponent implements OnInit {
   _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.datosMunicipios.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 
