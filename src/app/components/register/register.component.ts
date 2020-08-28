@@ -76,6 +76,7 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls.email.hasError('email') ? 'Email no válido' : '';
   }
 
+  
 
   //inyectar el servicio rgistros servis encargada de la bd 
   constructor( private registrosServiceF : RegistrosService,
@@ -227,6 +228,9 @@ export class RegisterComponent implements OnInit {
 
       console.log(`Status: ${this.currentStatus}`);
 
+
+    
+
       //si es 1 es para la creacion de un nuevo registro
       if (this.currentStatus == 1) {
 
@@ -342,14 +346,45 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+
+  //crear error de habilidades
+
+ errorHabilidades(){
+   if (this.validarHabilidades() == true) {
+     return 'ingrese máximo 3 habilidades';
+   }
+ }
+ 
+ correoExiste (correo:string){
+   //Obtengo los correos en un array
+   let existeCorreo: boolean = false;
+   
+  
+   for (let i = 0; i < this.listaRegistros.length; i++) {
+     const element = this.listaRegistros[i];
+
+     const { email } = element.data;
+     if (correo == email) {
+       existeCorreo = true;
+     }
+
+    }
+  
+   if (existeCorreo == true) {
+
+     return'El correo ya existe en la Base de Datos';
+  
+   }
+   
+
+ }
+
  //Valida la existencia del correo y C.C en la bd, retorna un boolean
   ValidarExistenciaLlave(correo: string, cedulaIn: string): boolean {
 
     let existeCorreo: boolean = false;
     let existeCedula: boolean = false;
     let respuesta: boolean = true;
-
-
 
 
     //Obtengo los correos en un array
@@ -373,6 +408,7 @@ export class RegisterComponent implements OnInit {
 
     if (existeCorreo == true) {
 
+<<<<<<< HEAD
       const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
       this.openDialog(data);
 
@@ -382,6 +418,16 @@ export class RegisterComponent implements OnInit {
       
       const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
       this.openDialog(data);
+=======
+      window.alert('El correo ya existe en la Base de Datos');
+      var errorCorreo = true;
+      
+
+    }
+    if (existeCedula == true) {
+      window.alert('La cedula ya existe en la Base de Datos');
+      var errorCedula=true;
+>>>>>>> mostrar-errores
 
     }
 
@@ -394,6 +440,7 @@ export class RegisterComponent implements OnInit {
     return respuesta;
 
   }
+  
 
   // para el checkbox empleando *ngFor en el html
 

@@ -26,6 +26,7 @@
             <mat-label>Número de cédula</mat-label>
             <input matInput type="number" formControlName="cedula">
             <mat-error *ngIf="registerForm.controls.cedula.invalid">Ingrese un número de cédula</mat-error>
+            <mat-error>{{correoExiste}}</mat-error>
 
           </mat-form-field>
 
@@ -117,6 +118,8 @@
 
 
             </table>
+            <p></p>
+           
           </form>
 
 
