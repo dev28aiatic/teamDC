@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators, FormGroup, FormArray} from '@angular/forms';
 
-//Importar servicio
+//Importar servicio encargada de ls bd
 import { RegistrosService } from 'src/app/services/registros.service';
 
+//Importar servici encargada de los municipios de colombia
+import {MunicipiosColombiaService} from 'src/app/services/municipios-colombia.service'
 
 
 @Component({
@@ -16,7 +18,9 @@ export class RegisterComponent  implements OnInit {
 
   //donde se van a almacenar los registros de la bd
   public listaRegistros=[];
-  public listacorreos=[];
+  
+  
+  datosMunicipios=[];
 
   //donde se va almacenar el id de un registro
   public documentId = null;
@@ -54,8 +58,8 @@ export class RegisterComponent  implements OnInit {
   }
 
 
-  //inyectar el service 
-  constructor( private registrosServiceF : RegistrosService) { 
+  //inyectar el servicio rgistros servis encargada de la bd /// servicio encargado de municipios de colombia
+  constructor( private registrosServiceF : RegistrosService, private municipiosService:MunicipiosColombiaService) { 
 
     //asigna los valores al formulario como vacios
     this.registerForm.setValue({
@@ -89,6 +93,24 @@ export class RegisterComponent  implements OnInit {
         });
       })
     });
+
+    
+    
+
+    this.municipiosService.getDatos().subscribe(datos =>{
+      console.log(datos);
+      this.datosMunicipios=datos.map(ciudad => 
+        // del map retorna algo
+        ciudad.municipio);
+        console.log(this.datosMunicipios);
+      
+        
+    });
+
+    
+    
+    
+
   }
 
 
@@ -219,6 +241,7 @@ export class RegisterComponent  implements OnInit {
     let respuesta: boolean =true;
 
     //Obtengo los correos en un array
+    console.log("ddsd"+this.listaRegistros);
     for (let i = 0; i < this.listaRegistros.length; i++) {
       const element = this.listaRegistros[i];
       

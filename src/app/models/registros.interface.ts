@@ -17,3 +17,12 @@ export interface RegistrosI{
 
 }
 
+
+export interface DatosDepartamentoYMunicipios{
+
+    c_digo_dane_del_departamento:number,
+    departamento: string;
+    municipio : string,
+    
+}
+

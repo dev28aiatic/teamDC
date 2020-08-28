@@ -21,6 +21,9 @@ import {environment} from '../environments/environment';
 import{AngularFireModule,} from '@angular/fire';
 import{AngularFirestoreModule,} from '@angular/fire/firestore';
 
+//Con este modulo no necesitas usar fetch ni ajax ni nada para llamadas a apis
+import { HttpClientModule } from "@angular/common/http";
+
 //importacion para el manejo de responsive
 import { FlexLayoutModule} from '@angular/flex-layout';
 
@@ -30,6 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MunicipiosColombiaService } from './services/municipios-colombia.service';
 
 
    
@@ -48,6 +52,10 @@ import { MatListModule } from '@angular/material/list';
     //Importaciones de FireBase
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+
+    //para llamadas http
+    HttpClientModule,
+
     //Modulo encargado de Material
     MaterialModule,
 
@@ -75,7 +83,10 @@ import { MatListModule } from '@angular/material/list';
   ],
   providers: [
     //Servicio de firabese para BD
-    RegistrosService
+    RegistrosService,
+    //servicio de api
+    //MunicipiosColombiaService
+
   ],
   bootstrap: [AppComponent]
 })
