@@ -22,20 +22,19 @@ mat-card {
 padding: 16px;
   }
   
-  
-  mat-form-field {
-    padding: 10px;
-   
-    
-  }
+ 
 
   mat-form-field{
     background-color: white;
+    padding: 10px;
+    
   }
 
+  
   span{
     text-align: left !important;
     color: navy;
+    font-size: 18px;
   }
   h3{
     color:navy;
@@ -68,3 +67,52 @@ button{
 }
 
 
+// mat-icon-stepper selected color change 
+
+//::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  //background-color: red!important;
+//}
+
+//input outline color por defecto
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: gray!important;
+  //opacity: 1!important;
+}
+
+//mat-input focused color cunado se activa
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #eb791c!important;
+}
+
+// mat-input error outline color caundo hay error
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+  color: #ff4e36!important;
+  opacity: 0.8!important;
+}
+
+
+// mat-input carent color para alertas
+::ng-deep .mat-input-element {
+  caret-color: orange!important;
+}
+
+// mat-input error carent color
+::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+  caret-color: blue!important;
+}
+
+// mat-label normal state style color de los label en reposo
+::ng-deep .mat-form-field-label {
+  color: gray!important;
+  // color: $mainColor!important;
+}
+
+// mat-label focused style color del label al minimizarse
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: black!important;
+}
+
+// mat-label error style color cuando el campo es imvalido
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: red!important;
+}
