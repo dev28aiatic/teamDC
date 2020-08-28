@@ -34,7 +34,7 @@ padding: 16px;
   }
 
   span{
-    text-align: left !important;
+    
     color: navy;
   }
   h3{
@@ -49,6 +49,7 @@ padding: 16px;
   }
   table{
     width: 100%;
+    align-content: flex-start;
     
   }
   input[type=number]::-webkit-inner-spin-button,
@@ -67,4 +68,7 @@ button{
   background-color: orangered;
 }
 
+button:hover{
+  background-color: grey;
+}
 

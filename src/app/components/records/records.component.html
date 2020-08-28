@@ -1,7 +1,9 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-     
-    <!-- Nombre Column -->
-    <ng-container matColumnDef="nombres">
+  <div class="container">
+    <table mat-table [dataSource]="dataSource">
+    <!-- Your Columns Here -->
+
+     <!-- Nombre Column -->
+     <ng-container matColumnDef="nombres">
       <mat-header-cell *matHeaderCellDef> Nombres </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.nombres}} </mat-cell>
     </ng-container>
@@ -88,4 +90,8 @@
   
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+ 
+    </table>
+    </div>
+     
+   
