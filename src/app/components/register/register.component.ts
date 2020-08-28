@@ -11,6 +11,10 @@ import {MunicipiosColombiaService} from 'src/app/services/municipios-colombia.se
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
+import { DialogComponent } from '../dialog/dialog.component';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -70,8 +74,15 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  //inyectar el servicio rgistros servis encargada de la bd /// servicio encargado de municipios de colombia
-  constructor( private registrosServiceF : RegistrosService, private municipiosService:MunicipiosColombiaService) { 
+  //inyectar el servicio rgistros servis encargada de la bd 
+  constructor( private registrosServiceF : RegistrosService,
+    /// servicio encargado de municipios de colombia
+     private municipiosService:MunicipiosColombiaService,
+     //inyecto el modal o ventana emergente
+     private matDialog: MatDialog
+     
+
+     ) { 
 
     //asigna los valores al formulario como vacios
     this.registerForm.setValue({
@@ -167,7 +178,16 @@ export class RegisterComponent implements OnInit {
   }
     
     
-
+  //abrir dialogo
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = "freaferfefrafre";
+    //dialogConfig.data = { name: "some name"};
+    let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
+    dialogRef.afterClosed().subscribe(value => {
+      console.log(`Dialog sent: ${value}`); 
+    });;
+  }
   
 
 
@@ -185,7 +205,9 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
+  //para el modal o ventana emergente
+    
+ 
 
  
 
@@ -193,6 +215,7 @@ export class RegisterComponent implements OnInit {
 
   public onRegister(form, documentId = this.documentId) {
 
+    
 
     //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
     if (this.ValidarExistenciaLlave(this.registerForm.get('email').value, this.registerForm.get('cedula').value) == false && this.validarHabilidades() == true) {
