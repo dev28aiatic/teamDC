@@ -8,7 +8,8 @@ const routes: Routes = [
     pathMatch: 'full' },
  
     { path: 'home', loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule) },
-  { path: 'register', loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule) }];
+  { path: 'register', loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule) },
+  { path: 'records', loadChildren: () => import('./components/records/records.module').then(m => m.RecordsModule) }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
