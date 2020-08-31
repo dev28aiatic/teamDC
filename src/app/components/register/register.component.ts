@@ -408,17 +408,6 @@ export class RegisterComponent implements OnInit {
 
     if (existeCorreo == true) {
 
-<<<<<<< HEAD
-      const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
-      this.openDialog(data);
-
-
-    }
-    if (existeCedula == true) {
-      
-      const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
-      this.openDialog(data);
-=======
       window.alert('El correo ya existe en la Base de Datos');
       var errorCorreo = true;
       
@@ -427,7 +416,6 @@ export class RegisterComponent implements OnInit {
     if (existeCedula == true) {
       window.alert('La cedula ya existe en la Base de Datos');
       var errorCedula=true;
->>>>>>> mostrar-errores
 
     }
 
