@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormArray, AbstractControl, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, AbstractControl, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 //Importar servicio encargada de ls bd
 import { RegistrosService } from 'src/app/services/registros.service';
@@ -15,6 +15,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { DialogComponent } from '../dialog/dialog.component';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
@@ -66,8 +67,8 @@ export class RegisterComponent implements OnInit {
 
       nombres: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
-      cedula: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      cedula: new FormControl('', [Validators.required, this.validarCedula]),
+      email: new FormControl('', [Validators.required, Validators.email, this.validarEmail]),
       fechaNacimiento: new FormControl('', [Validators.required]),
       direccion: new FormControl('', [Validators.required]),
       ciudad: new FormControl('', [Validators.required]),
@@ -170,31 +171,55 @@ export class RegisterComponent implements OnInit {
   }
 
 
+  //para requerimientos personalizados
+  //para el correo
 
-
-  
-
-  private validateEmail(control: AbstractControl) {
+  private validarEmail: ValidatorFn =(control: AbstractControl): ValidationErrors | null => {
     const email = control.value;
-    let error = null;
+    let respuesta= null;
     if (this.ValidarExistenciaCorreo(email)==true) {
-      error = { ...error, dollar: 'Correo ya usado' };
+      return{ ms: 'para otro forma de error' };
     }
     
-    return error;
+    return null;
   }
+    
 
-
-  //metodo para control del formulario
+  //metodo para informar errores en el campo de email
   errorEmail() {
     if (this.registerForm.controls.email.hasError('required')) {
       return 'Debe ingresar un email';
+    }
+    if (this.registerForm.controls.email.hasError('ms')) {
+      return 'El email ya ha sido registrado';
     }
     return this.registerForm.controls.email.hasError('email') ? 'Email no válido' : '';
   }
 
   
-
+    //para la cedula
+  
+    private validarCedula: ValidatorFn =(control: AbstractControl): ValidationErrors | null => {
+      const cedula = control.value;
+      let respuesta= null;
+      if (this.ValidarExistenciaCedula(cedula)==true) {
+        return{ ms: 'para otro forma de error' };
+      }
+      
+      return null;
+    }
+      
+  
+    //metodo para informar errores en el campo de cedula
+    errorCedula() {
+      if (this.registerForm.controls.cedula.hasError('required')) {
+        return 'Ingrese un número de cédula';
+      }
+      if (this.registerForm.controls.cedula.hasError('ms')) {
+        return 'El número de cedula ya ha sido registrado';
+      }
+      
+    }
   
     
     
@@ -383,8 +408,8 @@ export class RegisterComponent implements OnInit {
 
     if (existeCorreo == true) {
 
-      const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
-      this.openDialog(data);
+      //const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
+      //this.openDialog(data);
       respuesta = true;
 
     }
@@ -416,8 +441,8 @@ export class RegisterComponent implements OnInit {
     }
     if (existeCedula == true) {
       
-      const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
-      this.openDialog(data);
+      //const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
+      //this.openDialog(data);
       respuesta = true;
     }   
     else {
@@ -505,3 +530,4 @@ export class RegisterComponent implements OnInit {
 
   }
 }
+
