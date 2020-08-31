@@ -30,7 +30,8 @@
 <!--Fecha nac  Column -->
 <ng-container matColumnDef="fechaNacimiento">
     <mat-header-cell *matHeaderCellDef> Fecha de nacimiento </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.fechaNacimiento}} </mat-cell>
+    <!--para transformar al Timestamp es necesario seconds*1000  -->
+    <mat-cell *matCellDef="let element"> {{element.fechaNacimiento.seconds*1000 |date:'dd/MM/yyyy'}} </mat-cell>
 </ng-container>
 
 <!-- Direccion Column -->
