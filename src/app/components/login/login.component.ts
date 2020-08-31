@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   loginForm= new FormGroup({
     
     email: new FormControl('',[Validators.required, Validators.email]),
+    password: new FormControl('',[Validators.required])
     
   })
 
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
     const { email,password } = this.loginForm.value;
     try{      
      const user= await this.authSvc.login(email,password);
+     console.log(email,password);
      if (user) {
        //redirect to homePage
        this.router.navigate(['/home'])
@@ -41,11 +43,5 @@ export class LoginComponent implements OnInit {
     }
     
     get email(){ return this.loginForm.get('email');}
-    get password(){ return this.loginForm.get('password');}
-
-  
-
-  
-  
-
+    
   }
