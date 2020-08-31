@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, AbstractControl, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 //Importar servicio encargada de ls bd
 import { RegistrosService } from 'src/app/services/registros.service';
@@ -15,7 +15,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { DialogComponent } from '../dialog/dialog.component';
 import { Router } from '@angular/router';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
 
 @Component({
   selector: 'app-register',
@@ -47,36 +47,7 @@ export class RegisterComponent implements OnInit {
   //Si el valor es 1, la aplicación estará en modo creación si es 2 se habilita el modo edicion
   public currentStatus = 1;
 
-  //para el manejo del formulario
-  public registerForm = new FormGroup({
-
-    nombres: new FormControl('', [Validators.required]),
-    apellidos: new FormControl('', [Validators.required]),
-    cedula: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    fechaNacimiento: new FormControl('', [Validators.required]),
-    direccion: new FormControl('', [Validators.required]),
-    ciudad: new FormControl('', [Validators.required]),
-    departamento: new FormControl('', [Validators.required]),
-    pais: new FormControl('', [Validators.required]),
-    codigoPostal: new FormControl('', [Validators.required]),
-    profesion: new FormControl('', [Validators.required]),
-    habilidades: new FormControl(''),
-    descripcion: new FormControl('', [Validators.required]),
-
-  });
-
-
-  //metodo para control del formulario
-  errorEmail() {
-    if (this.registerForm.controls.email.hasError('required')) {
-      return 'Debe ingresar un email';
-    }
-
-    return this.registerForm.controls.email.hasError('email') ? 'Email no válido' : '';
-  }
-
-  
+  registerForm: FormGroup;
 
   //inyectar el servicio rgistros servis encargada de la bd 
   constructor( private registrosServiceF : RegistrosService,
@@ -85,9 +56,30 @@ export class RegisterComponent implements OnInit {
      //inyecto el modal o ventana emergente
      private matDialog: MatDialog,
      //para navegacion
-     private router:Router
+     private router:Router,
+     //para el formbuilder
+     private fb:FormBuilder
 
-     ) { 
+
+    ) { 
+
+      this.registerForm= this.fb.group({
+
+      nombres: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      cedula: new FormControl('', [Validators.required, this.validarCedula]),
+      email: new FormControl('', [Validators.required, Validators.email, this.validarEmail]),
+      fechaNacimiento: new FormControl('', [Validators.required]),
+      direccion: new FormControl('', [Validators.required]),
+      ciudad: new FormControl('', [Validators.required]),
+      departamento: new FormControl('', [Validators.required]),
+      pais: new FormControl('', [Validators.required]),
+      codigoPostal: new FormControl('', [Validators.required]),
+      profesion: new FormControl('', [Validators.required]),
+      habilidades: new FormControl(''),
+      descripcion: new FormControl('', [Validators.required]),
+
+      })
 
     //asigna los valores al formulario como vacios
     this.registerForm.setValue({
@@ -127,12 +119,10 @@ export class RegisterComponent implements OnInit {
     //obtengo los datos del service de departamentos y municipios
     this.municipiosService.getDatos().subscribe(datos =>{
       
-      //console.log(datos);
       //almaceno todos los municipios
       this.datosMunicipios=datos.map(data=> 
         // del map retorna algo
         data.municipio);
-        //console.log(this.datosMunicipios);
 
         this.datosDepartamentos=datos.map(data=> 
           // del map retorna algo
@@ -158,8 +148,6 @@ export class RegisterComponent implements OnInit {
         }
            
         this.datosDepartamentos=NuevosDatosDepartamentos; 
-        //console.log(this.datosDepartamentos);  
-        //console.log(this.datosMunicipios); 
     });
 
     
@@ -181,6 +169,58 @@ export class RegisterComponent implements OnInit {
     );
 
   }
+
+
+  //para requerimientos personalizados
+  //para el correo
+
+  private validarEmail: ValidatorFn =(control: AbstractControl): ValidationErrors | null => {
+    const email = control.value;
+    let respuesta= null;
+    if (this.ValidarExistenciaCorreo(email)==true) {
+      return{ ms: 'para otro forma de error' };
+    }
+    
+    return null;
+  }
+    
+
+  //metodo para informar errores en el campo de email
+  errorEmail() {
+    if (this.registerForm.controls.email.hasError('required')) {
+      return 'Debe ingresar un email';
+    }
+    if (this.registerForm.controls.email.hasError('ms')) {
+      return 'El email ya ha sido registrado';
+    }
+    return this.registerForm.controls.email.hasError('email') ? 'Email no válido' : '';
+  }
+
+  
+    //para la cedula
+  
+    private validarCedula: ValidatorFn =(control: AbstractControl): ValidationErrors | null => {
+      const cedula = control.value;
+      let respuesta= null;
+      if (this.ValidarExistenciaCedula(cedula)==true) {
+        return{ ms: 'para otro forma de error' };
+      }
+      
+      return null;
+    }
+      
+  
+    //metodo para informar errores en el campo de cedula
+    errorCedula() {
+      if (this.registerForm.controls.cedula.hasError('required')) {
+        return 'Ingrese un número de cédula';
+      }
+      if (this.registerForm.controls.cedula.hasError('ms')) {
+        return 'El número de cedula ya ha sido registrado';
+      }
+      
+    }
+  
     
     
   //abrir dialogo
@@ -222,9 +262,9 @@ export class RegisterComponent implements OnInit {
   public onRegister(form, documentId = this.documentId) {
 
     
-
     //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
-    if (this.ValidarExistenciaLlave(this.registerForm.get('email').value, this.registerForm.get('cedula').value) == false && this.validarHabilidades() == true) {
+    if (this.ValidarExistenciaCorreo(this.registerForm.get('email').value)  == false && 
+        this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false && this.validarHabilidades() == true) {
 
       console.log(`Status: ${this.currentStatus}`);
 
@@ -346,82 +386,66 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
-  //crear error de habilidades
-
- errorHabilidades(){
-   if (this.validarHabilidades() == true) {
-     return 'ingrese máximo 3 habilidades';
-   }
- }
  
- correoExiste (correo:string){
-   //Obtengo los correos en un array
-   let existeCorreo: boolean = false;
-   
-  
-   for (let i = 0; i < this.listaRegistros.length; i++) {
-     const element = this.listaRegistros[i];
-
-     const { email } = element.data;
-     if (correo == email) {
-       existeCorreo = true;
-     }
-
-    }
-  
-   if (existeCorreo == true) {
-
-     return'El correo ya existe en la Base de Datos';
-  
-   }
-   
-
- }
-
- //Valida la existencia del correo y C.C en la bd, retorna un boolean
-  ValidarExistenciaLlave(correo: string, cedulaIn: string): boolean {
-
+ //Valida la existencia del correoen la bd, retorna un boolean
+ 
+  ValidarExistenciaCorreo(correo: string): boolean {
     let existeCorreo: boolean = false;
-    let existeCedula: boolean = false;
     let respuesta: boolean = true;
 
 
     //Obtengo los correos en un array
-    console.log("ddsd"+this.listaRegistros);
     for (let i = 0; i < this.listaRegistros.length; i++) {
       const element = this.listaRegistros[i];
 
-      const { email, cedula } = element.data;
+      const { email } = element.data;
       if (correo == email) {
         existeCorreo = true;
       }
-
-      if (cedulaIn == cedula) {
-        existeCedula = true;
-      }
-
-      //this.listacorreos.push(email);
-      //console.log("rg : "+i+" => "+this.listacorreos[i]);
+      
     }
 
 
     if (existeCorreo == true) {
 
-      const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
-      this.openDialog(data);
+      //const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
+      //this.openDialog(data);
+      respuesta = true;
+
+    }
+    else {
+      respuesta = false;
+    }
+
+    return respuesta;
+
+  }
+
+ //Valida la existencia del la C.C en la bd, retorna un boolean
+  ValidarExistenciaCedula(cedulaIn: string): boolean {
+
+    let existeCedula: boolean = false;
+    let respuesta: boolean = true;
 
 
+    //Obtengo los correos en un array
+    for (let i = 0; i < this.listaRegistros.length; i++) {
+      const element = this.listaRegistros[i];
+
+      const { cedula } = element.data;
+      if (cedulaIn == cedula) {
+        existeCedula = true;
+      }
+
+      
     }
     if (existeCedula == true) {
       
-      const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
-
-    }
-
-    if (existeCorreo == true || existeCedula == true) {
+      //const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
+      //this.openDialog(data);
       respuesta = true;
-    } else {
+    }   
+    else {
       respuesta = false;
     }
 
@@ -481,7 +505,6 @@ export class RegisterComponent implements OnInit {
     let selc3: boolean = false;
 
     if (habiForm.length > 3 || habiForm.length == 0) {
-      console.log("solo puede selecionar 3");
       const data={ titulo:'Advertencia', mensaje:'Solo puede seleccionar 3 habilidades'};
       this.openDialog(data);
 
@@ -490,12 +513,11 @@ export class RegisterComponent implements OnInit {
 
       for (let i = 0; i < habiForm.length; i++) {
 
-        habilidadesIn += habiForm[i] + " / ";
+        habilidadesIn += habiForm[i] + " / "; // \n 
 
       }
       selc3 = true;
     }
-    console.log(habilidadesIn);
     //asigno las habilidaesIn al valor del formcontrol habilidaes para que lo registre en la bd  
     this.registerForm.controls.habilidades.setValue([habilidadesIn]);
 
@@ -508,3 +530,4 @@ export class RegisterComponent implements OnInit {
 
   }
 }
+
