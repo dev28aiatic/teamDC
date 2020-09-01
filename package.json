@@ -26,6 +26,7 @@
     "angularfire2": "^5.4.2",
     "firebase": "^7.19.0",
     "rxjs": "~6.5.5",
+    "sphinx": "^0.1.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },
