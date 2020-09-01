@@ -17,12 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'DCTEAM'
-copyright = '2020, Karen Juliana Gomez'
-author = 'Karen Juliana Gomez'
+project = 'teamDC'
+copyright = '2020, Karen Gómez y Ronal Landazabal'
+author = 'Karen Gómez y Ronal Landazabal'
 
 # The full version, including alpha/beta/rc tags
-release = '1'
+release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------
