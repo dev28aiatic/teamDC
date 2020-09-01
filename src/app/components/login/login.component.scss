@@ -1,0 +1,111 @@
+.login-form{
+  padding: 4rem 1rem;
+  mat-card {
+    max-width: 400px;
+    margin: 2em auto;
+    text-align: center;
+  }
+}
+
+  
+  mat-form-field {
+    display: block;
+  }
+
+  mat-card-title{
+    color: navy;
+}
+
+#btn-login{
+    text-align: start;
+    display: inline-block;
+}
+#btn-gmail{
+    text-align: center;
+    display: inline-block;
+}
+
+#btn-fb {
+    background-color: #4e75df ;
+    color: #ffffff;
+    text-align: end;
+    display: inline-block;
+}
+
+
+
+button{
+    background-color: orangered;
+    color: white;
+  }
+  
+  button:hover{
+    background-color: grey;
+  }
+
+
+
+#icon-user {
+    display: inline-block;
+    width: 100%;
+    color: cornflowerblue;
+    font-size: 80px;
+    text-align: center;
+    
+    
+}
+
+.alert-danger{
+
+    border-color: white;
+    margin: 5px;
+}
+.container-error-message {
+    padding: 3px;;
+}
+
+
+//input outline color por defecto
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: gray!important;
+    //opacity: 1!important;
+  }
+  
+  //mat-input focused color cunado se activa
+  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #eb791c!important;
+  }
+  
+  // mat-input error outline color caundo hay error
+  ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+    color: #ff4e36!important;
+    opacity: 0.8!important;
+  }
+  
+  
+  // mat-input carent color para alertas
+  ::ng-deep .mat-input-element {
+    caret-color: orange!important;
+  }
+  
+  // mat-input error carent color
+  ::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+    caret-color: blue!important;
+  }
+  
+  // mat-label normal state style color de los label en reposo
+  ::ng-deep .mat-form-field-label {
+    color: gray!important;
+    // color: $mainColor!important;
+  }
+  
+  // mat-label focused style color del label al minimizarse
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: black!important;
+  }
+  
+  // mat-label error style color cuando el campo es imvalido
+  ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: red!important;
+  }
+  

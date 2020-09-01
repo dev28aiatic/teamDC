@@ -20,6 +20,8 @@ import {RegistrosService} from './services/registros.service';
 import { environment } from '../environments/environment';
 import{ AngularFireModule } from '@angular/fire';
 import{ AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule} from '@angular/fire/auth';
+
 
 //Con este modulo no necesitas usar fetch ni ajax ni nada para llamadas a apis
 import { HttpClientModule } from "@angular/common/http";
@@ -55,6 +57,7 @@ import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
     //Importaciones de FireBase
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule, 
 
     //para llamadas http
     HttpClientModule,
