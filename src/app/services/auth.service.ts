@@ -27,7 +27,15 @@ export class AuthService {
   }
 
 
-  
+  async register(email:string,password:string){
+    try{
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(
+        email,
+        password
+        );
+      return result;
+    }catch(error){console.log(error)}
+    }
     
     
   async logout(){

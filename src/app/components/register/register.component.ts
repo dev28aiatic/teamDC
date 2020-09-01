@@ -17,10 +17,14 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers:[AuthService]
 })
 
 export class RegisterComponent implements OnInit {
@@ -85,7 +89,10 @@ export class RegisterComponent implements OnInit {
      //inyecto el modal o ventana emergente
      private matDialog: MatDialog,
      //para navegacion
-     private router:Router
+     private router:Router,
+     //creacion del auth
+     private authSvc:AuthService, 
+     public afAuth: AngularFireAuth
 
      ) { 
 
@@ -220,7 +227,8 @@ export class RegisterComponent implements OnInit {
   //para hacer un nuevo registro en la bd
 
   public onRegister(form, documentId = this.documentId) {
-
+    
+    
     
 
     //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
@@ -275,6 +283,10 @@ export class RegisterComponent implements OnInit {
     } else {
       
     }
+
+    const result= this.afAuth.auth.createUserWithEmailAndPassword(
+      this.registerForm.controls.email.value, 
+      this.registerForm.controls.email.value);
 
 
 

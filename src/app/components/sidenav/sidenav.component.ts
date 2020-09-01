@@ -22,9 +22,12 @@ export class SidenavComponent {
     );
 
     public user$: Observable<any> = this.authSvc.afAuth.user;
+    
 
   constructor(private breakpointObserver: BreakpointObserver, private authSvc: AuthService,
-    private router: Router,) {}
+    private router: Router,) { }
+
+    public isLogged: boolean= false;
 
   async onLogout(){
     try{
@@ -34,6 +37,14 @@ export class SidenavComponent {
     catch(error){console.log(error)}
   
   
+  }
+
+  onCheckUser():void {
+    if (this.authSvc.getCurrentUser()==null) {
+      this.isLogged=false;
+    } else {
+      this.isLogged=true;
+    }
   }
 
 }

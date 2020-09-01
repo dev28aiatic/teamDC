@@ -60,6 +60,9 @@ export class RegistrosService {
     return this.firestore.collection('registros').add(registro);
     
   }
+
+
+  
    //Recibe el id para un obtener un unico registro
   getRegistro(registroId: string) {
     return this.firestore.collection('registros').doc(registroId).snapshotChanges();
