@@ -22,7 +22,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>DC TEAM</span>
+      <a mat-list-item [routerLink]="['/home']">DC TEAM</a>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

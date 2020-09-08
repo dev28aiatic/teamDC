@@ -1,17 +1,12 @@
-
-<div class="contenedor">
-    <div class="titulo"><h1 mat-dialog-title>{{data.titulo}}</h1></div>
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
     
-    <div class="contenido" mat-dialog-content>
-
-        <h2>
-            {{data.mensaje}}
-        </h2>
-
+  
+       {{data.mensaje}}
     </div>
-    
-
-    <div mat-dialog-actions class="contenedorButton">
-        <button mat-button class="button" (click)="close()">Aceptar</button>
+    <p></p>
+    <div mat-dialog-actions class="contenedorButton" fxLayout="row wrap">
+        <button mat-button class="button" (click)="close()" fxLayout="row wrap">Aceptar</button>
     </div>
+
+
 </div>
