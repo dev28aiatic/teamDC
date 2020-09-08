@@ -490,24 +490,24 @@ export class RegisterComponent implements OnInit {
     const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
         
     //si lo chuliaron hagrega al array siempre que numero de habilidades menor 4
-    if (e.target.checked && this.nHabilidaddes<=2) {
+    if (e.checked && this.nHabilidaddes<=2) {
       
-      habiForm.push(new FormControl(e.target.value));        
+      habiForm.push(new FormControl(e.source.value));        
       this.nHabilidaddes++;
       this.validarHabilidades();
     } else {
 
       //si numero la habilidad se desmarca elimina habilidad 
-      if(e.target.checked==false)
+      if(e.checked==false)
       {
-        const index = habiForm.controls.findIndex(x => x.value === e.target.value);
+        const index = habiForm.controls.findIndex(x => x.value === e.source.value);
         habiForm.removeAt(index);
         this.validarHabilidades();
         this.nHabilidaddes--;
       }
       //si numero de habilidades esta al limite (3) no agrega nada y no permite chulear
       else{
-        e.target.checked=false;
+        e.source._checked=false;
       }
     }
 
@@ -519,7 +519,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.controls.habilidades.updateValueAndValidity();
    }
     
-
+   //console.log(this.registerForm.controls.habilidades.value);
 
   }
 

@@ -27,10 +27,9 @@ padding: 16px;
   mat-form-field{
     background-color: white;
     padding: 10px;
+    width: 200px;
     
-  }
-
-  
+  }    
   span{
     
     color: navy;
@@ -56,13 +55,10 @@ padding: 16px;
     -webkit-appearance: none;
     margin:0;
   }
+  
 input[type=number]{-moz-appearance: textfield;}
 
-.message{
-  height: 100px;
-  text-align: justify;
- 
-}
+
 button{
   background-color: orangered;
 }
@@ -119,4 +115,25 @@ button:hover{
 // mat-label error style color cuando el campo es imvalido
 ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
   color: red!important;
+}
+
+
+.descripcion{
+width: 80%;
+
+}
+.message{
+  height: 105px;
+}
+
+.section{
+  //background-color: red;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+}
+li {
+  list-style-type: none;
+  margin-top: 4px;
+  text-align: left;
 }
