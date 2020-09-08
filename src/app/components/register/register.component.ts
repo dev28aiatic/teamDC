@@ -16,15 +16,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Router } from '@angular/router';
 
-
+//para el loguin
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  providers:[AuthService]
+  
 })
 
 export class RegisterComponent implements OnInit {
@@ -62,7 +61,8 @@ export class RegisterComponent implements OnInit {
      //para navegacion
      private router:Router,
      
-     public afAuth: AngularFireAuth,
+     // para loguin
+     private afAuth: AngularFireAuth,
      //para el formbuilder
      private fb:FormBuilder
 
@@ -266,29 +266,24 @@ export class RegisterComponent implements OnInit {
     
     //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
     if (this.ValidarExistenciaCorreo(this.registerForm.get('email').value)  == false && 
-        this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false ) {
+        this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false ) 
+    {
 
       console.log(`Status: ${this.currentStatus}`);
-
-
-    
 
       //si es 1 es para la creacion de un nuevo registro
       if (this.currentStatus == 1) {
 
-        console.log("creacion: " + this.registerForm.get('email').value)
-        console.log("creacion: " + this.registerForm.get('cedula').value)
+        //console.log("creacion: " + this.registerForm.get('email').value)
+        //console.log("creacion: " + this.registerForm.get('cedula').value)
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
 
           //si se aprobo el registro
           const data={mensaje:'Gracias por registrarte'};
-          this.openDialog(data);
-
-        
-          
-            console.log("respuesta del dialogo:"+this.resDialog);
-            this.router.navigate(['/home']);
+          this.openDialog(data);    
+          //console.log("respuesta del dialogo:"+this.resDialog);
+          this.router.navigate(['/home']);
           
 
           //limpia el formulario
@@ -311,9 +306,9 @@ export class RegisterComponent implements OnInit {
           });
         }, (error) => {
           console.error(error);
-        });
-        
+        });        
       }
+
     } else {
       
     }

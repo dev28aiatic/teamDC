@@ -3,7 +3,9 @@
       <mat-card>
         <mat-card-content fxFlex="20%">
           <mat-card-title>Mi perfil </mat-card-title>
-          
+
+          <form (ngSubmit)="onRegister (editForm.value)" [formGroup]="editForm">
+
           <div class="bloque">
             <label>Nombres</label>
             <mat-form-field appearance="outline">
@@ -70,7 +72,7 @@
           <div class="bloque">
             <label>Código postal</label>
             <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="postal">
+            <input matInput type="text" formControlName="codigoPostal">
             </mat-form-field>
           </div>
 
@@ -96,7 +98,7 @@
           </div>
           
 
-          
+        </form> 
 
         </mat-card-content>
       </mat-card>
