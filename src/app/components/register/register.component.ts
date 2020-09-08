@@ -236,6 +236,7 @@ export class RegisterComponent implements OnInit {
     //dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
     let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
     dialogRef.afterClosed().subscribe(value => {
+      width: '250px';
       this.resDialog=value;
       console.log(`Dialog sent: ${value}`); 
     });;
@@ -281,7 +282,7 @@ export class RegisterComponent implements OnInit {
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
 
           //si se aprobo el registro
-          const data={ titulo:'Estado del registro', mensaje:'Exitoso, gracias por registrarte'};
+          const data={mensaje:'Gracias por registrarte'};
           this.openDialog(data);
 
         
