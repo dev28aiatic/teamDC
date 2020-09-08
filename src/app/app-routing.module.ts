@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'records', loadChildren: () => import('./components/records/records.module').then(m => m.RecordsModule) },
   { path: 'video', loadChildren: () => import('./components/video/video.module').then(m => m.VideoModule) },
   { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
+  { path: 'profile', loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule) },
   ];
 
 @NgModule({
