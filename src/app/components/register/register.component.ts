@@ -61,8 +61,7 @@ export class RegisterComponent implements OnInit {
      private matDialog: MatDialog,
      //para navegacion
      private router:Router,
-     //creacion del auth
-     private authSvc:AuthService, 
+     
      public afAuth: AngularFireAuth,
      //para el formbuilder
      private fb:FormBuilder
@@ -83,7 +82,7 @@ export class RegisterComponent implements OnInit {
       pais: new FormControl('', [Validators.required]),
       codigoPostal: new FormControl('', [Validators.required]),
       profesion: new FormControl('', [Validators.required]),
-      habilidades: new FormControl(''),
+      habilidades: new FormControl('', [Validators.required]),
       descripcion: new FormControl('', [Validators.required]),
 
       })
@@ -258,12 +257,6 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  //para el modal o ventana emergente
-    
- 
-
- 
-
   //para hacer un nuevo registro en la bd
 
   public onRegister(form, documentId = this.documentId) {
@@ -272,7 +265,7 @@ export class RegisterComponent implements OnInit {
     
     //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
     if (this.ValidarExistenciaCorreo(this.registerForm.get('email').value)  == false && 
-        this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false && this.validarHabilidades() == true) {
+        this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false ) {
 
       console.log(`Status: ${this.currentStatus}`);
 
@@ -480,6 +473,8 @@ export class RegisterComponent implements OnInit {
     { id: 9, name: 'Capacidad de asociación' },
     { id: 10, name: 'Razonamiento' },
   ];
+  //Conteno de habilidades
+  nHabilidaddes:number=0;
 
   //crea un formgoroup para los checkBox
   checkboxForm = new FormGroup({
@@ -492,19 +487,43 @@ export class RegisterComponent implements OnInit {
 
   onCheckboxChange(e) {
     const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
-
-    //si lo chuliaron hagrega al array si no lo elimina
-    if (e.target.checked) {
-      habiForm.push(new FormControl(e.target.value));
+        
+    //si lo chuliaron hagrega al array siempre que numero de habilidades menor 4
+    if (e.target.checked && this.nHabilidaddes<=2) {
+      
+      habiForm.push(new FormControl(e.target.value));        
+      this.nHabilidaddes++;
+      this.validarHabilidades();
     } else {
-      const index = habiForm.controls.findIndex(x => x.value === e.target.value);
-      habiForm.removeAt(index);
+
+      //si numero la habilidad se desmarca elimina habilidad 
+      if(e.target.checked==false)
+      {
+        const index = habiForm.controls.findIndex(x => x.value === e.target.value);
+        habiForm.removeAt(index);
+        this.validarHabilidades();
+        this.nHabilidaddes--;
+      }
+      //si numero de habilidades esta al limite (3) no agrega nada y no permite chulear
+      else{
+        e.target.checked=false;
+      }
     }
+
+    //si no hay habilidades selecionadas no habilita el boton
+    if(this.nHabilidaddes==0)
+    {
+      this.registerForm.controls.habilidades.setValue([]);
+      this.registerForm.controls.habilidades.setValidators([Validators.required]);
+      this.registerForm.controls.habilidades.updateValueAndValidity();
+   }
+    
+
+
   }
 
-  // para validar que sean 3 habilidaddes
-  validarHabilidades(): boolean {
-
+  // para asignar las habilidades al Formgroup principal
+  validarHabilidades(){
     //obtengo los valores de FormGroup
     const ob = this.checkboxForm.value;
 
@@ -512,33 +531,15 @@ export class RegisterComponent implements OnInit {
     const { habiForm } = ob;
 
     //para almacenar las habilidades
-    let habilidadesIn: string = '';
-    //un indicador si selecciono 3 habilidades
-    let selc3: boolean = false;
+    let habilidadesIn: string = '';    
 
-    if (habiForm.length > 3 || habiForm.length == 0) {
-      const data={ titulo:'Advertencia', mensaje:'Solo puede seleccionar 3 habilidades'};
-      this.openDialog(data);
+    for (let i = 0; i < habiForm.length; i++) {
 
+      habilidadesIn += habiForm[i] + " / "; // \n 
 
-    } else {
-
-      for (let i = 0; i < habiForm.length; i++) {
-
-        habilidadesIn += habiForm[i] + " / "; // \n 
-
-      }
-      selc3 = true;
-    }
+    }         
     //asigno las habilidaesIn al valor del formcontrol habilidaes para que lo registre en la bd  
     this.registerForm.controls.habilidades.setValue([habilidadesIn]);
-
-
-    if (selc3 == true) {
-      return true;
-    } else {
-      return false;
-    }
 
   }
 }
