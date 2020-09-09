@@ -3,11 +3,19 @@ import { Component, OnInit } from '@angular/core';
 //para el loguin
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RegistrosService } from 'src/app/services/registros.service';
+
+
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { MunicipiosColombiaService } from 'src/app/services/municipios-colombia.service';
 import { startWith, map } from 'rxjs/operators';
+
+
+//para recuperar la imagen que se subio
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+
 
 
 
@@ -51,6 +59,8 @@ export class ProfileComponent implements OnInit {
     private fb:FormBuilder,
     /// servicio encargado de municipios de colombia
     private municipiosService:MunicipiosColombiaService,
+    //para subir la imagen al storage de firebase
+    private storage:AngularFireStorage
     
   ) {
 
@@ -76,8 +86,16 @@ export class ProfileComponent implements OnInit {
       descripcion: new FormControl('', [Validators.required]),
 
       })
+      
 
   }
+
+
+
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
+
+  
 
   ngOnInit(): void {
 
@@ -109,6 +127,29 @@ export class ProfileComponent implements OnInit {
     this.getRegistros(); 
 
   }
+
+
+  //metodo para subir la imagen al storage
+  onUpload(e){
+    //console.log('subir', e);
+    //generar un id unico para la imagen
+    const id = Math.random().toString(36).substring(2);
+    //aqui se tiene el archivo
+    const file = e.target.files[0];
+    
+    const filePath = `uploads/profile_${id}`;
+    //ruta del fichero
+    const ref = this.storage.ref(filePath);
+    //se realiza la subida del fichero
+    const task = this.storage.upload(filePath,file);
+
+
+    this.uploadPercent = task.percentageChanges();
+    //para recuperar la url
+    task.snapshotChanges().pipe(finalize(()=>this.urlImage=ref.getDownloadURL())).subscribe();
+
+    }
+
 
  
   

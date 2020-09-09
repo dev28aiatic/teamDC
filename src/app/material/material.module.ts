@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
@@ -39,6 +40,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         MatGridListModule,
         MatTableModule,
         MatSortModule,
+        MatProgressBarModule,
         
         MatAutocompleteModule
     ],
@@ -61,6 +63,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         MatGridListModule,
         MatTableModule,
         MatSortModule,
+        MatProgressBarModule,
 
         MatAutocompleteModule
     ]

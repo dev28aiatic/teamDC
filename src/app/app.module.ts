@@ -38,6 +38,7 @@ import { MatListModule } from '@angular/material/list';
 import { MunicipiosColombiaService } from './services/municipios-colombia.service';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 
    
@@ -86,6 +87,9 @@ import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 
     //para embeber videos de youtube
     YouTubePlayerModule,
+
+    //para subir la imagen al storage
+    AngularFireStorageModule,
 
    
 

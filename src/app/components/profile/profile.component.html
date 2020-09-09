@@ -6,6 +6,18 @@
 
           <form (ngSubmit)="onUpdate(editForm.value)" [formGroup]="editForm">
 
+            <div class="container-input-file">
+              <label class="custom-file">
+                <input type="file" accept=".png, .jpg" (change)="onUpload($event)" />
+                <input #imageUser type="hidden" [value]="urlImage| async">
+                
+                <img mat-card-avatar  class="avatar"  src="{{urlImage | async}}">
+                <mat-icon>cloud_upload</mat-icon><span>  Cambiar foto de perfil</span>
+                
+              </label>
+
+            </div>
+
             <div class="bloque">
               <label>Nombres</label>
               <mat-form-field appearance="outline">
