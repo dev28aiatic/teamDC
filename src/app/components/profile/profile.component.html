@@ -9,7 +9,8 @@
             <div class="bloque">
               <label>Nombres</label>
               <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="nombres">
+              <input matInput type="text" formControlName="nombres">              
+              <mat-error *ngIf="editForm.controls.nombres.invalid">Ingrese un nombre</mat-error>
               </mat-form-field>
             </div>
 
@@ -17,13 +18,15 @@
               <label>Apellidos</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="apellidos">
+              <mat-error *ngIf="editForm.controls.apellidos.invalid">Ingrese un apellido</mat-error>
               </mat-form-field>
             </div>
 
             <div class="bloque">
               <label>Número de cédula</label>
               <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="cedula">
+              <input matInput type="text" formControlName="cedula">          
+              <mat-error *ngIf="editForm.controls.cedula.errors">{{errorCedula()}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -38,27 +41,42 @@
               <label>Fecha de nacimiento</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="fechaNacimiento">
+              
               </mat-form-field>
             </div>
 
             <div class="bloque">
               <label>Dirección</label>
               <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="direccion">
+              <input matInput type="text" formControlName="direccion">              
+            <mat-error *ngIf="editForm.controls.direccion.invalid">Ingrese una dirección</mat-error>
               </mat-form-field>
             </div>
 
             <div class="bloque">
               <label>Ciudad</label>
               <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="ciudad">
+              <input matInput type="text" formControlName="ciudad"[matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let municipio of filteredMunicipios | async" [value]="municipio">
+                  {{municipio}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="editForm.controls.ciudad.invalid">Ingrese una ciudad</mat-error>
               </mat-form-field>
             </div>
 
             <div class="bloque">
               <label>Departamento</label>
               <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="departamento">
+              <input matInput type="text" formControlName="departamento" [matAutocomplete]="dp">
+              <!--Cambiar el nombre[matAutocomplete]=""" si hay mas de dos auto completar -->
+              <mat-autocomplete #dp="matAutocomplete">
+                <mat-option *ngFor="let departamento of filteredDepartamentos | async" [value]="departamento">
+                  {{departamento}}
+                </mat-option>
+              </mat-autocomplete>   
+              <mat-error *ngIf="editForm.controls.departamento.invalid">Ingrese un departamento</mat-error>           
               </mat-form-field>
             </div>
 
@@ -66,13 +84,16 @@
               <label>País</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="pais">
+              <mat-error *ngIf="editForm.controls.pais.invalid">Ingrese un país</mat-error>
               </mat-form-field>
             </div>
 
             <div class="bloque">
               <label>Código postal</label>
               <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="codigoPostal">
+                <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" formControlName="codigoPostal">
+                <mat-error *ngIf="editForm.controls.codigoPostal.invalid">Ingrese un código postal</mat-error>
+                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
               </mat-form-field>
             </div>
 
@@ -80,6 +101,7 @@
               <label>Profesión</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="profesion">
+              <mat-error *ngIf="editForm.controls.profesion.invalid">Ingrese una profesión</mat-error>
               </mat-form-field>
             </div>
 
@@ -92,8 +114,12 @@
 
             <div class="bloque">
               <label>Descripción</label>
-              <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="descripcion">
+              <mat-form-field appearance="outline" class="descripcion">
+                
+                <textarea class="message " matInput #message maxlength="500" placeholder="Ex. Soy una persona creativa..."
+                  formControlName="descripcion"></textarea>
+                <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
+                <mat-error *ngIf="editForm.controls.descripcion.invalid">Ingrese una descripción</mat-error>
               </mat-form-field>
             </div>
           
