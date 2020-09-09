@@ -144,7 +144,7 @@ export class ProfileComponent implements OnInit {
           apellidos: registro.payload.data()['apellidos'],
           cedula: registro.payload.data()['cedula'],
           email: registro.payload.data()['email'],
-          fechaNacimiento: myFormattedDate,
+          fechaNacimiento: registro.payload.data()['fechaNacimiento'],//myFormattedDate,
           direccion: registro.payload.data()['direccion'],
           ciudad: registro.payload.data()['ciudad'],
           departamento: registro.payload.data()['departamento'],
@@ -161,7 +161,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  onRegister(){
+  onRegister(form){
         
       }
 
