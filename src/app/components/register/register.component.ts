@@ -264,7 +264,7 @@ export class RegisterComponent implements OnInit {
     
     
     
-    //verifica el resultado del metodo verificar existencia de correo y que solo sean 3 habilidades
+    //verifica el resultado del metodo verificar existencia de correo
     if (this.ValidarExistenciaCorreo(this.registerForm.get('email').value)  == false && 
         this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false ) 
     {

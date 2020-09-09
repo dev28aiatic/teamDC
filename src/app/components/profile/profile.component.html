@@ -4,101 +4,104 @@
         <mat-card-content fxFlex="20%">
           <mat-card-title>Mi perfil </mat-card-title>
 
-          <form (ngSubmit)="onRegister (editForm.value)" [formGroup]="editForm">
+          <form (ngSubmit)="onUpdate(editForm.value)" [formGroup]="editForm">
 
-          <div class="bloque">
-            <label>Nombres</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="nombres">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Nombres</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="nombres">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Apellidos</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="apellidos">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Apellidos</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="apellidos">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Número de cédula</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="cedula">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Número de cédula</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="cedula">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>E-mail</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="email">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>E-mail</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="email">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Fecha de nacimiento</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="fechaNacimiento">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Fecha de nacimiento</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="fechaNacimiento">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Dirección</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="direccion">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Dirección</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="direccion">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Ciudad</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="ciudad">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Ciudad</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="ciudad">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Departamento</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="departamento">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Departamento</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="departamento">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>País</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="pais">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>País</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="pais">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Código postal</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="codigoPostal">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Código postal</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="codigoPostal">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Profesión</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="profesion">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Profesión</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="profesion">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Habilidades</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="habilidades">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Habilidades</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="habilidades">
+              </mat-form-field>
+            </div>
 
-          <div class="bloque">
-            <label>Descripción</label>
-            <mat-form-field appearance="outline">
-            <input matInput type="text" formControlName="descripcion">
-            </mat-form-field>
-          </div>
+            <div class="bloque">
+              <label>Descripción</label>
+              <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="descripcion">
+              </mat-form-field>
+            </div>
           
+            
+        <button  mat-raised-button [disabled]=" btnEditarDisabled" (click)="onEditar()">Editar</button>
+        <button type="submit" mat-raised-button [disabled]="!editForm.valid" >Guardar</button>
 
-        </form> 
+        </form>        
 
         </mat-card-content>
       </mat-card>
