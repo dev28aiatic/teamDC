@@ -221,8 +221,11 @@ export class ProfileComponent implements OnInit {
     this.editForm.controls.habilidades.setValue([]);
     this.editForm.controls.habilidades.setValidators([Validators.required]);
     this.editForm.controls.habilidades.updateValueAndValidity();
+    this.editForm.controls.fechaNacimiento.setValue([]);
+    this.editForm.controls.fechaNacimiento.setValidators([Validators.required]);
+    this.editForm.controls.fechaNacimiento.updateValueAndValidity();
     
-   
+    this.nHabilidaddes=0;
       const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
         let i=2;
         while (habiForm.controls.length!=0) {
