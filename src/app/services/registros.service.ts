@@ -76,7 +76,7 @@ export class RegistrosService {
 
   //actualiza un registro
   public updateRegistro(documentId: string, registro: RegistrosI) {
-    return this.firestore.collection('cats').doc(documentId).set(registro);
+    return this.firestore.collection('registros').doc(documentId).set(registro);
   }
   //elimina un registro
   eliminarRegistro(registroID: string){

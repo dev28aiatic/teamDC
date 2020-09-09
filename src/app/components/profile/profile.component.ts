@@ -19,8 +19,16 @@ export class ProfileComponent implements OnInit {
   private UserEmail:string;
   // lista de registros
   listaRegistros;
+  //registro a modificar
+  registroUsuario
   //para el formGroup
   editForm: FormGroup;
+  //cambiar estados de los botones
+  btnEditarDisabled=false;
+  btnGuardarDisabled=true;
+
+  //guarga el id del documento a editar
+  documentId;
 
   constructor(
     // para manejar el estado de la sesion
@@ -54,6 +62,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
+  
     this.UserEmail=this.afAuth.auth.currentUser.email;
 
 
@@ -74,6 +83,9 @@ export class ProfileComponent implements OnInit {
       descripcion: '',
 
     });
+    //desactivo el formulario
+    this.editForm.disable();
+
 
     this.getRegistros();
     console.log(this.UserEmail)
@@ -112,23 +124,18 @@ export class ProfileComponent implements OnInit {
       const { email } = element.data;
 
       if(email==this.UserEmail)
-      {
-        const elemetTemp=element;
-        this.listaRegistros=elemetTemp;
+      {        
+        this.registroUsuario=element
                
         break;
       }      
       
     };
 
-    //console.log(this.listaRegistros)
-    const registro=this.listaRegistros;
+      //para el id del documento a actualizar
+      this.documentId = this.registroUsuario.id;
 
-    
-      const currentStatus = 2;
-      const documentId = this.listaRegistros.id;
-
-      let editSubscribe = this.registroService.getRegistro(documentId).subscribe((registro) => {
+      let editSubscribe = this.registroService.getRegistro(this.documentId).subscribe((registro) => {
        
         console.log(registro.payload.data());
         const datePipe = new DatePipe('en-US');
@@ -144,7 +151,7 @@ export class ProfileComponent implements OnInit {
           apellidos: registro.payload.data()['apellidos'],
           cedula: registro.payload.data()['cedula'],
           email: registro.payload.data()['email'],
-          fechaNacimiento: myFormattedDate,
+          fechaNacimiento: registro.payload.data()['fechaNacimiento'],//myFormattedDate,
           direccion: registro.payload.data()['direccion'],
           ciudad: registro.payload.data()['ciudad'],
           departamento: registro.payload.data()['departamento'],
@@ -161,10 +168,131 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  onRegister(){
-        
-      }
+  //boton de editar
+  onEditar(){
+    this.editForm.enable();
+    //para no cambiar el correo
+    this.editForm.get('email').disable();
+    this.btnEditarDisabled=true;
+  }
 
+  onUpdate(form){
+
+
+    //verifica el resultado del metodo verificar existencia de correo 
+    if (this.ValidarExistenciaCorreo(this.editForm.get('email').value)  == false && 
+        this.ValidarExistenciaCedula(this.editForm.get('cedula').value) == false ) 
+    {
+      console.log("entro a on register");
+   
+      this.registroService.updateRegistro(this.documentId, this.editForm.value).then(() => {
+      
+        this.editForm.disable();
+        this.btnEditarDisabled=false;
+        this.btnGuardarDisabled=true;
+
+        //para actualizar el correo y contraseña pero esta desabilitado
+        //this.afAuth.auth.currentUser.updateEmail(this.editForm.controls.email.value);
+        //this.afAuth.auth.currentUser.updatePassword(this.editForm.controls.email.value);
+
+      console.log('Documento editado exitósamente');
+      }, (error) => {
+        console.log(error);
+      });
+
+    }else{
+
+      console.log(" no es valido para el registro");
+      
+
+    }
+
+
+    
+  }
+        
+  
+
+ //Valida la existencia del correoen la bd, retorna un boolean
+ 
+ ValidarExistenciaCorreo(correo: string): boolean {
+  let existeCorreo: boolean = false;
+  let respuesta: boolean = true;
+
+
+  //Obtengo los correos en un array
+  for (let i = 0; i < this.listaRegistros.length; i++) {
+    const element = this.listaRegistros[i];
+
+    const { email } = element.data;
+
+    //excluyo el documento que se va a editar
+    if(element.id!= this.registroUsuario.id)
+    {
+      if (correo == email) {
+        existeCorreo = true;
+      }
+    }
+
+    
+    
+  }
+
+
+  if (existeCorreo == true) {
+
+    console.log('El correo ingresado ya está registrado');
+    //const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
+    //this.openDialog(data);
+    respuesta = true;
+
+  }
+  else {
+    respuesta = false;
+  }
+
+  return respuesta;
+
+}
+
+//Valida la existencia del la C.C en la bd, retorna un boolean
+ValidarExistenciaCedula(cedulaIn: string): boolean {
+
+  let existeCedula: boolean = false;
+  let respuesta: boolean = true;
+
+
+  //Obtengo los correos en un array
+  for (let i = 0; i < this.listaRegistros.length; i++) {
+    const element = this.listaRegistros[i];
+
+    const { cedula } = element.data;
+
+    //excluyo el documento que se va a editar
+    if(element.id!= this.registroUsuario.id)
+    {
+      if (cedulaIn == cedula) {
+        existeCedula = true;
+      }
+    }
+   
+
+    
+  }
+  if (existeCedula == true) {
+
+    console.log('La cedula ingresada ya está registrado');
+    //const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
+    //this.openDialog(data);
+    respuesta = true;
+  }   
+  else {
+    respuesta = false;
+  }
+
+  return respuesta;
+
+}
 
   
 }
