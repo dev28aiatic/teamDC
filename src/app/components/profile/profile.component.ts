@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   registroUsuario
   //para el formGroup
   editForm: FormGroup;
+  checkboxForm :FormGroup;
   //cambiar estados de los botones
   btnEditarDisabled=false;
   btnGuardarDisabled=true;
@@ -61,12 +62,12 @@ export class ProfileComponent implements OnInit {
     //para subir la imagen al storage de firebase
     private storage:AngularFireStorage
     
-  )
+  ) {
 
-  
-  
-  
-  {
+     //crea un formgoroup para los checkBox
+    this.checkboxForm= this.fb.group({
+      //un array de Form
+      habiForm: new FormArray([], Validators.required)});
   
     this.editForm= this.fb.group({
 
@@ -189,7 +190,7 @@ export class ProfileComponent implements OnInit {
         });
       })
 
-      console.log(this.listaRegistros);
+      //console.log(this.listaRegistros);
       this.setDatosFormulario();
 
     });
@@ -213,15 +214,15 @@ export class ProfileComponent implements OnInit {
       
     };
 
-    console.log( this.registroUsuario.id );
-    console.log('sdsadadas');
-    console.log( this.documentId );
+    //console.log( this.registroUsuario.id );
+    //console.log('sdsadadas');
+    //console.log( this.documentId );
       //para el id del documento a actualizar
       this.documentId = this.registroUsuario.id;
 
       let editSubscribe = this.registroService.getRegistro(this.documentId).subscribe((registro) => {
        
-        console.log(registro.payload.data());
+        //console.log(registro.payload.data());
         const datePipe = new DatePipe('en-US');
         const myFormattedDate = datePipe.transform(registro.payload.data()['fechaNacimiento'].seconds*1000, 'dd/MM/yyyy');
         console.log(myFormattedDate);
@@ -235,7 +236,7 @@ export class ProfileComponent implements OnInit {
           apellidos: registro.payload.data()['apellidos'],
           cedula: registro.payload.data()['cedula'],
           email: registro.payload.data()['email'],
-          fechaNacimiento: registro.payload.data()['fechaNacimiento'],//myFormattedDate,
+          fechaNacimiento: /*registro.payload.data()['fechaNacimiento'],*/myFormattedDate,
           direccion: registro.payload.data()['direccion'],
           ciudad: registro.payload.data()['ciudad'],
           departamento: registro.payload.data()['departamento'],
@@ -258,6 +259,23 @@ export class ProfileComponent implements OnInit {
     //para no cambiar el correo
     this.editForm.get('email').disable();
     this.btnEditarDisabled=true;
+    this.editForm.controls.habilidades.setValue([]);
+    this.editForm.controls.habilidades.setValidators([Validators.required]);
+    this.editForm.controls.habilidades.updateValueAndValidity();
+    this.editForm.controls.fechaNacimiento.setValue([]);
+    this.editForm.controls.fechaNacimiento.setValidators([Validators.required]);
+    this.editForm.controls.fechaNacimiento.updateValueAndValidity();
+    
+    this.nHabilidaddes=0;
+      const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
+        let i=2;
+        while (habiForm.controls.length!=0) {
+          habiForm.removeAt(i);
+          i--;
+        }
+
+    //this.checkboxForm.controls.habiForm
+    console.log(this.checkboxForm.controls.habiForm);
   }
 
   onUpdate(form){
@@ -268,7 +286,7 @@ export class ProfileComponent implements OnInit {
     if (this.ValidarExistenciaCorreo(this.editForm.get('email').value)  == false && 
         this.ValidarExistenciaCedula(this.editForm.get('cedula').value) == false ) 
     {
-      console.log("entro a on register");
+      
    
       
 
@@ -400,14 +418,7 @@ export class ProfileComponent implements OnInit {
   //Conteno de habilidades
   nHabilidaddes:number=0;
 
-  //crea un formgoroup para los checkBox
-  checkboxForm = new FormGroup({
-
-    //un array de Form
-    habiForm: new FormArray([], Validators.required)
-
-  });
-
+ 
 
   onCheckboxChange(e) {
     const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
