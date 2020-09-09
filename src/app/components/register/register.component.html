@@ -39,7 +39,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Fecha de nacimiento</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="picker"  disabled></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="registerForm.controls.fechaNacimiento.invalid">Ingrese una fecha de nacimiento</mat-error>
           </mat-form-field>
