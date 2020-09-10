@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
     ) { 
 
       this.registerForm= this.fb.group({
-
+      photoUrl: new FormControl(''),
       nombres: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
       cedula: new FormControl('', [Validators.required, this.validarCedula]),
@@ -90,6 +90,7 @@ export class RegisterComponent implements OnInit {
     //asigna los valores al formulario como vacios
     this.registerForm.setValue({
 
+      photoUrl:'',
       nombres: '',
       apellidos: '',
       cedula: null,
@@ -275,7 +276,8 @@ export class RegisterComponent implements OnInit {
       if (this.currentStatus == 1) {
 
         //console.log("creacion: " + this.registerForm.get('email').value)
-        //console.log("creacion: " + this.registerForm.get('cedula').value)
+        
+        this.registerForm.controls.photoUrl.setValue("https://firebasestorage.googleapis.com/v0/b/teamdc-c1083.appspot.com/o/uploads%2Fprofile_x33rmk1gs4l?alt=media&token=3992d407-d0b0-4c72-8a83-47072304e93e");
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
 
@@ -288,7 +290,7 @@ export class RegisterComponent implements OnInit {
 
           //limpia el formulario
           this.registerForm.setValue({
-
+            photoUrl:'',
             nombres: '',
             apellidos: '',
             cedula: null,
