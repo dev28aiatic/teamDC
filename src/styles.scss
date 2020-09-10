@@ -2,3 +2,17 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+//para el dialog
+.custom-modalbox {
+    width: 80%;
+    border: solid 2px orangered;
+    background-color:red;
+    mat-dialog-container {
+        //background-color: blue;
+        height: 100%;
+        width: 100%;
+    }
+  
+}

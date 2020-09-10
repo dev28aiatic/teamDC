@@ -174,7 +174,7 @@ export class RegisterComponent implements OnInit {
       startWith(''),
       map(value => this._filterDepartamentos(value))
     );
-
+    
   }
 
 
@@ -237,9 +237,9 @@ export class RegisterComponent implements OnInit {
     //dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
     let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
     dialogRef.afterClosed().subscribe(value => {
-      width: '250px';
+     
       this.resDialog=value;
-      console.log(`Dialog sent: ${value}`); 
+      //console.log(`Dialog sent: ${value}`); 
     });;
   }
   
@@ -277,7 +277,7 @@ export class RegisterComponent implements OnInit {
 
         //console.log("creacion: " + this.registerForm.get('email').value)
         
-        this.registerForm.controls.photoUrl.setValue("https://firebasestorage.googleapis.com/v0/b/teamdc-c1083.appspot.com/o/uploads%2Fprofile_x33rmk1gs4l?alt=media&token=3992d407-d0b0-4c72-8a83-47072304e93e");
+        this.registerForm.controls.photoUrl.setValue("https://firebasestorage.googleapis.com/v0/b/teamdc-c1083.appspot.com/o/uploads%2FLogo.png?alt=media&token=4c51f16d-bb24-4845-9961-b8145ce65a1b");
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
 
