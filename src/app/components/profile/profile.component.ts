@@ -94,6 +94,7 @@ export class ProfileComponent implements OnInit {
 
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
+  
 
   
 
@@ -147,10 +148,17 @@ export class ProfileComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     //para recuperar la url
     task.snapshotChanges().pipe(finalize(()=>this.urlImage=ref.getDownloadURL())).subscribe();
+    //obtiene el tamaño de la imagen y lo pasa a MB
+    const Filesize = e.target.files[0].size/ 1024 / 1024;
+    if (Filesize > 1) {
+      alert('el archivo excede el tamaño permitido 1 MB');
+     
+  }
+    console.log('tamaño', Filesize)
 
     }
 
-
+    
  
   
   //metodo para informar errores en el campo de cedula
