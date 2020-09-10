@@ -165,13 +165,19 @@ export class ProfileComponent implements OnInit {
         });
       })
     ).subscribe();
+
+    //obtiene el tamaño de la imagen y lo pasa a MB
+    const Filesize = e.target.files[0].size/1024/1024;
+    if (Filesize>1) {
+      alert('El archivo excede el tamaño permitido de 1MB')
+    }
 }
 
 
 
     
 
-
+    
  
   
   //metodo para informar errores en el campo de cedula
