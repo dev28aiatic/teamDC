@@ -1,13 +1,11 @@
-<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
-    
-  
-    <div class="contenido" mat-dialog-content fxLayout="row wrap">
-       {{data.mensaje}}
-    </div>
-    <p></p>
-    <div mat-dialog-actions class="contenedorButton" fxLayout="row wrap">
-        <button mat-button class="button" (click)="close()" fxLayout="row wrap">Aceptar</button>
-    </div>
 
-
+<div  class="mensaje">
+    <h1>{{data.mensaje}}</h1>
+    <img class="foto" src="https://blogdesuperheroes.es/wp-content/plugins/BdSGallery/BdSGaleria/20546.jpg" alt="">
 </div>
+
+<div >
+    <button mat-button class="button" (click)="close()" >Aceptar</button>
+</div>
+    
+
