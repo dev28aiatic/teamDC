@@ -135,7 +135,7 @@ export class ProfileComponent implements OnInit {
   //metodo para subir la imagen al storage
   onUpload(e){
     //console.log('subir', e);
-    //generar un id unico para la imagen
+    //generar un id unico para la imagen   
     const id = Math.random().toString(36).substring(2);
     //aqui se tiene el archivo
     const file = e.target.files[0];
@@ -240,12 +240,12 @@ export class ProfileComponent implements OnInit {
     //console.log( this.documentId );
       //para el id del documento a actualizar
       this.documentId = this.registroUsuario.id;
-
+      this.urlImage=this.registroUsuario.data.photoUrl;
       let editSubscribe = this.registroService.getRegistro(this.documentId).subscribe((registro) => {
        
       
      
-        let myFormattedDate = this.datePipe.transform(registro.payload.data()['fechaNacimiento']*1000, 'dd/MM/yyyy');
+        let myFormattedDate = this.datePipe.transform(registro.payload.data()['fechaNacimiento'].seconds*1000, 'dd/MM/yyyy');
        
        
        
