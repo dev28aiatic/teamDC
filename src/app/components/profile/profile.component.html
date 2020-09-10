@@ -11,7 +11,7 @@
                 <input type="file" accept=".png, .jpg" (change)="onUpload($event)" />
                 <input #imageUser type="hidden" [value]="downloadURL| async">
                 
-                <img mat-card-avatar  class="avatar"  src="{{downloadURL| async}}">
+                <img mat-card-avatar  class="avatar"  [src]="this.urlImage">
                 <mat-icon>cloud_upload</mat-icon><span>  Cambiar foto de perfil</span>
                 
               </label>
