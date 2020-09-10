@@ -4,67 +4,68 @@
         <mat-card-content fxFlex="20%">
           <mat-card-title>Mi perfil </mat-card-title>
 
-          <form (ngSubmit)="onUpdate(editForm.value)" [formGroup]="editForm">
+          <form (ngSubmit)="onUpdate(editForm.value)" [formGroup]="editForm" fxLayout="row wrap">
 
             <div class="container-input-file">
               <label class="custom-file">
-                <input type="file" accept=".png, .jpg" (change)="onUpload($event)" />
+                <input  type="file" accept=".png, .jpg" (change)="onUpload($event)" />
                 <input #imageUser type="hidden" [value]="downloadURL| async">
                 
                 <img mat-card-avatar  class="avatar"  [src]="this.urlImage">
-                <mat-icon>cloud_upload</mat-icon><span>  Cambiar foto de perfil</span>
+                <p><mat-icon>cloud_upload</mat-icon> Cambiar foto de perfil </p>
                 
               </label>
 
             </div>
 
-            <div class="bloque">
+           
               <label>Nombres</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="nombres">              
               <mat-error *ngIf="editForm.controls.nombres.invalid">Ingrese un nombre</mat-error>
               </mat-form-field>
-            </div>
+              
 
-            <div class="bloque">
+            
               <label>Apellidos</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="apellidos">
               <mat-error *ngIf="editForm.controls.apellidos.invalid">Ingrese un apellido</mat-error>
               </mat-form-field>
-            </div>
-
-            <div class="bloque">
+           
+             
+         
               <label>Número de cédula</label>
               <mat-form-field appearance="outline">
-                <input matInput type="number" formControlName="cedula">            
+              <input matInput type="number" formControlName="cedula">            
               <mat-error *ngIf="editForm.controls.cedula.errors">{{errorCedula()}}</mat-error>
               </mat-form-field>
-            </div>
-
-            <div class="bloque">
+              
+            
+              <div class="bloque"></div>
+           
               <label>E-mail</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="email">
               </mat-form-field>
-            </div>
-
-            <div class="bloque" *ngIf= "this.btnEditarDisabled ==false; else fechass" >
+         
+              <div class="bloque"></div>
+        
               <label>Fecha de nacimiento</label>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline" *ngIf= "this.btnEditarDisabled ==false; else fechass" >
               <input matInput type="text" formControlName="fechaNacimiento">              
               </mat-form-field>
-            </div>
-
-            <div class="bloque">
+         
+              <div class="bloque"></div>
+         
               <label>Dirección</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="direccion">              
             <mat-error *ngIf="editForm.controls.direccion.invalid">Ingrese una dirección</mat-error>
               </mat-form-field>
-            </div>
+            
 
-            <div class="bloque">
+      
               <label>Ciudad</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="ciudad"[matAutocomplete]="auto">
@@ -75,9 +76,9 @@
               </mat-autocomplete>
               <mat-error *ngIf="editForm.controls.ciudad.invalid">Ingrese una ciudad</mat-error>
               </mat-form-field>
-            </div>
+           
 
-            <div class="bloque">
+          
               <label>Departamento</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="departamento" [matAutocomplete]="dp">
@@ -89,41 +90,36 @@
               </mat-autocomplete>   
               <mat-error *ngIf="editForm.controls.departamento.invalid">Ingrese un departamento</mat-error>           
               </mat-form-field>
-            </div>
+           
 
-            <div class="bloque">
+            
               <label>País</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="pais">
               <mat-error *ngIf="editForm.controls.pais.invalid">Ingrese un país</mat-error>
               </mat-form-field>
-            </div>
-
-            <div class="bloque">
+            
               <label>Código postal</label>
               <mat-form-field appearance="outline">
                 <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" formControlName="codigoPostal">
                 <mat-error *ngIf="editForm.controls.codigoPostal.invalid">Ingrese un código postal</mat-error>
                 <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
               </mat-form-field>
-            </div>
+            
 
-            <div class="bloque">
               <label>Profesión</label>
               <mat-form-field appearance="outline">
               <input matInput type="text" formControlName="profesion">
               <mat-error *ngIf="editForm.controls.profesion.invalid">Ingrese una profesión</mat-error>
               </mat-form-field>
-            </div>
+            
 
-            <div class="bloque" *ngIf= "this.btnEditarDisabled ==false; else loading" >
               <label>Habilidades</label>
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" *ngIf= "this.btnEditarDisabled ==false; else loading">
               <input matInput type="text" formControlName="habilidades">
               </mat-form-field>
-            </div>
+          
 
-            <div class="bloque">
               <label>Descripción</label>
               <mat-form-field appearance="outline" class="descripcion">
                 
@@ -132,9 +128,9 @@
                 <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
                 <mat-error *ngIf="editForm.controls.descripcion.invalid">Ingrese una descripción</mat-error>
               </mat-form-field>
-            </div>
-          
             
+          
+            <p></p>
         <button  mat-raised-button [disabled]=" btnEditarDisabled" (click)="onEditar()">Editar</button>
         <button type="submit" mat-raised-button [disabled]="!editForm.valid" >Guardar</button>
 
@@ -149,7 +145,7 @@
 
   <ng-template #loading >
     
-    <div class="bloque" >
+    
       
       <form [formGroup]="checkboxForm">
         <table id="tbl-habilidades">
@@ -173,13 +169,13 @@
       </form>
 
 
-    </div>
+    
 
     
     </ng-template>
 
     <ng-template #fechass>
-      <div class="bloque" >
+      
         <form [formGroup]="editForm">
           <mat-form-field appearance="outline">
             <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
@@ -189,5 +185,5 @@
           
           </mat-form-field>
         </form>
-    </div>
+    
     </ng-template>
