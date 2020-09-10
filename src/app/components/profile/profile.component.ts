@@ -51,6 +51,8 @@ export class ProfileComponent implements OnInit {
 
   //para la fecha de nacimiento
   datePipe = new DatePipe('en-US');
+
+  breakpoint: number;
   
   constructor(
     // para manejar el estado de la sesion
@@ -101,6 +103,10 @@ export class ProfileComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
+
+
+
 
     this.getDatosMuniYDeap();
          
@@ -130,6 +136,9 @@ export class ProfileComponent implements OnInit {
     this.getRegistros(); 
 
   }
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 6;
+  }
 
 
   //metodo para subir la imagen al storage
@@ -147,7 +156,13 @@ export class ProfileComponent implements OnInit {
     const task = this.storage.upload(filePath,file);
 
     this.uploadPercent = task.percentageChanges();
-    //para recuperar la url
+
+     //obtiene el tamaño de la imagen y lo pasa a MB
+     const Filesize = e.target.files[0].size/1024/1024;
+     if (Filesize>1) {
+       alert('El archivo excede el tamaño permitido de 1MB')
+     }else{
+       //para recuperar la url
     task.snapshotChanges()
     .pipe(
       finalize(() => {
@@ -166,11 +181,10 @@ export class ProfileComponent implements OnInit {
       })
     ).subscribe();
 
-    //obtiene el tamaño de la imagen y lo pasa a MB
-    const Filesize = e.target.files[0].size/1024/1024;
-    if (Filesize>1) {
-      alert('El archivo excede el tamaño permitido de 1MB')
-    }
+     }
+    
+
+   
 }
 
 
