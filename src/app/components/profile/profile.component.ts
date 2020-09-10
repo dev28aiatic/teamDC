@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit {
   filteredMunicipios: Observable<string[]>;
   filteredDepartamentos: Observable<string[]>;
 
+  //para la fecha de nacimiento
+  datePipe = new DatePipe('en-US');
   
   constructor(
     // para manejar el estado de la sesion
@@ -71,6 +73,7 @@ export class ProfileComponent implements OnInit {
   
     this.editForm= this.fb.group({
 
+      photoUrl: new FormControl(''),
       nombres: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
       cedula: new FormControl('', [Validators.required, this.validarCedula]),
@@ -91,11 +94,10 @@ export class ProfileComponent implements OnInit {
   }
 
 
-
+  //para la imagen basado en https://dev.to/fayvik/uploading-an-image-to-firebase-cloud-storage-with-angular-2aeh
   uploadPercent: Observable<number>;
-  urlImage: Observable<string>;
-  
-
+  downloadURL: Observable<string>;
+  urlImage;
   
 
   ngOnInit(): void {
@@ -107,7 +109,7 @@ export class ProfileComponent implements OnInit {
 
 
     this.editForm.setValue({
-
+      photoUrl:'',
       nombres: '',
       apellidos: '',
       cedula: null,
@@ -133,7 +135,7 @@ export class ProfileComponent implements OnInit {
   //metodo para subir la imagen al storage
   onUpload(e){
     //console.log('subir', e);
-    //generar un id unico para la imagen
+    //generar un id unico para la imagen   
     const id = Math.random().toString(36).substring(2);
     //aqui se tiene el archivo
     const file = e.target.files[0];
@@ -144,19 +146,36 @@ export class ProfileComponent implements OnInit {
     //se realiza la subida del fichero
     const task = this.storage.upload(filePath,file);
 
-
     this.uploadPercent = task.percentageChanges();
     //para recuperar la url
-    task.snapshotChanges().pipe(finalize(()=>this.urlImage=ref.getDownloadURL())).subscribe();
-    //obtiene el tamaño de la imagen y lo pasa a MB
-    const Filesize = e.target.files[0].size/ 1024 / 1024;
-    if (Filesize > 1) {
-      alert('el archivo excede el tamaño permitido 1 MB');
-     
-  }
-    console.log('tamaño', Filesize)
+    task.snapshotChanges()
+    .pipe(
+      finalize(() => {
+        this.downloadURL = ref.getDownloadURL();
+        this.downloadURL.subscribe(url => {
+          if (url) {
+            this.urlImage = url;
+            this.editForm.enable();
+            this.editForm.controls.photoUrl.setValue([this.urlImage]);            
+            this.editForm.controls.fechaNacimiento.setValue(this.registroUsuario.data.fechaNacimiento);
+            this.onUpdate(this.editForm.value);
 
+          }
+          console.log(this.urlImage);
+        });
+      })
+    ).subscribe();
+
+    //obtiene el tamaño de la imagen y lo pasa a MB
+    const Filesize = e.target.files[0].size/1024/1024;
+    if (Filesize>1) {
+      alert('El archivo excede el tamaño permitido de 1MB')
     }
+}
+
+
+
+    
 
     
  
@@ -227,19 +246,21 @@ export class ProfileComponent implements OnInit {
     //console.log( this.documentId );
       //para el id del documento a actualizar
       this.documentId = this.registroUsuario.id;
-
+      this.urlImage=this.registroUsuario.data.photoUrl;
       let editSubscribe = this.registroService.getRegistro(this.documentId).subscribe((registro) => {
        
-        //console.log(registro.payload.data());
-        const datePipe = new DatePipe('en-US');
-        const myFormattedDate = datePipe.transform(registro.payload.data()['fechaNacimiento'].seconds*1000, 'dd/MM/yyyy');
-        console.log(myFormattedDate);
+      
+     
+        let myFormattedDate = this.datePipe.transform(registro.payload.data()['fechaNacimiento'].seconds*1000, 'dd/MM/yyyy');
+       
+       
        
         
-
-        this.editForm.setValue({
-  
         
+
+        this.editForm.setValue({  
+          
+          photoUrl:registro.payload.data()['photoUrl'],
           nombres: registro.payload.data()['nombres'],
           apellidos: registro.payload.data()['apellidos'],
           cedula: registro.payload.data()['cedula'],

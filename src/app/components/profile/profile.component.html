@@ -9,9 +9,9 @@
             <div class="container-input-file">
               <label class="custom-file">
                 <input type="file" accept=".png, .jpg" (change)="onUpload($event)" />
-                <input #imageUser type="hidden" [value]="urlImage| async">
+                <input #imageUser type="hidden" [value]="downloadURL| async">
                 
-                <img mat-card-avatar  class="avatar"  src="{{urlImage | async}}">
+                <img mat-card-avatar  class="avatar"  [src]="this.urlImage">
                 <mat-icon>cloud_upload</mat-icon><span>  Cambiar foto de perfil</span>
                 
               </label>
