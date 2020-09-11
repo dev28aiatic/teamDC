@@ -1,5 +1,5 @@
 *********
-Registros
+Registro
 *********
 
 1. Descripción
