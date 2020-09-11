@@ -30,6 +30,11 @@ Este es la documentación de unproyecto realizado en angular 10
 
 
 
+.. Indices and tables
+==================
 
+* :ref:`genindex`
+* :ref:`home`
+* :ref:`search`
 
 .. sphinx-build -b html source build 

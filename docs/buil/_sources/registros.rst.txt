@@ -1,0 +1,70 @@
+*********
+Registro
+*********
+
+1. Descripción
+    En este componente se debe mostrar todos los registros almacenados en la base de datos. 
+
+2. Importaciones
+    Para este componente de debe importar el servicio a la base de datos, el servicio para la 
+    autentificación de usuarios y el servicio a una api para obtener los municipios y departamentos 
+    de Colombia.
+    ::
+
+        import { RegistrosService } from 'src/app/services/registros.service';
+        import { AngularFireAuth } from '@angular/fire/auth';
+        import {MunicipiosColombiaService} from 'src/app/services/municipios-colombia.service'.
+
+    También se importan componentes de Angular Material para la implementación de ventana
+    emergente o modal y de se importa el componente Router para un redireccionamiento al 
+    concluir el registro.
+    ::
+
+        import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+        import { DialogComponent } from '../dialog/dialog.component';
+        import { Router } from '@angular/router';.
+
+    
+3. Desarrollo
+    El constructor se inyectan todos los objetos a necesarios para el desarrollo del componente.
+    ::
+        private afAuth: AngularFireAuth,
+        private registrosServiceF : RegistrosService,
+        private municipiosService:MunicipiosColombiaService,
+        private matDialog: MatDialog,
+        private router:Router,   
+        private fb:FormBuilder.
+
+    Para la captura de datos se emplea los formularios reactivos, para ello se declara un
+    objeto de la clase FormGroup y se inicializa creando un FormControl para cada campo requerido, 
+    declarando su estado y sus respectivo valida daciones.  
+    ::
+        this.registerForm= this.fb.group({
+            photoUrl: new FormControl(''),      
+            cedula: new FormControl('', [Validators.required, this.validarCedula]),
+            .
+            .
+            .
+            descripcion: new FormControl('', [Validators.required]),
+            }).
+
+    En el método ngOnInit se realiza la obtención de todos los registros almacenados en la 
+    base de datos con el fin de realizar validaciones con dichos datos, estos datos son 
+    almacenados en un array.
+    ::
+
+        this.registrosServiceF.getRegistros().subscribe((rgSnapshot) => {
+        this.listaRegistros = [];
+        rgSnapshot.forEach((rgData: any) => {
+            this.listaRegistros.push({
+            id: rgData.payload.doc.id,
+            data: rgData.payload.doc.data()
+                                
+            });
+        })
+        });
+    sacaaaaaaaaaaaaaaaaaaaa
+
+
+
+

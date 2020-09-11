@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Registro &mdash; documentación de teamDC - 0.0.1</title>
+  <title>Registros &mdash; documentación de teamDC - 0.0.1</title>
   
 
   
@@ -83,7 +83,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Registro</a></li>
+<li><a class="reference internal" href="#">Registros</a></li>
 </ul>
 </div>
             
@@ -130,7 +130,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Registro</li>
+      <li>Registros</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,8 +149,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="registro">
-<h1>Registro<a class="headerlink" href="#registro" title="Enlazar permanentemente con este título">¶</a></h1>
+  <div class="section" id="registros">
+<h1>Registros<a class="headerlink" href="#registros" title="Enlazar permanentemente con este título">¶</a></h1>
+<ol class="arabic">
+<li><dl class="simple">
+<dt>Descripción</dt><dd><p>En este componente se debe realizar el registro de cada nuevo usuario, donde el usuario debe ingresar una
+serie de datos necesaria para su registro.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Importaciones</dt><dd><p>Para este componente de debe importar MatTableDataSource para la tabulación de los datos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">MatTableDataSource</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;@angular/material/table&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>También se importa el servicio con el cual se establece la conexión con la base de datos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">RegistrosService</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;src/app/services/registros.service&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Desarrollo</dt><dd><p>Se declara y se inicializa un array con los nombres de las columnas a mostrar.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">displayedColumns</span><span class="p">:</span> <span class="n">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nombres&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;descripcion&#39;</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>Se declara una un objeto de la clase que importamos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">new</span> <span class="n">MatTableDataSource</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>En el constructor se inyecta el servicio.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">registroService</span><span class="p">:</span><span class="n">RegistrosService</span>
+</pre></div>
+</div>
+<p>En el método ngOnInit se obtienen todos los datos de la base de datos y se los asigna al objeto dataSource.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">this</span><span class="o">.</span><span class="n">registroService</span><span class="o">.</span><span class="n">getAllUser</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">res</span> <span class="o">=&gt;</span>
+<span class="n">this</span><span class="o">.</span><span class="n">dataSource</span><span class="o">.</span><span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
 </div>
 
 
