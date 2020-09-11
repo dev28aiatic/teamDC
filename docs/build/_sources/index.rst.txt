@@ -52,6 +52,11 @@ Para dar estilo se usó SCSS y la librería de estilos Angular Material.
 
 
 
+.. Indices and tables
+==================
 
+* :ref:`genindex`
+* :ref:`home`
+* :ref:`search`
 
 .. sphinx-build -b html source build 
