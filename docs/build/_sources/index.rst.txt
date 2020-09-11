@@ -22,7 +22,6 @@ Contenido
 
 Descripción
 ***************************
-Este es la documentación de un proyecto realizado en angular 10 con lenguage TypeScript, html y scss para su frontend.
 TEAM DC es una plataforma web responsiva de tipo dashboard, con varias secciones. 
 La plataforma permite a los usuarios registrarse y acceder a todas los módulos de la plataforma. 
 En la sección mi perfil se visuliza la información del usuario, permitiendo que se editen estos datos y 
