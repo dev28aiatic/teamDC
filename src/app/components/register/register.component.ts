@@ -204,29 +204,29 @@ export class RegisterComponent implements OnInit {
   }
 
   
-    //para la cedula
-  
-    private validarCedula: ValidatorFn =(control: AbstractControl): ValidationErrors | null => {
-      const cedula = control.value;
-      let respuesta= null;
-      if (this.ValidarExistenciaCedula(cedula)==true) {
-        return{ ms: 'para otro forma de error' };
-      }
-      
-      return null;
+  //para la cedula
+
+  private validarCedula: ValidatorFn =(control: AbstractControl): ValidationErrors | null => {
+    const cedula = control.value;
+    let respuesta= null;
+    if (this.ValidarExistenciaCedula(cedula)==true) {
+      return{ ms: 'para otro forma de error' };
     }
+    
+    return null;
+  }
       
   
-    //metodo para informar errores en el campo de cedula
-    errorCedula() {
-      if (this.registerForm.controls.cedula.hasError('required')) {
-        return 'Ingrese un número de cédula';
-      }
-      if (this.registerForm.controls.cedula.hasError('ms')) {
-        return 'El número de cedula ya ha sido registrado';
-      }
-      
+  //metodo para informar errores en el campo de cedula
+  errorCedula() {
+    if (this.registerForm.controls.cedula.hasError('required')) {
+      return 'Ingrese un número de cédula';
     }
+    if (this.registerForm.controls.cedula.hasError('ms')) {
+      return 'El número de cedula ya ha sido registrado';
+    }
+    
+  }
   
     
     
