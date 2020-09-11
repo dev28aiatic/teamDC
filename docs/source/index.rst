@@ -8,13 +8,31 @@ Bienvenido a la documentación de DCTEAM!
 
 Descripción
 ***************************
-Este es la documentación de unproyecto realizado en angular 10 
+Este es la documentación de un proyecto realizado en angular 10 con lenguage TypeScript, html y scss para su frontend.
+TEAM DC es una plataforma web responsiva de tipo dashboard, con varias secciones. 
+La plataforma permite a los usuarios registrarse y acceder a todas los módulos de la plataforma. 
+En la sección mi perfil se visuliza la información del usuario, permitiendo que se editen estos datos y 
+agregar una foto de usuario. La seccion de registros muestra información de todos los usuarios registrados.
 
 
-1.  Descripción
-2.  Desario 1
-3.  Desafio 2
-4.  Desafio 4
+Framework
+------------------------------
+El proyecto es desarrollado en el framework Angular creado por Google.
+La finalidad de Angular es facilitar el desarrollo de aplicaciones web SPA y 
+además dar herramientas para trabajar con los elementos de una web de una manera 
+más sencilla y óptima.
+
+Lenguaje de programación
+-------------------------------------------
+El proyecto es desarrollado en el lenguaje TypeScript.
+Es un lenguaje de programación libre y de código abierto desarrollado y mantenido por Microsoft.
+Es un superconjunto de JavaScript, que esencialmente añade tipos estáticos y objetos basados en clases.
+
+Estilos
+-------------------------------- 
+Se trabajó con el lenguaje de etiquetas HTML con el que se define el contenido de las páginas web. 
+Para dar estilo se usó SCSS y la librería de estilos Angular Material.
+
 
 
 .. toctree::
