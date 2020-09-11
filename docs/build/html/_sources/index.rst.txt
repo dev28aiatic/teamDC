@@ -2,25 +2,28 @@
    sphinx-quickstart on Tue Sep  1 15:04:31 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
-
-Welcome to DCTEAM's documentation!
-.. teamDC documentation master file, created by
-   sphinx-quickstart on Tue Sep  1 11:10:16 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to teamDC's documentation!
-==================================
+   
+Bienvenido a la documentación de DCTEAM!
+=========================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+      descripcion
+      home
+      login
+      mi Perfil
+      registro
+      registros
+      video
 
 
 
-Indices and tables
+.. Indices and tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
+.. * :ref:`genindex`
+* :ref:`home`
 * :ref:`search`
+
+.. sphinx-build -b html source build 
