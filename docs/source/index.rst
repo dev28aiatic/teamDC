@@ -6,6 +6,20 @@
 Bienvenido a la documentación de DCTEAM!
 =========================================
 
+Contenido
+====================
+
+.. toctree::
+   :maxdepth: 2
+   
+   descripcion
+   home
+   login
+   mi Perfil
+   registro
+   registros
+   video
+
 Descripción
 ***************************
 Este es la documentación de un proyecto realizado en angular 10 con lenguage TypeScript, html y scss para su frontend.
@@ -35,16 +49,6 @@ Para dar estilo se usó SCSS y la librería de estilos Angular Material.
 
 
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-      descripcion
-      home
-      login
-      mi Perfil
-      registro
-      registros
-      video
 
 
 
