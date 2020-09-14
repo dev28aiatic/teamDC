@@ -1,0 +1,12 @@
+footer{
+    background: linear-gradient(to bottom, #eb791c 0%, #ff4e36 100%);
+      display: flex;
+      justify-content:center;
+      flex-direction: column;
+      flex-wrap: wrap; /*flex items will wrap onto multiple lines, from top to bottom.*/
+      padding: 20px;
+      
+}
+span{
+ text-align: center;
+}

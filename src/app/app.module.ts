@@ -38,6 +38,7 @@ import { MatListModule } from '@angular/material/list';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FooterComponent } from './components/footer/footer.component';
 import { AuthService } from './services/auth.service';
 import { ContactComponent } from './components/contact/contact.component';
 
@@ -50,6 +51,7 @@ import { ContactComponent } from './components/contact/contact.component';
     AppComponent,
     SidenavComponent,
     DialogComponent,
+    FooterComponent,
     ContactComponent
   ],
   imports: [
