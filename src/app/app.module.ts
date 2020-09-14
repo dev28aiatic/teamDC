@@ -38,12 +38,9 @@ import { MatListModule } from '@angular/material/list';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 import { AngularFireStorageModule } from '@angular/fire/storage';
-<<<<<<< HEAD
 import { FooterComponent } from './components/footer/footer.component';
-=======
 import { AuthService } from './services/auth.service';
 import { ContactComponent } from './components/contact/contact.component';
->>>>>>> master
 
 
    
@@ -54,11 +51,8 @@ import { ContactComponent } from './components/contact/contact.component';
     AppComponent,
     SidenavComponent,
     DialogComponent,
-<<<<<<< HEAD
-    FooterComponent
-=======
+    FooterComponent,
     ContactComponent
->>>>>>> master
   ],
   imports: [
     BrowserModule,
