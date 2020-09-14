@@ -35,11 +35,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MunicipiosColombiaService } from './services/municipios-colombia.service';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 import { AngularFireStorageModule } from '@angular/fire/storage';
+<<<<<<< HEAD
 import { FooterComponent } from './components/footer/footer.component';
+=======
+import { AuthService } from './services/auth.service';
+import { ContactComponent } from './components/contact/contact.component';
+>>>>>>> master
 
 
    
@@ -50,7 +54,11 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     SidenavComponent,
     DialogComponent,
+<<<<<<< HEAD
     FooterComponent
+=======
+    ContactComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -99,6 +107,8 @@ import { FooterComponent } from './components/footer/footer.component';
   providers: [
     //Servicio de firabese para BD
     RegistrosService,
+    // servicio para la autentificacion
+    AuthService,
     //servicio de api
     //MunicipiosColombiaService
 
