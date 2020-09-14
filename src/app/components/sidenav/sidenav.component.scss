@@ -3,7 +3,7 @@
 }
 
 .logo{
-  width: 60%;
+  width: 70%;
   height: 80%;
 
 }
@@ -32,14 +32,20 @@
 .mat-toolbar{
   background: linear-gradient(to bottom, #eb791c 0%, #ff4e36 100%);
 }
+
 mat-sidenav{
   background: linear-gradient(to bottom, #eb791c 0%, #ff4e36 100%);
 }
 .menu-spacer {
   flex: 1 1 auto;
 }
+.header{
+  display:flex;
+  justify-content:center;
+}
 
   a{
+    padding: 10px;
     text-decoration: none;
     color: black;
   }
