@@ -39,7 +39,7 @@
       </button> 
       <img class="logo-sidenav" *ngIf="isHandset$ | async" src="../../../assets/logo.png">
       
-      <button mat-button [matMenuTriggerFor]="menu" fxShow="true" fxHide.gt-sm><mat-icon>home</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="menu" fxShow="true" fxHide.gt-sm><mat-icon>menu</mat-icon></button>
      <mat-menu #menu="matMenu">
        <button mat-menu-item [routerLink]="['/home']">Inicio</button>
        <button mat-menu-item>Equipo</button>
