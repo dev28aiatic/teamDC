@@ -39,6 +39,7 @@ import { MunicipiosColombiaService } from './services/municipios-colombia.servic
 import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FooterComponent } from './components/footer/footer.component';
 
 
    
@@ -48,7 +49,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
   declarations: [
     AppComponent,
     SidenavComponent,
-    DialogComponent
+    DialogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
