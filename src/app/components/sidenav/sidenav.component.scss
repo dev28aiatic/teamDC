@@ -1,6 +1,7 @@
 .sidenav-container {
   height: 100%;
 }
+
 .logo{
   width: 60%;
   height: 80%;
@@ -34,3 +35,11 @@
 mat-sidenav{
   background: linear-gradient(to bottom, #eb791c 0%, #ff4e36 100%);
 }
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
+  a{
+    text-decoration: none;
+    color: black;
+  }
