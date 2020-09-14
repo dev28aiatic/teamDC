@@ -1,0 +1,53 @@
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
+  <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
+    <mat-card>
+      <mat-card-content fxFlex="20%">
+        <mat-card-title>Contacto</mat-card-title>
+  
+        <form (ngSubmit)="oncreate(contactForm.value)" [formGroup]="contactForm" fxLayout="row wrap">
+  
+  
+          <label>Nombre Completo</label>
+          <mat-form-field appearance="outline">
+            <input matInput type="text" formControlName="nombreCompleto">
+            <mat-error *ngIf="contactForm.controls.nombreCompleto.invalid">Ingrese un nombre</mat-error>
+          </mat-form-field>
+  
+          <label>Email</label> 
+          <mat-form-field appearance="outline">                
+              <input matInput placeholder="example@example.com" formControlName="email" required>            
+              <mat-error *ngIf="contactForm.controls.email.errors"></mat-error>
+          </mat-form-field >
+        
+        
+
+          <label>Motivo</label>
+          <mat-form-field appearance="outline">
+            <input matInput type="text" formControlName="motivo">
+            <mat-error *ngIf="contactForm.controls.motivo.invalid">Ingrese una motivo</mat-error>
+          </mat-form-field>  
+
+
+          <label>Mensaje</label>
+          <mat-form-field appearance="outline" class="descripcion">
+
+            <textarea class="message " matInput #message maxlength="500" placeholder="Ex. Soy una persona creativa..."
+              formControlName="mensaje"></textarea>
+            <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
+            <mat-error *ngIf="contactForm.controls.mensajeinvalid">Ingrese una descripción</mat-error>
+          </mat-form-field>
+
+
+          
+          
+          <button type="submit" mat-raised-button [disabled]="!contactForm.valid" >Guardar</button>
+  
+        </form>
+  
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+  
+  
+ 

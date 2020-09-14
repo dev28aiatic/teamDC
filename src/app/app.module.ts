@@ -35,10 +35,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MunicipiosColombiaService } from './services/municipios-colombia.service';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { YouTubePlayerModule }  from  '@angular/youtube-player' ;
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AuthService } from './services/auth.service';
+import { ContactComponent } from './components/contact/contact.component';
 
 
    
@@ -48,7 +49,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
   declarations: [
     AppComponent,
     SidenavComponent,
-    DialogComponent
+    DialogComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +99,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
   providers: [
     //Servicio de firabese para BD
     RegistrosService,
+    // servicio para la autentificacion
+    AuthService,
     //servicio de api
     //MunicipiosColombiaService
 

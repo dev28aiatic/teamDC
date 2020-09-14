@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ContactComponent } from './components/contact/contact.component';
 
 //redireccion a la pagina de register
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'video', loadChildren: () => import('./components/video/video.module').then(m => m.VideoModule) },
   { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
   { path: 'profile', loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule) },
-  ];
+  {path:'contact', component:ContactComponent},  
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

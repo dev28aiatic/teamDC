@@ -18,5 +18,15 @@ export interface RegistrosI{
 
 }
 
+export interface ContactosI{
+ 
+     
+    nombresCompleto: string;  
+    email: string;
+    motivo: string;
+    mensaje: string;    
+   
+   }
+
 
 
