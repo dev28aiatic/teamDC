@@ -43,6 +43,7 @@ import { AuthService } from './services/auth.service';
 import { ContactComponent } from './components/contact/contact.component';
 
 
+
    
 
 
@@ -52,7 +53,8 @@ import { ContactComponent } from './components/contact/contact.component';
     SidenavComponent,
     DialogComponent,
     FooterComponent,
-    ContactComponent
+    ContactComponent,
+  
   ],
   imports: [
     BrowserModule,
