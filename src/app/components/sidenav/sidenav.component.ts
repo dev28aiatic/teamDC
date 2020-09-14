@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  providers:[AuthService]
 })
 export class SidenavComponent {
 

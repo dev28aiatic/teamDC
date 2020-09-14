@@ -14,7 +14,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers:[AuthService],
 })
 export class LoginComponent implements OnInit {
  
