@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'video', loadChildren: () => import('./components/video/video.module').then(m => m.VideoModule) },
   { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
   { path: 'profile', loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule) },
-  {path:'contact', component:ContactComponent},  
+  {path:'contact', component:ContactComponent},
+  { path: 'team', loadChildren: () => import('./components/team/team.module').then(m => m.TeamModule) },  
 ];
 
 @NgModule({
