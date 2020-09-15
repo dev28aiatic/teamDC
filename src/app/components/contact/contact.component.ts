@@ -19,6 +19,7 @@ export class ContactComponent implements OnInit {
   listaContactos;
 
   
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
   // para el selecionar le motivo
   motivos= [
@@ -37,7 +38,7 @@ export class ContactComponent implements OnInit {
     this.contactForm= this.fb.group({
 
       nombreCompleto: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email, /*this.validarEmail*/]),
+      email: new FormControl('', [Validators.required, Validators.required, Validators.pattern(this.emailPattern), /*this.validarEmail*/]),
       motivo: new FormControl('', [Validators.required]),
       mensaje: new FormControl('', [Validators.required]),
 
@@ -88,7 +89,7 @@ export class ContactComponent implements OnInit {
     if (this.contactForm.controls.email.hasError('ms')) {
       return 'El email ya ha sido registrado';
     }
-    return this.contactForm.controls.email.hasError('email') ? 'Email no válido' : '';
+    return this.contactForm.controls.email.hasError('pattern') ? 'Email no válido' : '';
   }
 
   oncreate(form){
