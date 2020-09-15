@@ -103,7 +103,7 @@ export class ContactComponent implements OnInit {
       Host : 'smtp.elasticemail.com',
       Username : 'dev24@aiatic.com',
       Password : '23F329DDAEFBBEC236806EE66626F22F5AAA',
-      To : 'dev28@aiatic.com',
+      To : 'dev28@aiatic.com',//ceo@aiatic.com
       From : 'dev24@aiatic.com',
       Subject : 'Dc Team Nuevo contacto',
       Body : `

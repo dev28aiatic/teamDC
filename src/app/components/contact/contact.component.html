@@ -1,62 +1,55 @@
-<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
-  <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
-    <mat-card>
-      <mat-card-content fxFlex="20%">
-        <mat-card-title>Contacto</mat-card-title>
-  
-        <form (ngSubmit)="oncreate(contactForm.value)" [formGroup]="contactForm" fxLayout="row wrap">
-  
-  
-          <label>Nombre Completo</label>
-          <mat-form-field appearance="outline">
-            
-            <input matInput type="text" formControlName="nombreCompleto" placeholder="Pepito Perez">
-            <mat-error *ngIf="contactForm.controls.nombreCompleto.invalid">Ingrese un nombre</mat-error>
-          </mat-form-field>
-  
-          <label>Email</label> 
-          <mat-form-field appearance="outline">                
-              <input matInput placeholder="example@example.com" formControlName="email" required>            
-              <mat-error *ngIf="contactForm.controls.email.errors">{{errorEmail()}}</mat-error>
-          </mat-form-field >        
+<mat-card >
+  <mat-card-content  fxLayout="column"  >
+    <mat-card-title>Contacto</mat-card-title>
+
+    <form (ngSubmit)="oncreate(contactForm.value)" [formGroup]="contactForm" >
+
+      <div class="contenedor"  >
+
+        <label>Nombre Completo</label>
+        <mat-form-field appearance="outline">
+          
+          <input matInput type="text" formControlName="nombreCompleto" placeholder="Pepito Perez">
+          <mat-error *ngIf="contactForm.controls.nombreCompleto.invalid">Ingrese un nombre</mat-error>
+        </mat-form-field>
+
+        <label>Email</label> 
+        <mat-form-field appearance="outline">                
+            <input matInput placeholder="example@example.com" formControlName="email" required>            
+            <mat-error *ngIf="contactForm.controls.email.errors">{{errorEmail()}}</mat-error>
+        </mat-form-field >        
+      
+
+        <label>Motivo</label>
+        <mat-form-field appearance="outline">
+
+          <mat-select formControlName="motivo" name="Motivos" placeholder="Escoja un motivo">
+            <mat-option *ngFor="let mot of motivos" [value]="mot.value" >
+              {{mot.value}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="contactForm.controls.motivo.invalid">Ingrese una motivo</mat-error>
+        </mat-form-field>  
+
+        <label>Mensaje</label>        
+        <mat-form-field appearance="outline" class="mensaje">
+          <textarea class="tarea" matInput #message maxlength="500" placeholder="Estoy interesado en..."
+            formControlName="mensaje"></textarea>
+          <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
+          <mat-error *ngIf="contactForm.controls.mensaje.invalid">Ingrese una mensaje</mat-error>
+        </mat-form-field>
+
+
         
+        <div class="contenedorBoton"><button type="submit" mat-raised-button [disabled]="!contactForm.valid" >Enviar</button></div>
+        
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+ 
 
-          <label>Motivo</label>
-          <mat-form-field appearance="outline">
-
-            <mat-select formControlName="motivo" name="Motivos" placeholder="Escoja un motivo">
-              <mat-option *ngFor="let mot of motivos" [value]="mot.value" >
-                {{mot.value}}
-              </mat-option>
-            </mat-select>
-
-            <mat-error *ngIf="contactForm.controls.motivo.invalid">Ingrese una motivo</mat-error>
-          </mat-form-field>  
-
-
-          
-
-
-
-          <label>Mensaje</label>
-          <mat-form-field appearance="outline" class="descripcion">
-            <textarea class="message " matInput #message maxlength="500" placeholder="Estoy interesado en..."
-              formControlName="mensaje"></textarea>
-            <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
-            <mat-error *ngIf="contactForm.controls.mensaje.invalid">Ingrese una mensaje</mat-error>
-          </mat-form-field>
-
-
-          
-          
-          <button type="submit" mat-raised-button [disabled]="!contactForm.valid" >Enviar</button>
-  
-        </form>
-  
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
   
   
  
