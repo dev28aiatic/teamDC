@@ -1,7 +1,8 @@
 .card-persona{
 
     max-width: 200px;
-    margin: auto auto auto;
+    padding: 30px;
+    
 }
 
     img{
@@ -10,6 +11,12 @@
         float:left
     }
     p{
-        float: left;
+        
+        text-align: justify;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 20px;
+        
     }
+   
 
