@@ -24,7 +24,7 @@
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <a href="#" mat-button>Inicio</a>
         <a href="#" mat-button>Equipo</a>
-        <a href="#" mat-button>Contacto</a>
+        <a [routerLink]="['/contact']"  mat-button>Contacto</a>
       
       </div>
    
@@ -42,8 +42,8 @@
       <button mat-button [matMenuTriggerFor]="menu" fxShow="true" fxHide.gt-sm><mat-icon>menu</mat-icon></button>
      <mat-menu #menu="matMenu">
        <button mat-menu-item [routerLink]="['/home']">Inicio</button>
-       <button mat-menu-item>Equipo</button>
-       <button mat-menu-item>Contacto</button>
+       <button mat-menu-item >Equipo</button>
+       <button mat-menu-item [routerLink]="['/contact']" >Contacto</button>
     </mat-menu>
       
     </mat-toolbar>

@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import {ContactosService} from 'src/app/services/contactos.service'
 
+import 'src/assets/smtp.js';
+declare let Email: any;
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -14,6 +17,8 @@ export class ContactComponent implements OnInit {
   contactForm: FormGroup;
 
   listaContactos;
+
+  
 
   // para el selecionar le motivo
   motivos= [
@@ -87,8 +92,34 @@ export class ContactComponent implements OnInit {
   }
 
   oncreate(form){
+    //contraseña 23F329DDAEFBBEC236806EE66626F22F5AAA
 
     this.contactosService.crearContacto(this.contactForm.value).then(() => {
+
+      //toco importar en el archivo angular.json ln 34 y 99
+      //"scripts": ["src/assets/smtp.js"]    
+      //tomado de https://medium.com/javascript-in-plain-english/send-emails-without-a-server-side-code-with-angular-e227c3e62dbd     
+      Email.send({
+      Host : 'smtp.elasticemail.com',
+      Username : 'dev24@aiatic.com',
+      Password : '23F329DDAEFBBEC236806EE66626F22F5AAA',
+      To : 'dev28@aiatic.com',
+      From : 'dev24@aiatic.com',
+      Subject : 'Dc Team Nuevo contacto',
+      Body : `
+            <h1> Nuevo registro de Contacto</h1>
+            <p></p>
+            <h3> Nombre: ${this.contactForm.controls.nombreCompleto.value}</h3>
+            <h3> Correo: ${this.contactForm.controls.email.value}</h3>
+            <h3> Motivo: ${this.contactForm.controls.motivo.value}</h3>
+            <h3> Mensaje</h3>
+            <p>${this.contactForm.controls.mensaje.value}</p> 
+      
+      `
+      }).then( message => {
+        alert(message); 
+       } );
+
 
       this.contactForm.setValue({
 
@@ -103,4 +134,7 @@ export class ContactComponent implements OnInit {
       console.error(error);
     }); 
   }
+
+  
+
 }
