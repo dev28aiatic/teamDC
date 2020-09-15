@@ -24,7 +24,7 @@
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <a [routerLink]="['/home']" mat-button>Inicio</a>
         <a [routerLink]="['/team']" mat-button>Equipo</a>
-        <a href="#" mat-button>Contacto</a>
+        <a [routerLink]="['/contact']"  mat-button>Contacto</a>
       
       </div>
    
@@ -39,11 +39,16 @@
       </button> 
       <img class="logo-sidenav" *ngIf="isHandset$ | async" src="../../../assets/logo.png">
       
-      <button mat-button [matMenuTriggerFor]="menu" fxShow="true" fxHide.gt-sm><mat-icon>home</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="menu" fxShow="true" fxHide.gt-sm><mat-icon>menu</mat-icon></button>
      <mat-menu #menu="matMenu">
        <button mat-menu-item [routerLink]="['/home']">Inicio</button>
+<<<<<<< HEAD
        <button mat-menu-item [routerLink]="['/team']">Equipo</button>
        <button mat-menu-item>Contacto</button>
+=======
+       <button mat-menu-item >Equipo</button>
+       <button mat-menu-item [routerLink]="['/contact']" >Contacto</button>
+>>>>>>> master
     </mat-menu>
       
     </mat-toolbar>

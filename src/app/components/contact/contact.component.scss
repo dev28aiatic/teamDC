@@ -1,169 +1,131 @@
 
-.content{
-    padding: 16px;
+mat-card {
+  max-width:80%;
+  text-align: center;
+  margin:auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color:#f5e8d3;
+}
+
+mat-card-title{
   
-    mat-card {
-      max-width: 800px;
-      margin: 2em auto;
-      text-align: center;
-      flex: 1;
-      padding: 16px;
-      background-color: #f5e8d3;
+  width: 100%;
+  font-size: 30px;  
+  text-align: center;
     
-  
-    
-      mat-form-field{
-        padding: 10px;
-        width: 200px;
-        margin:5% auto;
-        background-color: #f5e8d3;
-      }
-   
-     
-    }
-    }
-    .bloque{
-      display: block;
-     
-    }
-  
-  
-  mat-card-title{
-  
-    margin: 0;
-    border-radius: 10px;
-    width: 100%;
-    height: 50px;
-    text-align: center;
-      
-  }
-  
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    background-color: white;
-  }
-  
-  mat-card-title{
-    
-    margin: 0;
-    border-radius: 10px;
-    width: 100%;
-    height: 50px;
-    text-align: center;
-      
-  }
-     
-  label{
-    
-    text-align: left;
-    display: inline-block;
-    width: 400px;
-    
-  }
-  input{
-    border-color: orangered;
-     display: block;
-   }
-  
-  
-  mat-form-field{
-    background-color: white;
-    padding: 10px;
-    width: 500px;
-    
-  }  
-  
-  
-  table{
-    width: 100%;
-    align-content: flex-start;
-    
-  }
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=numer]::-webkit-outer-spin-button{
-    -webkit-appearance: none;
-    margin:0;
-  }
-  
-  input[type=number]{-moz-appearance: textfield;}
-  
-  
-  button{
-  align-content: center;
-  background-color: orangered;
-  margin: 20px;
-  padding: 1px;
-  width: 250px;
-  display: inline-block;
-  flex-direction: 100px;
-  }
-  
-  button:hover{
-  background-color: grey;
-  }
-  
-  //input outline color por defecto
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: gray!important;
-  //opacity: 1!important;
-  }
-  
-  //mat-input focused color cunado se activa
-  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #eb791c!important;
-  }
-  
-  // mat-input error outline color caundo hay error
-  ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
-  color: #ff4e36!important;
-  opacity: 0.8!important;
-  }
-  
-  
-  // mat-input carent color para alertas
-  ::ng-deep .mat-input-element {
-  caret-color: orange!important;
-  }
-  
-  // mat-input error carent color
-  ::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
-  caret-color: blue!important;
-  }
-  
-  // mat-label normal state style color de los label en reposo
-  ::ng-deep .mat-form-field-label {
-  color: gray!important;
-  // color: $mainColor!important;
-  }
-  
-  // mat-label focused style color del label al minimizarse
-  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: black!important;
-  }
-  
-  // mat-label error style color cuando el campo es imvalido
-  ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-  color: red!important;
-  }
-  
-  
-  .descripcion{
+}
+mat-card-content{
+  width: 100%;
+
+}
+.contenedor{
+  //background-color: #eb791c;
+  margin: auto;
+  margin-top: 20px;
   width: 80%;
+
+}
+
+
+mat-form-field{
   
-  }
-  .message{
-  height: 105px;
-  }
+  width: 80%;
+  margin:3% auto;
+  background-color: #f5e8d3;
+  display: block;
+}
+
   
-  .section{
+label{
+font-size: 20px;
+text-align: center;
+display: block;
+width: 100%;
+}
+
+
+button{
+align-content: center;
+background-color: orangered; 
+width: 100%;
+
+}
+
+button:hover{
+background-color: grey;
+}
+.contenedorBoton{
+margin:auto;
+margin-top: 10%;
+width: 80%;    
+//background-color: green;
+}
+
+
+Input:Focus {
+  color:black;
+  font-size: 18px;
+}
+.mensaje{
+  width: 80%;
+  height: 260px;
+  //background-color: #12e412d0;
   
-  margin-left: auto;
-  margin-right: auto;
-  width: 250px;
-  }
-  li {
-  list-style-type: none;
-  margin-top: 4px;
-  text-align: left;
-  }
+}
+.tarea{
+  
+  height: 200px;
+  //background-color: #5112e4d0;
+  
+}
+    
+
+//input outline color por defecto
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+color: gray!important;
+//opacity: 1!important;
+}
+
+//mat-input focused color cunado se activa
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+color: #eb791c!important;
+}
+
+// mat-input error outline color caundo hay error
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+color: #ff4e36!important;
+opacity: 0.8!important;
+}
+
+
+// mat-input carent color para alertas
+::ng-deep .mat-input-element {
+caret-color: orange!important;
+}
+
+// mat-input error carent color
+::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+caret-color: blue!important;
+}
+
+// mat-label normal state style color de los label en reposo
+::ng-deep .mat-form-field-label {
+color: gray!important;
+// color: $mainColor!important;
+}
+
+// mat-label focused style color del label al minimizarse
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+color: black!important;
+}
+
+// mat-label error style color cuando el campo es imvalido
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+color: red!important;
+}
+
+
+  
   
   
