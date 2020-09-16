@@ -3,21 +3,19 @@ import { FormControl, Validators, FormGroup, FormArray, AbstractControl, FormBui
 
 //Importar servicio encargada de ls bd
 import { RegistrosService } from 'src/app/services/registros.service';
-
+//para el loguin
+import { AngularFireAuth } from '@angular/fire/auth';
 //Importar servici encargada de los municipios de colombia
 import {MunicipiosColombiaService} from 'src/app/services/municipios-colombia.service'
-
+//para el manejo del modal
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-
-import { DialogComponent } from '../dialog/dialog.component';
 import { Router } from '@angular/router';
 
-//para el loguin
-import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-register',
@@ -32,14 +30,15 @@ export class RegisterComponent implements OnInit {
   public listaRegistros=[];
   
   
+  //donde se van a almacenar los datos de la api
   datosMunicipios:string[]=[];
   datosDepartamentos:string[]=[];
   
 
-//respuesta del Dialog
-   resDialog:boolean=false;
-  //para el autocompletar
- 
+  //respuesta del Dialog
+  resDialog:boolean=false;
+    
+  //para el autocompletar 
   filteredMunicipios: Observable<string[]>;
   filteredDepartamentos: Observable<string[]>;
 
@@ -49,7 +48,7 @@ export class RegisterComponent implements OnInit {
 
   //Si el valor es 1, la aplicación estará en modo creación si es 2 se habilita el modo edicion
   public currentStatus = 1;
-
+  //para el formulario
   registerForm: FormGroup;
 
   //inyectar el servicio rgistros servis encargada de la bd 
@@ -157,11 +156,7 @@ export class RegisterComponent implements OnInit {
         this.datosDepartamentos=NuevosDatosDepartamentos; 
     });
 
-    
-
-  
-
-  
+    // para el autocompletado  y es empleado el html
     this.filteredMunicipios = this.registerForm.controls.ciudad.valueChanges
       .pipe(
         startWith(''),
@@ -226,25 +221,9 @@ export class RegisterComponent implements OnInit {
       return 'El número de cedula ya ha sido registrado';
     }
     
-  }
-  
-    
-    
-  //abrir dialogo
-  openDialog(data:any) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = data;
-    //dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
-    let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
-    dialogRef.afterClosed().subscribe(value => {
-     
-      this.resDialog=value;
-      //console.log(`Dialog sent: ${value}`); 
-    });;
-  }
-  
+  }         
 
-
+//retorna un array con la filtracion para los autocompletados
   _filterMunicipios(value: string): string[] {
     const filterValue = value.toLowerCase();
 
@@ -259,24 +238,173 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  //para hacer un nuevo registro en la bd
+ //Valida la existencia del correoen la bd, retorna un boolean 
+  ValidarExistenciaCorreo(correo: string): boolean {
+    let existeCorreo: boolean = false;
+    let respuesta: boolean = true;
 
-  public onRegister(form, documentId = this.documentId) {
+
+    //Obtengo los correos en un array
+    for (let i = 0; i < this.listaRegistros.length; i++) {
+      const element = this.listaRegistros[i];
+      //obtengo el email
+      const { email } = element.data;
+      //comparo que si existe
+      if (correo == email) {
+        existeCorreo = true;
+      }
+      
+    }
     
+    if (existeCorreo == true) {
+
+      //otra forma de informar empleando el modal
+      //const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
+      //this.openDialog(data);
+      respuesta = true;
+
+    }
+    else {
+      respuesta = false;
+    }
+
+    return respuesta;
+
+  }
+
+ //Valida la existencia del la C.C en la bd, retorna un boolean
+  ValidarExistenciaCedula(cedulaIn: string): boolean {
+
+    let existeCedula: boolean = false;
+    let respuesta: boolean = true;
+
+
+    //Obtengo los correos en un array
+    for (let i = 0; i < this.listaRegistros.length; i++) {
+      const element = this.listaRegistros[i];
+    //obtengo la cedula
+      const { cedula } = element.data;
+      //comparo que si existe
+      if (cedulaIn == cedula) {
+        existeCedula = true;
+      }
+
+      
+    }
+    if (existeCedula == true) {
+      //otra forma de informar empleando el modal
+      //const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
+      //this.openDialog(data);
+      respuesta = true;
+    }   
+    else {
+      respuesta = false;
+    }
+
+    return respuesta;
+
+  }
+  
+  // para el checkbox empleando *ngFor en el html
+  listaHabi: any = [
+    { id: 1, name: 'Autoconocimiento' },
+    { id: 2, name: 'Empatía' },
+    { id: 3, name: 'Comunicación asertiva' },
+    { id: 4, name: 'Pensamiento crítico' },
+    { id: 5, name: 'Toma de decisiones' },
+    { id: 6, name: 'Adaptación' },
+    { id: 7, name: 'Comunicación' },
+    { id: 8, name: 'Trabajo en equipo' },
+    { id: 9, name: 'Capacidad de asociación' },
+    { id: 10, name: 'Razonamiento' },
+  ];
+  //Conteno de habilidades
+  nHabilidaddes:number=0;
+
+  //crea un formgoroup para los checkBox
+  checkboxForm = new FormGroup({
+      //un array de Form
+    habiForm: new FormArray([], Validators.required)
+
+  });
+
+
+  onCheckboxChange(e) {
+    const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
+        
+    //si lo chuliaron agrega al array siempre que numero de habilidades sea menor 3
+    if (e.checked && this.nHabilidaddes<=2) {
+      
+      habiForm.push(new FormControl(e.source.value));        
+      this.nHabilidaddes++;
+      //metodo que actuliza las habilidades con el formControl principal
+      this.validarHabilidades();
+    } else {
+
+      //si numero la habilidad se desmarca elimina habilidad 
+      if(e.checked==false)
+      {
+        const index = habiForm.controls.findIndex(x => x.value === e.source.value);
+        habiForm.removeAt(index);
+        //metodo que actuliza las habilidades con el formControl principal
+        this.validarHabilidades();
+        this.nHabilidaddes--;
+      }
+      //si numero de habilidades esta al limite (3) no agrega nada y no permite chulear
+      else{
+        e.source._checked=false;
+      }
+    }
+
+    //si no hay habilidades selecionadas no habilita el boton de registrarse
+    if(this.nHabilidaddes==0)
+    {
+      //restauro el formControl principal, limpiandolo, agregando el validador y actualizandolo
+      this.registerForm.controls.habilidades.setValue([]);
+      this.registerForm.controls.habilidades.setValidators([Validators.required]);
+      this.registerForm.controls.habilidades.updateValueAndValidity();
+   }
     
-    
+   //console.log(this.registerForm.controls.habilidades.value);
+
+  }
+
+  // para asignar las habilidades al Formgroup principal
+  validarHabilidades(){
+    //obtengo los valores de FormGroup
+    const ob = this.checkboxForm.value;
+
+    //obtengo el array habForm de ob ostenido de FormGroup
+    const { habiForm } = ob;
+
+    //para almacenar las habilidades
+    let habilidadesIn: string = '';    
+
+    for (let i = 0; i < habiForm.length; i++) {
+
+      habilidadesIn += habiForm[i] + " / "; // \n 
+
+    }         
+    //asigno las habilidaesIn al valor del formcontrol habilidaes para que lo registre en la bd  
+    this.registerForm.controls.habilidades.setValue([habilidadesIn]);
+
+  }
+
+
+   //para hacer un nuevo registro en la bd
+   public onRegister(form, documentId = this.documentId) {
+            
     //verifica el resultado del metodo verificar existencia de correo
     if (this.ValidarExistenciaCorreo(this.registerForm.get('email').value)  == false && 
         this.ValidarExistenciaCedula(this.registerForm.get('cedula').value) == false ) 
     {
 
-      console.log(`Status: ${this.currentStatus}`);
-
+      //console.log(`Status: ${this.currentStatus}`);
       //si es 1 es para la creacion de un nuevo registro
       if (this.currentStatus == 1) {
 
-        //console.log("creacion: " + this.registerForm.get('email').value)
         
+        // se le asigan una foto por defecto
         this.registerForm.controls.photoUrl.setValue("https://firebasestorage.googleapis.com/v0/b/teamdc-c1083.appspot.com/o/uploads%2FLogo.png?alt=media&token=4c51f16d-bb24-4845-9961-b8145ce65a1b");
 
         this.registrosServiceF.crearRegistro(this.registerForm.value).then(() => {
@@ -315,12 +443,13 @@ export class RegisterComponent implements OnInit {
       
     }
 
+    // se crea un usuario en la autentificacion de firebase con su email
     const result= this.afAuth.auth.createUserWithEmailAndPassword(
       this.registerForm.controls.email.value, 
       this.registerForm.controls.email.value);
 
 
-
+    //parte de codigo no aplicado, es para editar basado en una ejemplo seguido para el crud
     if (this.currentStatus != 1) {
 
       //modo edicion => no funciona porque falta formulario de edicion
@@ -354,6 +483,30 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  
+    //abrir dialogo
+    openDialog(data:any) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = data;
+      //dialogConfig.data = { titulo:'Estado de registro', mensaje:'Exitoso'};
+      let dialogRef = this.matDialog.open(DialogComponent, dialogConfig)
+      dialogRef.afterClosed().subscribe(value => {
+       
+        this.resDialog=value;
+        //console.log(`Dialog sent: ${value}`); 
+      });;
+    }
+    
+
+
+
+
+
+
+
+
+  //funciones del crud que no se aplican pero que se adaptaron de un ejemplo seguido para el crud
+
   //para la edicion de un registro aun no funciona porque no hay fromulario de edicion
   public editarRegistro(documentId) {
     let editSubscribe = this.registrosServiceF.getRegistro(documentId).subscribe((registro) => {
@@ -380,6 +533,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  
   //elimina el registro de la bd
   public eliminarRegistro(documentId) {
     this.registrosServiceF.eliminarRegistro(documentId).then(() => {
@@ -389,156 +543,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
- 
- //Valida la existencia del correoen la bd, retorna un boolean
- 
-  ValidarExistenciaCorreo(correo: string): boolean {
-    let existeCorreo: boolean = false;
-    let respuesta: boolean = true;
 
-
-    //Obtengo los correos en un array
-    for (let i = 0; i < this.listaRegistros.length; i++) {
-      const element = this.listaRegistros[i];
-
-      const { email } = element.data;
-      if (correo == email) {
-        existeCorreo = true;
-      }
-      
-    }
-
-
-    if (existeCorreo == true) {
-
-      //const data={ titulo:'Advertencia', mensaje:'El correo ingresado ya está registrado'};
-      //this.openDialog(data);
-      respuesta = true;
-
-    }
-    else {
-      respuesta = false;
-    }
-
-    return respuesta;
-
-  }
-
- //Valida la existencia del la C.C en la bd, retorna un boolean
-  ValidarExistenciaCedula(cedulaIn: string): boolean {
-
-    let existeCedula: boolean = false;
-    let respuesta: boolean = true;
-
-
-    //Obtengo los correos en un array
-    for (let i = 0; i < this.listaRegistros.length; i++) {
-      const element = this.listaRegistros[i];
-
-      const { cedula } = element.data;
-      if (cedulaIn == cedula) {
-        existeCedula = true;
-      }
-
-      
-    }
-    if (existeCedula == true) {
-      
-      //const data={ titulo:'Advertencia', mensaje:'La cedula ingresada ya está registrada'};
-      //this.openDialog(data);
-      respuesta = true;
-    }   
-    else {
-      respuesta = false;
-    }
-
-    return respuesta;
-
-  }
-  
-
-  // para el checkbox empleando *ngFor en el html
-
-  listaHabi: any = [
-    { id: 1, name: 'Autoconocimiento' },
-    { id: 2, name: 'Empatía' },
-    { id: 3, name: 'Comunicación asertiva' },
-    { id: 4, name: 'Pensamiento crítico' },
-    { id: 5, name: 'Toma de decisiones' },
-    { id: 6, name: 'Adaptación' },
-    { id: 7, name: 'Comunicación' },
-    { id: 8, name: 'Trabajo en equipo' },
-    { id: 9, name: 'Capacidad de asociación' },
-    { id: 10, name: 'Razonamiento' },
-  ];
-  //Conteno de habilidades
-  nHabilidaddes:number=0;
-
-  //crea un formgoroup para los checkBox
-  checkboxForm = new FormGroup({
-
-    //un array de Form
-    habiForm: new FormArray([], Validators.required)
-
-  });
-
-
-  onCheckboxChange(e) {
-    const habiForm: FormArray = this.checkboxForm.get('habiForm') as FormArray;
-        
-    //si lo chuliaron hagrega al array siempre que numero de habilidades menor 4
-    if (e.checked && this.nHabilidaddes<=2) {
-      
-      habiForm.push(new FormControl(e.source.value));        
-      this.nHabilidaddes++;
-      this.validarHabilidades();
-    } else {
-
-      //si numero la habilidad se desmarca elimina habilidad 
-      if(e.checked==false)
-      {
-        const index = habiForm.controls.findIndex(x => x.value === e.source.value);
-        habiForm.removeAt(index);
-        this.validarHabilidades();
-        this.nHabilidaddes--;
-      }
-      //si numero de habilidades esta al limite (3) no agrega nada y no permite chulear
-      else{
-        e.source._checked=false;
-      }
-    }
-
-    //si no hay habilidades selecionadas no habilita el boton
-    if(this.nHabilidaddes==0)
-    {
-      this.registerForm.controls.habilidades.setValue([]);
-      this.registerForm.controls.habilidades.setValidators([Validators.required]);
-      this.registerForm.controls.habilidades.updateValueAndValidity();
-   }
-    
-   //console.log(this.registerForm.controls.habilidades.value);
-
-  }
-
-  // para asignar las habilidades al Formgroup principal
-  validarHabilidades(){
-    //obtengo los valores de FormGroup
-    const ob = this.checkboxForm.value;
-
-    //obtengo el array habForm de ob ostenido de FormGroup
-    const { habiForm } = ob;
-
-    //para almacenar las habilidades
-    let habilidadesIn: string = '';    
-
-    for (let i = 0; i < habiForm.length; i++) {
-
-      habilidadesIn += habiForm[i] + " / "; // \n 
-
-    }         
-    //asigno las habilidaesIn al valor del formcontrol habilidaes para que lo registre en la bd  
-    this.registerForm.controls.habilidades.setValue([habilidadesIn]);
-
-  }
 }
+
 
