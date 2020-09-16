@@ -1,38 +1,43 @@
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="center center">
-    <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="33%">
+  <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="33%">
+    <!-- se crean las columnas dependiendo del tamaño de la pantalla, 1 columna si es responsive, 2 columnas si es web -->
+    <mat-grid-list [cols]="isMobile ? 1 :2 " rowHeight="200px">
+   <!-- grid tile para cada elemento-->
 
-<mat-grid-list [cols]="isMobile ? 1 :2 " rowHeight="200px">
-    <mat-grid-tile>
-        
-        <img mat-card-image src="../../../assets/ronal2.jpg"> 
-          </mat-grid-tile>
-    <mat-grid-tile>
-      <p>
-      Soy Ronal Landazabal un ser creado por Dios, en busca de cumplir su propósito 
-      mientras viene a recogerme. Durante mi estadía en este mundo, procuró vivir 
-      íntegramente. Actualmente estoy terminando la carrera de ing.Sistemas, 
-      estoy radicado en la ciudad de Bucaramanga, Santander.  Entre mis hobbies 
-      está pilotar drones de carreras, hacer deporte principalmente squahs, 
-      ver películas o series, charrear con temas de electrónica, bricolaje, DIY, entre otras cosas.
-    </p> 
-  </mat-grid-tile>
+   <!-- foto ronal -->
+      <mat-grid-tile>
+      <img mat-card-image src="../../../assets/ronal2.jpg">
+      </mat-grid-tile>
+       <!--descripción ronal -->
+      <mat-grid-tile>
+          <p>
+          Soy Ronal Landazabal un ser creado por Dios, en busca de cumplir su propósito
+          mientras viene a recogerme. Durante mi estadía en este mundo, procuró vivir
+          íntegramente. Actualmente estoy terminando la carrera de ing.Sistemas,
+          estoy radicado en la ciudad de Bucaramanga, Santander. Entre mis hobbies
+          está pilotar drones de carreras, hacer deporte principalmente squahs,
+          ver películas o series, charrear con temas de electrónica, bricolaje, DIY, entre otras cosas.
+        </p>
+      </mat-grid-tile>
+
+<!--foto karen -->
+      <mat-grid-tile>
+         <img mat-card-image src="../../../assets/karen.jpg">
+      </mat-grid-tile>
+
+       <!-- descripción karen-->
+      <mat-grid-tile>
+        <p>
+          Mi nombre es Karen Gómez, tengo 22 años, soy de Floridablanca, Santander.
+          Estoy próxima a graduarme de Ingeniería de sistemas de la
+          Universidad Autónoma de Bucaramanga.
+          Soy una persona dinámica, amable y responsable me gusta siempre sacar lo mejor de mí.
+        </p>
+      </mat-grid-tile>
+    </mat-grid-list>
 
 
-    <mat-grid-tile>
-        <img mat-card-image src="../../../assets/karen.jpg">
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p>
-        Mi nombre es Karen Gómez, tengo 22 años, soy de Floridablanca, Santander. 
-        Estoy próxima a graduarme de Ingeniería de sistemas de la 
-        Universidad Autónoma de Bucaramanga. 
-        Soy una persona dinámica, amable y responsable me gusta siempre sacar lo mejor de mí.
-       </p>
-    </mat-grid-tile>
-  </mat-grid-list>
-  
 
 
- 
-</div>
+  </div>
 </div>
