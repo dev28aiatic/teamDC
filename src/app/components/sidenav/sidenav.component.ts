@@ -14,12 +14,14 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent {
 
+  //puntos de quiebre del tamaño de la pantalla
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
+    //estado del usuario
     public user$: Observable<any> = this.authSvc.afAuth.user;
     
 
@@ -28,6 +30,7 @@ export class SidenavComponent {
 
     public isLogged: boolean= false;
 
+//método para salir
   async onLogout(){
     try{
       await this.authSvc.logout();
@@ -37,7 +40,7 @@ export class SidenavComponent {
   
   
   }
-
+  //método para validar si el usuario esta logueado o no
   onCheckUser():void {
     if (this.authSvc.getCurrentUser()==null) {
       this.isLogged=false;

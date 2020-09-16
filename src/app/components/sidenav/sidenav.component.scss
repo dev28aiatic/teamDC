@@ -2,11 +2,14 @@
   height: 100%;
 }
 
+//estilo del logo de la esquina superior izuierda
 .logo{
   width: 70%;
   height: 80%;
 
 }
+
+//estilo del logo del modo responsive, centrado
 .logo-sidenav{
   width: 55px; 
   height: 55px;
@@ -14,32 +17,27 @@
   margin:auto;
 }
 
-
+//estilo de la barra lateral izquierda
 .sidenav {
   width: 200px;
 }
 
+//estilo para que la barra quede encima del header y footer
 .sidenav .mat-toolbar {
   background: inherit;
 }
 
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  
-}
+//estilo del header
 .mat-toolbar{
   background: linear-gradient(to bottom, #eb791c 0%, #ff4e36 100%);
 }
-
+//estilo de la barra lateral izquierda
 mat-sidenav{
   background: linear-gradient(to bottom, #eb791c 0%, #ff4e36 100%);
 }
-.menu-spacer {
-  flex: 1 1 auto;
-}
-.header{
+
+//estilo del contenido del header
+.headerContent{
   display:flex;
   justify-content:center;
 
@@ -47,6 +45,7 @@ mat-sidenav{
     font-size: 20px;
   }
 }
+
 
   a{
     padding: 10px;
