@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+// servicio para el manejo de la bd de contactos
 import {ContactosService} from 'src/app/services/contactos.service'
-
+// para el manejo de enviar email del nuevo contacto
 import 'src/assets/smtp.js';
 declare let Email: any;
 
@@ -18,20 +19,22 @@ export class ContactComponent implements OnInit {
 
   listaContactos;
 
-  
+  // para la validacion del email
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
-  // para el selecionar le motivo
+  // para el selecionar el motivo
   motivos= [
     {value: 'Contratos' },
     {value: 'Proyectos'},
     {value: 'Cobranzas'}
   ];
+
   motivoSeleccionado:string;
 
   constructor(
     //para el formulario
     private fb:FormBuilder,
+    //para el servicio
     private contactosService:ContactosService,
   ) {
 
@@ -50,6 +53,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //limpiar campos
     this.contactForm.setValue({
 
       nombreCompleto: '', 
@@ -92,6 +96,7 @@ export class ContactComponent implements OnInit {
     return this.contactForm.controls.email.hasError('pattern') ? 'Email no válido' : '';
   }
 
+  //metodo para registrar un nuevo contacto
   oncreate(form){
     //contraseña 215745566ED59E05A9845F9B348B9915395B
 
