@@ -1,2 +1,44 @@
-Login
-============================
+*********
+Iniciar Sesión
+*********
+
+1. Descripción
+    Este componente es un formulario para dar ingreso a los usuarios registrados a todas las secciones 
+    del proyecto.
+
+2. Importaciones
+    Para este componente de debe importar el servicio de autenticación y de registros, y el fireAuth de firebase.
+    ::
+
+        import { AuthService } from '../../services/auth.service';
+        import { RegistrosService } from 'src/app/services/registros.service';
+        import { AngularFireAuth } from '@angular/fire/auth';
+
+    También se importan componentes de Angular Material para la implementación de ventana
+    emergente o modal y de se importa el componente Router para el redireccionamiento
+    ::
+
+        import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+        import { DialogComponent } from '../dialog/dialog.component';
+        import { Router } from '@angular/router';
+
+    Además se hacen las importaciones del formulario y sus validadores.
+    :: 
+        import { FormControl, FormGroup, Validators, } from '@angular/forms';
+
+    
+3. Desarrollo
+    El constructor se inyectan todos los objetos a necesarios para el desarrollo del componente.
+    ::
+       private authSvc:AuthService, private router: Router, 
+       private registroService:RegistrosService,
+       private matDialog: MatDialog,
+       public afAuth: AngularFireAuth
+    
+    Para el inicio de sesión se verifica que el correo ya se encuentre registrado en la base de datos. 
+    ::
+
+       this.ValidarExistenciaCorreo(this.loginForm.controls.email.value)==true
+
+    Al realizar esta verificación se muestra un modal si el usuario no está en la base de datos.
+    Si el usuario esta registrado, permite ingresar al sistema, redirigiendolo a la página de inicio.   

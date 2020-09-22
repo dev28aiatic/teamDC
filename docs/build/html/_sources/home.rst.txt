@@ -1,17 +1,13 @@
-Página de Inicio
-============================
+*********
+Página de inicio
+*********
 
-Descripción
-----------------------------
-En esta sección se muestra información de los desarrolladores. 
+1. Descripción
+    En este componente se debe mostrar los desarrolladores del proyecto 
 
-Importaciones
-----------------------------
-Para este componente se debe importar el módulo de Angular Material denominado MatCard para las tarjetas de cada 
-integrante del equipo.
-
-import { MatCardModule } from '@angular/material/card';
-
-Desarrollo
-----------------------------
-El MatCard permite agregar una imagen y un texto en este caso los datos del desarrollador.
+2. Importaciones
+    Para este componente no se requieren importaciones pues trabaja mas la parte front. Es una visualización de
+    tarjetas.
+   
+3. Desarrollo
+    Las card encapsulan los textos y las imagenes para dar una mejor vista de la página. 

@@ -160,215 +160,39 @@
 <h1>Registros<a class="headerlink" href="#registros" title="Enlazar permanentemente con este título">¶</a></h1>
 <ol class="arabic">
 <li><dl class="simple">
-<dt>Descripción</dt><dd><p>En este componente se debe mostrar todos los registros almacenados en la base de datos.</p>
+<dt>Descripción</dt><dd><p>En este componente se debe realizar el registro de cada nuevo usuario, donde el usuario debe ingresar una
+serie de datos necesaria para su registro.</p>
 </dd>
 </dl>
 </li>
 <li><dl>
-<dt>Importaciones</dt><dd><p>Para este componente de debe importar el servicio a la base de datos, el servicio para la
-autentificación de usuarios y el servicio a una API para obtener los municipios y departamentos
-de Colombia.</p>
+<dt>Importaciones</dt><dd><p>Para este componente de debe importar MatTableDataSource para la tabulación de los datos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">MatTableDataSource</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;@angular/material/table&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>También se importa el servicio con el cual se establece la conexión con la base de datos.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">RegistrosService</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;src/app/services/registros.service&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span> <span class="n">AngularFireAuth</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;@angular/fire/auth&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span><span class="n">MunicipiosColombiaService</span><span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;src/app/services/municipios-colombia.service&#39;</span>
-</pre></div>
-</div>
-<p>También se importan componentes de Angular Material para la implementación de ventana
-emergente o modal y de se importa el componente Router para un redireccionamiento al
-concluir el registro.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">MatDialog</span><span class="p">,</span> <span class="n">MatDialogConfig</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;@angular/material/dialog&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span> <span class="n">DialogComponent</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;../dialog/dialog.component&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span> <span class="n">Router</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 </li>
 <li><dl>
-<dt>Desarrollo</dt><dd><p>El constructor se inyectan todos los objetos a necesarios para el desarrollo del componente.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">afAuth</span><span class="p">:</span> <span class="n">AngularFireAuth</span><span class="p">,</span>
-<span class="n">private</span> <span class="n">registrosServiceF</span> <span class="p">:</span> <span class="n">RegistrosService</span><span class="p">,</span>
-<span class="n">private</span> <span class="n">municipiosService</span><span class="p">:</span><span class="n">MunicipiosColombiaService</span><span class="p">,</span>
-<span class="n">private</span> <span class="n">matDialog</span><span class="p">:</span> <span class="n">MatDialog</span><span class="p">,</span>
-<span class="n">private</span> <span class="n">router</span><span class="p">:</span><span class="n">Router</span><span class="p">,</span>
-<span class="n">private</span> <span class="n">fb</span><span class="p">:</span><span class="n">FormBuilder</span>
+<dt>Desarrollo</dt><dd><p>Se declara y se inicializa un array con los nombres de las columnas a mostrar.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">displayedColumns</span><span class="p">:</span> <span class="n">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nombres&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;descripcion&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>Para la captura de datos se emplea los formularios reactivos, para ello se declara un
-objeto de la clase FormGroup y se inicializa creando un FormControl para cada campo requerido,
-declarando su estado y sus respectivo valida daciones.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">this</span><span class="o">.</span><span class="n">registerForm</span><span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">fb</span><span class="o">.</span><span class="n">group</span><span class="p">({</span>
-    <span class="n">photoUrl</span><span class="p">:</span> <span class="n">new</span> <span class="n">FormControl</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
-    <span class="n">cedula</span><span class="p">:</span> <span class="n">new</span> <span class="n">FormControl</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Validators</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="n">this</span><span class="o">.</span><span class="n">validarCedula</span><span class="p">]),</span>
-    <span class="o">.</span>
-    <span class="o">.</span>
-    <span class="o">.</span>
-    <span class="n">descripcion</span><span class="p">:</span> <span class="n">new</span> <span class="n">FormControl</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Validators</span><span class="o">.</span><span class="n">required</span><span class="p">]),</span>
-    <span class="p">})</span>
+<p>Se declara una un objeto de la clase que importamos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">new</span> <span class="n">MatTableDataSource</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>En el método ngOnInit se realiza la obtención de todos los registros almacenados en la
-base de datos con el fin de realizar validaciones con dichos datos, estos datos son
-almacenados en un array.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">this</span><span class="o">.</span><span class="n">registrosServiceF</span><span class="o">.</span><span class="n">getRegistros</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">((</span><span class="n">rgSnapshot</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-<span class="n">this</span><span class="o">.</span><span class="n">listaRegistros</span> <span class="o">=</span> <span class="p">[];</span>
-<span class="n">rgSnapshot</span><span class="o">.</span><span class="n">forEach</span><span class="p">((</span><span class="n">rgData</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">this</span><span class="o">.</span><span class="n">listaRegistros</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
-    <span class="nb">id</span><span class="p">:</span> <span class="n">rgData</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-    <span class="n">data</span><span class="p">:</span> <span class="n">rgData</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
-
-    <span class="p">});</span>
-<span class="p">})</span>
-<span class="p">});</span>
+<p>En el constructor se inyecta el servicio.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">registroService</span><span class="p">:</span><span class="n">RegistrosService</span>
 </pre></div>
 </div>
-<p>En el mismo método se obtienen los datos de la API sobre los municipios y
-departamentos de Colombia y se asignan en un array.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">this</span><span class="o">.</span><span class="n">municipiosService</span><span class="o">.</span><span class="n">getDatos</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">datos</span> <span class="o">=&gt;</span><span class="p">{</span>
-    <span class="o">//</span> <span class="n">Se</span> <span class="n">almacenan</span> <span class="n">los</span> <span class="n">municipios</span>
-    <span class="n">this</span><span class="o">.</span><span class="n">datosMunicipios</span><span class="o">=</span><span class="n">datos</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="o">=&gt;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">municipio</span><span class="p">);</span>
-    <span class="o">//</span> <span class="n">Se</span> <span class="n">almacenan</span> <span class="n">los</span> <span class="n">departamentos</span>
-    <span class="n">this</span><span class="o">.</span><span class="n">datosDepartamentos</span><span class="o">=</span><span class="n">datos</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="o">=&gt;</span>
-    <span class="n">data</span><span class="o">.</span><span class="n">departamento</span><span class="p">);</span>
-
-    <span class="o">//</span> <span class="n">Se</span> <span class="n">elimina</span> <span class="n">los</span> <span class="n">departamentos</span> <span class="n">repetidos</span>
-    <span class="n">let</span> <span class="n">NuevosDatosDepartamentos</span><span class="p">:</span><span class="n">string</span><span class="p">[]</span><span class="o">=</span><span class="p">[];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="n">posicion</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">posicion</span> <span class="o">&lt;</span> <span class="n">this</span><span class="o">.</span><span class="n">datosDepartamentos</span><span class="o">.</span><span class="n">length</span><span class="p">;</span> <span class="n">posicion</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">element</span> <span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">datosDepartamentos</span><span class="p">[</span><span class="n">posicion</span><span class="p">];</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">posicion</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">NuevosDatosDepartamentos</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
-    <span class="p">}</span>
-    <span class="k">else</span><span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">NuevosDatosDepartamentos</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span><span class="o">==</span><span class="n">false</span><span class="p">)</span>
-        <span class="p">{</span>
-        <span class="n">NuevosDatosDepartamentos</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="p">}</span>
-</pre></div>
-</div>
-<p>Cada campo del formulario tiene su respectivo control y todos son requeridos, ahora hay campos
-especiales que requieren validaciones personalizadas empezando por el campo del numero de
-cedula el cual no debe estar registrado con anterioridad en la base de datos.</p>
-<p>En la declaración del control de para el campo de cedula se añade su validador personalizado</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cedula</span><span class="p">:</span> <span class="n">new</span> <span class="n">FormControl</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Validators</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="n">this</span><span class="o">.</span><span class="n">validarCedula</span><span class="p">]),</span>
-</pre></div>
-</div>
-<p>Para la validación personalizada se crea el siguiente método.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">validarCedula</span><span class="p">:</span> <span class="n">ValidatorFn</span> <span class="o">=</span><span class="p">(</span><span class="n">control</span><span class="p">:</span> <span class="n">AbstractControl</span><span class="p">):</span> <span class="n">ValidationErrors</span> <span class="o">|</span> <span class="n">null</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">cedula</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">value</span><span class="p">;</span>
-    <span class="n">let</span> <span class="n">respuesta</span><span class="o">=</span> <span class="n">null</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">this</span><span class="o">.</span><span class="n">ValidarExistenciaCedula</span><span class="p">(</span><span class="n">cedula</span><span class="p">)</span><span class="o">==</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span><span class="p">{</span> <span class="n">ms</span><span class="p">:</span> <span class="s1">&#39;para otro forma de error&#39;</span> <span class="p">};</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">null</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Internamente este método llama a otro método encargado de revisar si la cedula ya existe
-en los registros obtenidos de la base de datos.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ValidarExistenciaCedula</span><span class="p">(</span><span class="n">cedulaIn</span><span class="p">:</span> <span class="n">string</span><span class="p">):</span> <span class="n">boolean</span> <span class="p">{</span>
-    <span class="n">let</span> <span class="n">existeCedula</span><span class="p">:</span> <span class="n">boolean</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
-    <span class="n">let</span> <span class="n">respuesta</span><span class="p">:</span> <span class="n">boolean</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
-    <span class="o">//</span> <span class="n">Se</span> <span class="n">compara</span> <span class="n">la</span> <span class="n">cedula</span> <span class="n">ingresada</span> <span class="n">con</span> <span class="n">la</span> <span class="n">cedula</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">registro</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">this</span><span class="o">.</span><span class="n">listaRegistros</span><span class="o">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">element</span> <span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">listaRegistros</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    <span class="n">const</span> <span class="p">{</span> <span class="n">cedula</span> <span class="p">}</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">cedulaIn</span> <span class="o">==</span> <span class="n">cedula</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">existeCedula</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">existeCedula</span> <span class="o">==</span> <span class="n">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">respuesta</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-    <span class="n">respuesta</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">respuesta</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Cuando hay la validación verifica la existencia de la cedula ingresada en los registros de
-la base de datos, el formulario informa inmediatamente al usuario que hay un erro mediante
-el uso de formularios reactivos y la sincronización entre la vista y el controlador.</p>
-<p>Campo de Cedula en el HTML</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">mat</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">field</span> <span class="n">appearance</span><span class="o">=</span><span class="s2">&quot;outline&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">mat</span><span class="o">-</span><span class="n">label</span><span class="o">&gt;</span><span class="n">Número</span> <span class="n">de</span> <span class="n">cédula</span><span class="o">&lt;/</span><span class="n">mat</span><span class="o">-</span><span class="n">label</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nb">input</span> <span class="n">matInput</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span> <span class="n">formControlName</span><span class="o">=</span><span class="s2">&quot;cedula&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">mat</span><span class="o">-</span><span class="n">error</span> <span class="o">*</span><span class="n">ngIf</span><span class="o">=</span><span class="s2">&quot;registerForm.controls.cedula.errors&quot;</span><span class="o">&gt;</span><span class="p">{{</span><span class="n">errorCedula</span><span class="p">()}}</span><span class="o">&lt;/</span><span class="n">mat</span><span class="o">-</span><span class="n">error</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">mat</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">field</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>Método encargado de informar el tipo de error.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">errorCedula</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">this</span><span class="o">.</span><span class="n">registerForm</span><span class="o">.</span><span class="n">controls</span><span class="o">.</span><span class="n">cedula</span><span class="o">.</span><span class="n">hasError</span><span class="p">(</span><span class="s1">&#39;required&#39;</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;Ingrese un número de cédula&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">this</span><span class="o">.</span><span class="n">registerForm</span><span class="o">.</span><span class="n">controls</span><span class="o">.</span><span class="n">cedula</span><span class="o">.</span><span class="n">hasError</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;El número de cedula ya ha sido registrado&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>El mismo comportamiento presenta el campo de Email.</p>
-<p>Declaración del control email con su validador personalizado</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">email</span><span class="p">:</span> <span class="n">new</span> <span class="n">FormControl</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Validators</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="n">Validators</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">this</span><span class="o">.</span><span class="n">validarEmail</span><span class="p">]),</span>
-</pre></div>
-</div>
-<p>Metodo para la validación personalizada.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">validarEmail</span><span class="p">:</span> <span class="n">ValidatorFn</span> <span class="o">=</span><span class="p">(</span><span class="n">control</span><span class="p">:</span> <span class="n">AbstractControl</span><span class="p">):</span> <span class="n">ValidationErrors</span> <span class="o">|</span> <span class="n">null</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">email</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">value</span><span class="p">;</span>
-    <span class="n">let</span> <span class="n">respuesta</span><span class="o">=</span> <span class="n">null</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">this</span><span class="o">.</span><span class="n">ValidarExistenciaCorreo</span><span class="p">(</span><span class="n">email</span><span class="p">)</span><span class="o">==</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span><span class="p">{</span> <span class="n">ms</span><span class="p">:</span> <span class="s1">&#39;para otro forma de error&#39;</span> <span class="p">};</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">null</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Método encargado de revisar si el email ya existe en los registros obtenidos de la base de datos.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ValidarExistenciaCorreo</span><span class="p">(</span><span class="n">correo</span><span class="p">:</span> <span class="n">string</span><span class="p">):</span> <span class="n">boolean</span> <span class="p">{</span>
-    <span class="n">let</span> <span class="n">existeCorreo</span><span class="p">:</span> <span class="n">boolean</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
-    <span class="n">let</span> <span class="n">respuesta</span><span class="p">:</span> <span class="n">boolean</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
-    <span class="o">//</span> <span class="n">Se</span> <span class="n">compara</span> <span class="n">el</span> <span class="n">correo</span> <span class="n">ingresado</span> <span class="n">con</span> <span class="n">el</span> <span class="n">email</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">registro</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">this</span><span class="o">.</span><span class="n">listaRegistros</span><span class="o">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">const</span> <span class="n">element</span> <span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">listaRegistros</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="n">const</span> <span class="p">{</span> <span class="n">email</span> <span class="p">}</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">correo</span> <span class="o">==</span> <span class="n">email</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">existeCorreo</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">existeCorreo</span> <span class="o">==</span> <span class="n">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">respuesta</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-        <span class="n">respuesta</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">respuesta</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Campo de Email en el HTML</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">mat</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">field</span> <span class="n">appearance</span><span class="o">=</span><span class="s2">&quot;outline&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">mat</span><span class="o">-</span><span class="n">label</span><span class="o">&gt;</span><span class="n">E</span><span class="o">-</span><span class="n">mail</span><span class="o">&lt;/</span><span class="n">mat</span><span class="o">-</span><span class="n">label</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nb">input</span> <span class="n">matInput</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;example@example.com&quot;</span> <span class="n">formControlName</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="n">required</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">mat</span><span class="o">-</span><span class="n">error</span> <span class="o">*</span><span class="n">ngIf</span><span class="o">=</span><span class="s2">&quot;registerForm.controls.email.errors&quot;</span><span class="o">&gt;</span><span class="p">{{</span><span class="n">errorEmail</span><span class="p">()}}</span><span class="o">&lt;/</span><span class="n">mat</span><span class="o">-</span><span class="n">error</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">mat</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">field</span> <span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>Método encargado de informar el tipo de error</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>errorEmail() {
-    if (this.registerForm.controls.email.hasError(&#39;required&#39;)) {
-        return &#39;Debe ingresar un email&#39;;
-    }
-    if (this.registerForm.controls.email.hasError(&#39;ms&#39;)) {
-        return &#39;El email ya ha sido registrado&#39;;
-    }
-    return this.registerForm.controls.email.hasError(&#39;email&#39;) ? &#39;Email no válido&#39; : &#39;&#39;;
-}
+<p>En el método ngOnInit se obtienen todos los datos de la base de datos y se los asigna al objeto dataSource.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">this</span><span class="o">.</span><span class="n">registroService</span><span class="o">.</span><span class="n">getAllUser</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">res</span> <span class="o">=&gt;</span>
+<span class="n">this</span><span class="o">.</span><span class="n">dataSource</span><span class="o">.</span><span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd>
