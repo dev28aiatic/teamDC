@@ -53,8 +53,14 @@
       
     </mat-toolbar>
     
+<div class="contenido">
+    <!-- el contenido de las paginas-->   
+    <!--la pagina de la ruta seleccionada-->
+    <router-outlet>   </router-outlet>   
+    <!--contenido fijo del pie de pagina-->   
+    <app-footer></app-footer>    
+  </div>
 
-    
-    <router-outlet></router-outlet>
   </mat-sidenav-content>
+
 </mat-sidenav-container>

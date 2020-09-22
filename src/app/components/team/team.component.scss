@@ -1,16 +1,17 @@
-    img{
-        max-width: 200px;
-        margin: auto auto auto;
-        float:left
-    }
-    p{
-        
-        text-align: justify;
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-top: 20px;
-        
-    }
-   
-   
+.content{
+    width: 100%;
+    margin-top: 20px;
+    
+}
+img{
+    width: 40%;
+    margin: auto;
+    display: flex;
+    
+}
 
+.example-card{
+    width: 60%;
+    margin: auto;
+    margin-top: 20px;
+}
