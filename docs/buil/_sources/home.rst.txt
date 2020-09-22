@@ -1,2 +1,13 @@
-Descripción
-============================
+*********
+Página de inicio
+*********
+
+1. Descripción
+    En este componente se debe mostrar los desarrolladores del proyecto 
+
+2. Importaciones
+    Para este componente no se requieren importaciones pues trabaja mas la parte front. Es una visualización de
+    tarjetas.
+   
+3. Desarrollo
+    Las card encapsulan los textos y las imagenes para dar una mejor vista de la página. 

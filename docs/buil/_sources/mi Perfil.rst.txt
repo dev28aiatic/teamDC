@@ -1,2 +1,54 @@
-Mi Perfil
-============================
+*********
+Mi perfil
+*********
+
+1. Descripción
+    Este componente contiene un formulario en donde se muestra la información del usuario logueado, permite mediante
+    un botón acceder al mismo y editar algunos campos, ademas permite subir una imagen de perfil. 
+    del proyecto.
+
+2. Importaciones
+    Para este componente de debe importar el servicio de registros y de municipios, y el fireAuth de firebase.
+    ::
+
+        import { AngularFireAuth } from '@angular/fire/auth';
+        import { RegistrosService } from 'src/app/services/registros.service';
+        import { MunicipiosColombiaService } from 'src/app/services/municipios-colombia.service';
+
+    También se importa el servicio de storage de firebase, para mantener la imagen que se sube.
+    ::
+
+        import { AngularFireStorage } from '@angular/fire/storage';
+        import { finalize } from 'rxjs/operators';
+
+    Además se hacen las importaciones del formulario y sus validadores.
+    :: 
+        import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+
+    
+3. Desarrollo
+    En el constructor se inyectan todos los objetos  necesarios para el desarrollo del componente.
+    Para manejar el estado de la sesion
+    :: 
+        private afAuth: AngularFireAuth
+    
+    Para la conexion con la BD
+    ::
+        private registroService:RegistrosService
+
+    Para el formulario
+    ::
+        private fb:FormBuilder,
+    El servicio encargado de municipios de colombia
+    ::
+        private municipiosService:MunicipiosColombiaService,
+    
+    Para subir la imagen al storage de firebase
+    ::
+        private storage:AngularFireStorage
+    
+    Se crea el método para subir la imagen al storage de firebase, condicionando que solo se permite subir 
+    imágenes png o jpg y que no superen el tamaño de un MB.
+    Además de los metodos que permiten asociar la información del usario logueado y mostrarla en el perfil. 
+    Cuenta con un botón de editar que habilita los campos del formulario para hacer la respectiva edición. 
+    Y un botón de guardar para enviar los nuevos cambios a la base de datos. 
